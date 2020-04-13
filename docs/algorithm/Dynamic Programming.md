@@ -8,7 +8,9 @@
 >Dynamic Programming is mainly an optimization over plain recursion. Wherever we see a recursive solution that has repeated calls for same inputs, we can optimize it using Dynamic Programming. The idea is to simply store the results of subproblems, so that we do not have to re-compute them when needed later. This simple optimization reduces time complexities from exponential to polynomial. For example, if we write simple recursive solution for Fibonacci Numbers, we get exponential time complexity and if we optimize it by storing solutions of subproblems, time complexity reduces to linear.
 
 ## [Introduction to Dynamic Programming 1](https://www.hackerearth.com/zh/practice/algorithms/dynamic-programming/introduction-to-dynamic-programming-1/tutorial/)
->The intuition behind dynamic programming is that we trade space for time,
+>The intuition behind dynamic programming is that we trade space for time.
+
+![DP](pics/dp.png)
 
 ## [Fibonacci Iterative vs. Recursive](https://medium.com/@syedtousifahmed/fibonacci-iterative-vs-recursive-5182d7783055)
 
