@@ -95,4 +95,4 @@ var productExceptSelf = (nums) => nums.map((el, i, arr) => {
 });
 ```
 * Time complexity : O(N^2)
-* Space complexity : O(N)  //?
+* Space complexity : O(N^2)  
