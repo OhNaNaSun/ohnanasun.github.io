@@ -20,8 +20,8 @@ var maxProfit = function(prices) {
     return max
 };
 ```
-Time complexity : O(n^2)
-Space complexity : O(1)
+* Time complexity : O(n^2)
+* Space complexity : O(1)
 ```
 var maxProfit = function(prices) {
     var profit = 0
@@ -36,5 +36,5 @@ var maxProfit = function(prices) {
     return profit
 };
 ```
-Time complexity : O(n)
-Space complexity : O(1)
+* Time complexity : O(n)
+* Space complexity : O(1)
