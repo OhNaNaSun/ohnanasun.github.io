@@ -95,4 +95,13 @@ var productExceptSelf = (nums) => nums.map((el, i, arr) => {
 });
 ```
 * Time complexity : O(N^2)
-* Space complexity : O(N)  //? 
+* Space complexity : O(N^2)  //splice or reduce will be an O(N) operation
+and its running inside a map function which itself is O(N)[Because it creates and returns a new array]
+so O(N^2)
+
+If you have an array of numbers
+Let numArr = [1, 2, 3, 4, 5]
+When you call forEach it takes each element and add 1 to it
+It will take the numArr itself and change its values adding 1 to them
+But when you can map it will loop over numArr and for each value it takes it and add one and stores it in a new array without modifying numArr
+That's why the space complexity of forEach is O(1) and map is O(N)

@@ -12,3 +12,4 @@
 * [Contains Duplicate](./Contains%20Duplicate.md)
 * [Product of Array Except Self](./Product%20of%20Array%20Except%20Self.md)
 * [DP_Maximum Subarray](./DP_Maximum%20Subarray.md)
+* [Find Minimum in Rotated Sorted Array](./Find%20Minimum%20in%20Rotated%20Sorted%20Array.md)
