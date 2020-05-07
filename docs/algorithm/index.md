@@ -1,6 +1,6 @@
 * [Space Complexity](basics/Space%20Complexity.md)
 * [Binary Search](basics/Binary%20Search.md)
-
+* [Recusive](basics/Recursive.md)
 ----
 * [Maximum Depth of Binary Tree](./Maximum%20Depth%20of%20Binary%20Tree.md)
 * [Single Number](./Single%20Number.md)
@@ -13,3 +13,4 @@
 * [Product of Array Except Self](./Product%20of%20Array%20Except%20Self.md)
 * [DP_Maximum Subarray](./DP_Maximum%20Subarray.md)
 * [Find Minimum in Rotated Sorted Array](./Find%20Minimum%20in%20Rotated%20Sorted%20Array.md)
+* [Search in Rotated Sorted Array](./Search%20in%20Rotated%20Sorted%20Array.md)
