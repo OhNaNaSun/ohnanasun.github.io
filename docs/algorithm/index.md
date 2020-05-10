@@ -1,6 +1,7 @@
 * [Space Complexity](basics/Space%20Complexity.md)
 * [Binary Search](basics/Binary%20Search.md)
 * [Recusive](basics/Recursive.md)
+* [Two-pointer Technique](basics/Two%20Pointers%20Technique.md)
 ----
 * [Maximum Depth of Binary Tree](./Maximum%20Depth%20of%20Binary%20Tree.md)
 * [Single Number](./Single%20Number.md)
