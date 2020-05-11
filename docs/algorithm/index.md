@@ -15,3 +15,7 @@
 * [DP_Maximum Subarray](./DP_Maximum%20Subarray.md)
 * [Find Minimum in Rotated Sorted Array](./Find%20Minimum%20in%20Rotated%20Sorted%20Array.md)
 * [Search in Rotated Sorted Array](./Search%20in%20Rotated%20Sorted%20Array.md)
+
+----
+Two pointers technique
+[Remove Duplicates from Sorted Array](./Two%20Pointers/Remove%20Duplicates%20from%20Sorted%20Array.md)
