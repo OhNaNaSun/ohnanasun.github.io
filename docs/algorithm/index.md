@@ -19,3 +19,4 @@
 ----
 Two pointers technique
 [Remove Duplicates from Sorted Array](./Two%20Pointers/Remove%20Duplicates%20from%20Sorted%20Array.md)
+[Two Sum II - Input array is sorted](./Two%20Pointers/Two%20Sum%20II%20-%20Input%20array%20is%20sorted.md)
