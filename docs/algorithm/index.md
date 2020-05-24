@@ -10,17 +10,19 @@
 * [Best Time to Buy and Sell Stock II](./Best%20Time%20to%20Buy%20and%20Sell%20Stock%20II.md)
 * [Contains Duplicate](./Contains%20Duplicate.md)
 * [Product of Array Except Self](./Product%20of%20Array%20Except%20Self.md)
-* [Maximum Subarray](./DP_Maximum%20Subarray.md)
+* [Maximum Subarray](./Maximum%20Subarray.md)
   `DP`
-
+* [Maximum Product Subarray](./Maximum%20Product%20Subarray.md)
+  `DP`
+* [Find Minimum in Rotated Sorted Array](./Find%20Minimum%20in%20Rotated%20Sorted%20Array.md)`Binary Search`
+* [Search in Rotated Sorted Array](./Search%20in%20Rotated%20Sorted%20Array.md)
 -----
 * [Maximum Depth of Binary Tree](./Maximum%20Depth%20of%20Binary%20Tree.md)
 * [Single Number](./Single%20Number.md)
 * [Reverse String](./Reverse%20String.md)
 * [Fizz Buzz](./Fizz%20Buzz.md)
 * [Dynamic Programming](./Dynamic%20Programming.md)
-* [Find Minimum in Rotated Sorted Array](./Find%20Minimum%20in%20Rotated%20Sorted%20Array.md)
-* [Search in Rotated Sorted Array](./Search%20in%20Rotated%20Sorted%20Array.md)
+
 
 ----
 ### Two pointers technique

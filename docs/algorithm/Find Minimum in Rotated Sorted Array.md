@@ -16,7 +16,7 @@ Output: 1
 Input: [4,5,6,7,0,1,2]
 Output: 0
 ```
-### Approach 1:
+### Approach 1: Brute
 ```
 var findMin = function(nums) {
     for(let i=0;i<nums.length-1;i++){
@@ -27,7 +27,7 @@ var findMin = function(nums) {
 ```
 * Time Complexity : O(N)
 * Space Complexity : O(1)
-### Approach 1: Binary Search
+### Approach 2: Binary Search
 ```
 var findMin = function(nums) {
     let left = 0
@@ -65,5 +65,5 @@ var findMin = function(nums) {
     }  
 };
 ```
-* Time Complexity : 
-* Space Complexity : 
+* Time Complexity : O(logN)
+* Space Complexity: O(logN) //?

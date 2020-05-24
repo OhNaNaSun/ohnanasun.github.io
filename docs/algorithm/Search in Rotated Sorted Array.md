@@ -42,7 +42,7 @@ var search = function(nums, target) {
     return -1
 };
 ```
-* Time Complexity: O(logn)
+* Time Complexity: O(logN)
 * Space Complexity: O(1)
 
 ### Solution 2: 2 pass, Find the Pivot
@@ -76,5 +76,5 @@ const findPiv = arr => {
     return 0
 }
 ```
-* Time Complexity: O(logn)
+* Time Complexity: O(logN)
 * Space Complexity: O(1)
