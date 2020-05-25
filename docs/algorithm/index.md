@@ -16,6 +16,7 @@
   `DP`
 * [Find Minimum in Rotated Sorted Array](./Find%20Minimum%20in%20Rotated%20Sorted%20Array.md)`Binary Search`
 * [Search in Rotated Sorted Array](./Search%20in%20Rotated%20Sorted%20Array.md)
+* [3Sum](./3Sum.md)`Two pointers`
 -----
 * [Maximum Depth of Binary Tree](./Maximum%20Depth%20of%20Binary%20Tree.md)
 * [Single Number](./Single%20Number.md)
