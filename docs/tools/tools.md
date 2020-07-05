@@ -17,6 +17,9 @@ Babel is a toolchain that is mainly used to convert ECMAScript 2015+ code into a
 
 > Jest is a testing framework that will run your tests and it also provides APIs for you, for writing tests. React-testing-library is a library specific to React that allows you to render React components and traverse those React components, or what you've rendered, and then you can make some assertions on that.
 
+[kent-Why I Never Use Shallow Rendering](https://kentcdodds.com/blog/why-i-never-use-shallow-rendering)
+
+
 
 ### NodeJS
 [Node.js Everywhere with Environment Variables!](https://medium.com/the-node-js-collection/making-your-node-js-work-everywhere-with-environment-variables-2da8cdf6e786)
