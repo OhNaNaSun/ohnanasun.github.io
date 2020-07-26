@@ -70,7 +70,7 @@ const LoadLocal: React.FC = () => {
             }}
           >
             Content
-            <ReactMarkdown source={mdContent} />
+            {/* <ReactMarkdown source={mdContent} /> */}
           </Content>
         </Layout>
       </Layout>
