@@ -27,6 +27,7 @@
     <title>React App</title>
   </head>
   <body>
+    <span>%REACT_APP_NOT_SECRET_CODE%</span>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
@@ -39,5 +40,9 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script type="text/javascript">
+      console.log("%REACT_APP_NOT_SECRET_CODE%") // OK
+      console.log("%NODE_ENV%") // development
+     </script>
   </body>
 </html>

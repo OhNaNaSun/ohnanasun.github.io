@@ -11,7 +11,7 @@ const LoadLocal: React.FC = () => {
   const [mdContent, setMdContent] = useState('')
   useEffect(() => {
     axios
-      .get('./JS/feature.md')
+      .get(`${process.env.PUBLIC_URL}/JS/feature.md`)
       .then((res) => {
         setMdContent(res.data)
       })
@@ -69,8 +69,7 @@ const LoadLocal: React.FC = () => {
               minHeight: 280,
             }}
           >
-            Content
-            {/* <ReactMarkdown source={mdContent} /> */}
+            <ReactMarkdown source={mdContent} />
           </Content>
         </Layout>
       </Layout>
