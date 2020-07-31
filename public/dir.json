@@ -5,12 +5,12 @@
     "Best Time to Buy and Sell Stock II",
     "Contains Duplicate",
     "Product of Array Except Self",
-    "Maximum Subarray DP",
-    "Maximum Product Subarray DP",
-    "Find Minimum in Rotated Sorted ArrayBinary Search",
+    "Maximum Subarray",
+    "Maximum Product Subarray",
+    "Find Minimum in Rotated Sorted Array",
     "Search in Rotated Sorted Array",
-    "3SumTwo pointers",
-    "Container With Most Water Two pointers"
+    "3Sum",
+    "Container With Most Water"
   ],
   "JavaScript": ["feature"],
   "React": ["index"],

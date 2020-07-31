@@ -8,7 +8,10 @@ const { SubMenu } = Menu
 interface DirectoryType {
   [key: string]: string[]
 }
-const AppSidebar: React.FC = () => {
+interface AppSidebarType {
+  setCurrentItem: Function
+}
+const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem }) => {
   const [directory, setDir] = useState({})
   useEffect(() => {
     axios
@@ -18,6 +21,12 @@ const AppSidebar: React.FC = () => {
       })
       .catch((err) => {})
   }, [])
+  useEffect(() => {
+    if (Object.keys(directory).length > 0) {
+      const firstDir = Object.keys(directory)[0]
+      setCurrentItem(`${firstDir}/${(directory as DirectoryType)[firstDir][0]}`)
+    }
+  }, [directory, setCurrentItem])
   return (
     <Sider width={200} className="site-layout-background">
       <Menu
@@ -29,8 +38,16 @@ const AppSidebar: React.FC = () => {
         {directory &&
           Object.keys(directory as DirectoryType).map((dirName: string) => (
             <SubMenu key={dirName} icon={<UserOutlined />} title={dirName}>
-              {(directory as DirectoryType)[dirName].map((item: string) => (
-                <Menu.Item key={item}>{item}</Menu.Item>
+              {(directory as DirectoryType)[dirName].map((fileName: string) => (
+                <Menu.Item
+                  key={fileName}
+                  onClick={() => {
+                    console.log(fileName)
+                    setCurrentItem(`${dirName}/${fileName}`)
+                  }}
+                >
+                  {fileName}
+                </Menu.Item>
               ))}
             </SubMenu>
           ))}
