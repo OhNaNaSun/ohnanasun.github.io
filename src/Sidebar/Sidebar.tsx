@@ -15,7 +15,7 @@ const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem }) => {
   const [directory, setDir] = useState({})
   useEffect(() => {
     axios
-      .get(`${process.env.PUBLIC_URL}/dir.json`)
+      .get(`./api/docs/dir.json`)
       .then((res) => {
         setDir(res.data)
       })
@@ -28,7 +28,7 @@ const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem }) => {
     }
   }, [directory, setCurrentItem])
   return (
-    <Sider width={200} className="site-layout-background">
+    <Sider width={300} className="site-layout-background">
       <Menu
         mode="inline"
         defaultSelectedKeys={['Two Sum']}
@@ -41,8 +41,8 @@ const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem }) => {
               {(directory as DirectoryType)[dirName].map((fileName: string) => (
                 <Menu.Item
                   key={fileName}
+                  title={fileName}
                   onClick={() => {
-                    console.log(fileName)
                     setCurrentItem(`${dirName}/${fileName}`)
                   }}
                 >

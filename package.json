@@ -17,12 +17,14 @@
     "eslint-plugin-jest": "^23.18.0",
     "eslint-plugin-jest-dom": "^3.1.4",
     "eslint-plugin-testing-library": "^3.3.2",
+    "http-proxy-middleware": "^1.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-markdown": "^4.3.1",
     "react-scripts": "3.4.1",
     "typescript": "^3.9.7"
   },
+  "proxy": "http://localhost:8000",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

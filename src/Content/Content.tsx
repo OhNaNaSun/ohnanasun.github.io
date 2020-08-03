@@ -9,7 +9,7 @@ const AppContent: React.FC<AppContentType> = ({ currentItem }) => {
   const [mdContent, setMdContent] = useState('')
   useEffect(() => {
     axios
-      .get(`${process.env.PUBLIC_URL}/${currentItem}.md`)
+      .get(`./api/docs/${currentItem}.md`)
       .then((res) => {
         setMdContent(res.data)
       })
