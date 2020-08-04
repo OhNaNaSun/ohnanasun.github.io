@@ -6,7 +6,8 @@ import 'react-mde/lib/styles/css/react-mde-all.css'
 interface MdEditorType {
   mdValue: string
 }
-const loadSuggestions = (text) => {
+type selectedTabType = 'preview' | 'write' | undefined
+const loadSuggestions = (text: string): Promise<any> => {
   return new Promise((accept, reject) => {
     setTimeout(() => {
       const suggestions = [
@@ -49,9 +50,9 @@ const MdEditor: React.FC<MdEditorType> = ({ mdValue }) => {
       <ReactMde
         value={value}
         onChange={setValue}
-        selectedTab={selectedTab}
+        selectedTab={selectedTab as selectedTabType}
         onTabChange={setSelectedTab}
-        generateMarkdownPreview={(markdown) => Promise.resolve(converter.makeHtml(markdown))}
+        generateMarkdownPreview={(markdown: string): Promise<any> => Promise.resolve(converter.makeHtml(markdown))}
         loadSuggestions={loadSuggestions}
         minEditorHeight={800}
         childProps={{

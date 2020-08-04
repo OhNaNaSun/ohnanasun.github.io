@@ -10,7 +10,7 @@ module.exports = function (app) {
       target: 'http://localhost:8000',
       changeOrigin: true,
       pathRewrite: {
-        '^/api/docs': '/docs', // remove base path
+        '^/api/': '/', // remove base path
       },
     })
   )

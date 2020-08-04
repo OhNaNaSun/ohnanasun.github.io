@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
 import './App.css'
 import { Layout, Breadcrumb } from 'antd'
+import axios from 'axios'
 import AppContent from '../Content/Content'
 import AppHeader from '../Header/Header'
 import AppSidebar from '../Sidebar/Sidebar'
 
 const { Content } = Layout
+const testPost = () => {
+  console.log('post')
+  axios.get('./api/upload').then((res) => {
+    console.log(res)
+  })
+}
 const App: React.FC = () => {
   const [currentItem, setCurrentItem] = useState('')
   return (
@@ -17,7 +24,13 @@ const App: React.FC = () => {
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
+            <Breadcrumb.Item
+              onClick={() => {
+                testPost()
+              }}
+            >
+              App
+            </Breadcrumb.Item>
           </Breadcrumb>
           {currentItem && (
             <Content
