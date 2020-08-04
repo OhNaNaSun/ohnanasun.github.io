@@ -3,6 +3,9 @@ import ReactMde from 'react-mde'
 import * as Showdown from 'showdown'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
+interface MdEditorType {
+  mdValue: string
+}
 const loadSuggestions = (text) => {
   return new Promise((accept, reject) => {
     setTimeout(() => {
@@ -35,9 +38,9 @@ const converter = new Showdown.Converter({
   strikethrough: true,
   tasklists: true,
 })
-const MdEditor: React.FC = ({ mdValue }) => {
-  const [value, setValue] = React.useState('')
-  const [selectedTab, setSelectedTab] = React.useState('preview')
+const MdEditor: React.FC<MdEditorType> = ({ mdValue }) => {
+  const [value, setValue] = useState('')
+  const [selectedTab, setSelectedTab] = useState('preview')
   useEffect(() => {
     setValue(mdValue)
   }, [mdValue])
