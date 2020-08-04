@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import ReactMarkdown from 'react-markdown'
+import MdEditor from './MdEditor'
 
 interface AppContentType {
   currentItem: string
@@ -15,6 +15,6 @@ const AppContent: React.FC<AppContentType> = ({ currentItem }) => {
       })
       .catch((err) => {})
   }, [currentItem])
-  return <ReactMarkdown source={mdContent} />
+  return <>{mdContent && <MdEditor mdValue={mdContent} />}</>
 }
 export default AppContent

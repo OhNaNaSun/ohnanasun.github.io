@@ -20,8 +20,9 @@
     "http-proxy-middleware": "^1.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-markdown": "^4.3.1",
+    "react-mde": "^10.1.0",
     "react-scripts": "3.4.1",
+    "showdown": "^1.9.1",
     "typescript": "^3.9.7"
   },
   "proxy": "http://localhost:8000",
