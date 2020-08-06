@@ -44,6 +44,7 @@ const MdEditor: React.FC<MdEditorType> = ({ mdValue }) => {
   const [selectedTab, setSelectedTab] = useState('preview')
   useEffect(() => {
     setValue(mdValue)
+    setSelectedTab(mdValue ? 'preview' : 'write')
   }, [mdValue])
   return (
     <div className="container">

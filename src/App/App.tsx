@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './App.css'
 import { Layout, Breadcrumb } from 'antd'
 import axios from 'axios'
+import { SaveOutlined } from '@ant-design/icons'
 import AppContent from '../Content/Content'
 import AppHeader from '../Header/Header'
 import AppSidebar from '../Sidebar/Sidebar'
@@ -9,7 +10,7 @@ import AppSidebar from '../Sidebar/Sidebar'
 const { Content } = Layout
 const testPost = () => {
   console.log('post')
-  axios.get('./api/upload').then((res) => {
+  axios.post('./api/upload', { name: 'gaga', age: 12 }).then((res) => {
     console.log(res)
   })
 }
@@ -19,7 +20,12 @@ const App: React.FC = () => {
     <Layout>
       <AppHeader />
       <Layout>
-        <AppSidebar setCurrentItem={setCurrentItem} />
+        <AppSidebar
+          setCurrentItem={setCurrentItem}
+          addItem={(dirName: string): void => {
+            setCurrentItem('')
+          }}
+        />
         <Layout style={{ padding: '0 24px 24px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -29,21 +35,19 @@ const App: React.FC = () => {
                 testPost()
               }}
             >
-              App
+              <SaveOutlined />
             </Breadcrumb.Item>
           </Breadcrumb>
-          {currentItem && (
-            <Content
-              className="site-layout-background"
-              style={{
-                padding: 24,
-                margin: 0,
-                minHeight: 280,
-              }}
-            >
-              <AppContent currentItem={currentItem} />
-            </Content>
-          )}
+          <Content
+            className="site-layout-background"
+            style={{
+              padding: 24,
+              margin: 0,
+              minHeight: 280,
+            }}
+          >
+            <AppContent currentItem={currentItem} />
+          </Content>
         </Layout>
       </Layout>
     </Layout>

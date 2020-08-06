@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Layout, Menu } from 'antd'
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons'
+import { UserOutlined, PlusOutlined } from '@ant-design/icons'
 
 const { Sider } = Layout
 const { SubMenu } = Menu
@@ -10,8 +10,9 @@ interface DirectoryType {
 }
 interface AppSidebarType {
   setCurrentItem: Function
+  addItem: Function
 }
-const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem }) => {
+const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem, addItem }) => {
   const [directory, setDir] = useState({})
   useEffect(() => {
     axios
@@ -38,11 +39,21 @@ const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem }) => {
         {directory &&
           Object.keys(directory as DirectoryType).map((dirName: string) => (
             <SubMenu key={dirName} icon={<UserOutlined />} title={dirName}>
+              <Menu.Item
+                key={dirName}
+                title="Add"
+                onClick={(): void => {
+                  console.log(dirName)
+                  setCurrentItem(dirName)
+                }}
+              >
+                <PlusOutlined />
+              </Menu.Item>
               {(directory as DirectoryType)[dirName].map((fileName: string) => (
                 <Menu.Item
                   key={fileName}
                   title={fileName}
-                  onClick={() => {
+                  onClick={(): void => {
                     setCurrentItem(`${dirName}/${fileName}`)
                   }}
                 >
