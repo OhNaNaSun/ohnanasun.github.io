@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { SaveOutlined } from '@ant-design/icons'
 import MdEditor from './MdEditor'
 
 interface AppContentType {
   currentItem: string
+  getMdContent: Function
+  isEdit: boolean
 }
 
-const AppContent: React.FC<AppContentType> = ({ currentItem }) => {
+const AppContent: React.FC<AppContentType> = ({ currentItem, getMdContent, isEdit }) => {
   const [mdContent, setMdContent] = useState('')
+  const [selectedTab, setSelectedTab] = useState('preview')
   useEffect(() => {
-    if (currentItem) {
+    if (currentItem.split('/')[1]) {
       axios
         .get(`./api/docs/${currentItem}.md`)
         .then((res) => {
@@ -20,21 +22,18 @@ const AppContent: React.FC<AppContentType> = ({ currentItem }) => {
     } else {
       setMdContent('')
     }
-  }, [currentItem])
-  const postMdContent = () => {
-    console.log('post')
-    axios.post('./api/upload', { name: currentItem, age: 12 }).then((res) => {
-      console.log(res)
-    })
-  }
+    setSelectedTab(isEdit ? 'write' : 'preview')
+  }, [currentItem, isEdit, setMdContent])
+
   return (
     <>
-      <SaveOutlined
-        onClick={() => {
-          postMdContent()
+      <MdEditor
+        mdContent={mdContent}
+        initSelectedTab={selectedTab}
+        setMdContent={(newValue: string): void => {
+          getMdContent(newValue)
         }}
       />
-      <MdEditor mdValue={mdContent} />
     </>
   )
 }

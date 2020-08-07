@@ -4,7 +4,9 @@ import * as Showdown from 'showdown'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
 interface MdEditorType {
-  mdValue: string
+  mdContent: string
+  setMdContent: Function
+  initSelectedTab: string
 }
 type selectedTabType = 'preview' | 'write' | undefined
 const loadSuggestions = (text: string): Promise<any> => {
@@ -39,18 +41,18 @@ const converter = new Showdown.Converter({
   strikethrough: true,
   tasklists: true,
 })
-const MdEditor: React.FC<MdEditorType> = ({ mdValue }) => {
-  const [value, setValue] = useState('')
-  const [selectedTab, setSelectedTab] = useState('preview')
+const MdEditor: React.FC<MdEditorType> = ({ mdContent, setMdContent, initSelectedTab }) => {
+  const [selectedTab, setSelectedTab] = useState(initSelectedTab)
   useEffect(() => {
-    setValue(mdValue)
-    setSelectedTab(mdValue ? 'preview' : 'write')
-  }, [mdValue])
+    setSelectedTab(initSelectedTab)
+  }, [initSelectedTab])
   return (
     <div className="container">
       <ReactMde
-        value={value}
-        onChange={setValue}
+        value={mdContent}
+        onChange={(newValue: string): void => {
+          setMdContent(newValue)
+        }}
         selectedTab={selectedTab as selectedTabType}
         onTabChange={setSelectedTab}
         generateMarkdownPreview={(markdown: string): Promise<any> => Promise.resolve(converter.makeHtml(markdown))}
