@@ -14,7 +14,7 @@ const AppContent: React.FC<AppContentType> = ({ currentItem, getMdContent, isEdi
   useEffect(() => {
     if (currentItem.split('/')[1]) {
       axios
-        .get(`./api/docs/${currentItem}.md`)
+        .get(`./api/docs/${currentItem}`)
         .then((res) => {
           setMdContent(res.data)
         })

@@ -13,31 +13,26 @@ interface AppSidebarType {
   addItem: Function
 }
 const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem, addItem }) => {
-  const [directory, setDir] = useState({})
+  const [fileDirs, setFileDirs] = useState({})
   useEffect(() => {
     axios
-      .get(`./api/docs/dir.json`)
+      .get(`./api/files`)
       .then((res) => {
-        setDir(res.data)
+        setFileDirs(res.data)
       })
       .catch((err) => {})
   }, [])
-  useEffect(() => {
-    if (Object.keys(directory).length > 0) {
-      const firstDir = Object.keys(directory)[0]
-      setCurrentItem(`${firstDir}/${(directory as DirectoryType)[firstDir][0]}`)
-    }
-  }, [directory, setCurrentItem])
+  console.log('filedirs', fileDirs)
   return (
     <Sider width={300} className="site-layout-background">
-      <Menu
-        mode="inline"
-        defaultSelectedKeys={['Two Sum']}
-        defaultOpenKeys={['Algorithm']}
-        style={{ height: '100%', borderRight: 0 }}
-      >
-        {directory &&
-          Object.keys(directory as DirectoryType).map((dirName: string) => (
+      {Object.keys(fileDirs).length && (
+        <Menu
+          mode="inline"
+          defaultSelectedKeys={[(fileDirs as DirectoryType).Algorithm[0]]}
+          defaultOpenKeys={['Algorithm']}
+          style={{ height: '100%', borderRight: 0 }}
+        >
+          {Object.keys(fileDirs).map((dirName: string) => (
             <SubMenu key={dirName} icon={<UserOutlined />} title={dirName}>
               <Menu.Item
                 key={dirName}
@@ -49,7 +44,7 @@ const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem, addItem }) => {
               >
                 <PlusOutlined />
               </Menu.Item>
-              {(directory as DirectoryType)[dirName].map((fileName: string) => (
+              {(fileDirs as DirectoryType)[dirName].map((fileName: string) => (
                 <Menu.Item
                   key={fileName}
                   title={fileName}
@@ -62,7 +57,8 @@ const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem, addItem }) => {
               ))}
             </SubMenu>
           ))}
-      </Menu>
+        </Menu>
+      )}
     </Sider>
   )
 }

@@ -24,10 +24,22 @@ const MainContent: React.FC<MainContentType> = ({ currentItem }) => {
     setIsEdit(!fileFullPath[1])
     setCurrentFileName(fileFullPath[1])
   }, [currentItem])
+  const getAllDocs = () => {
+    axios.get('./api/files/JavaScript').then((res) => {
+      console.log('response', res)
+    })
+  }
   return (
     <Layout style={{ padding: '0 24px 24px' }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>{filePath}</Breadcrumb.Item>
+        <Breadcrumb.Item
+          onClick={() => {
+            console.log('get all docs')
+            getAllDocs()
+          }}
+        >
+          {filePath}
+        </Breadcrumb.Item>
         <Breadcrumb.Item>
           <Input
             style={{ width: '200px', marginRight: '10px' }}
