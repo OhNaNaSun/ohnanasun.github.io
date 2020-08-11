@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Layout, Breadcrumb, Input } from 'antd'
 import { SaveOutlined } from '@ant-design/icons'
-import AppContent from './Content'
+import MdContent from './MdContent'
 
 const { Content } = Layout
 interface MainContentType {
@@ -24,22 +24,10 @@ const MainContent: React.FC<MainContentType> = ({ currentItem }) => {
     setIsEdit(!fileFullPath[1])
     setCurrentFileName(fileFullPath[1])
   }, [currentItem])
-  const getAllDocs = () => {
-    axios.get('./api/files/JavaScript').then((res) => {
-      console.log('response', res)
-    })
-  }
   return (
     <Layout style={{ padding: '0 24px 24px' }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item
-          onClick={() => {
-            console.log('get all docs')
-            getAllDocs()
-          }}
-        >
-          {filePath}
-        </Breadcrumb.Item>
+        <Breadcrumb.Item>{filePath}</Breadcrumb.Item>
         <Breadcrumb.Item>
           <Input
             style={{ width: '200px', marginRight: '10px' }}
@@ -65,7 +53,7 @@ const MainContent: React.FC<MainContentType> = ({ currentItem }) => {
         }}
       >
         {currentItem && (
-          <AppContent
+          <MdContent
             currentItem={currentItem}
             isEdit={isEdit}
             getMdContent={(value: string): void => {

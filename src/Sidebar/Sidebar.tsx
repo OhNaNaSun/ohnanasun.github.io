@@ -22,20 +22,24 @@ const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem, addItem }) => {
       })
       .catch((err) => {})
   }, [])
-  console.log('filedirs', fileDirs)
+  useEffect(() => {
+    if (Object.keys(fileDirs).length > 0) {
+      setCurrentItem(`${Object.keys(fileDirs)[0]}/${Object.values(fileDirs as DirectoryType)[0][0]}`)
+    }
+  }, [fileDirs, setCurrentItem])
+
   return (
     <Sider width={300} className="site-layout-background">
       {Object.keys(fileDirs).length && (
         <Menu
           mode="inline"
-          defaultSelectedKeys={[(fileDirs as DirectoryType).Algorithm[0]]}
-          defaultOpenKeys={['Algorithm']}
+          defaultSelectedKeys={[Object.values(fileDirs as DirectoryType)[0][0]]}
           style={{ height: '100%', borderRight: 0 }}
         >
           {Object.keys(fileDirs).map((dirName: string) => (
             <SubMenu key={dirName} icon={<UserOutlined />} title={dirName}>
               <Menu.Item
-                key={dirName}
+                key={`${dirName}_add`}
                 title="Add"
                 onClick={(): void => {
                   console.log(dirName)

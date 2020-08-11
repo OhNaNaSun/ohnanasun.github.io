@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import MdEditor from './MdEditor'
 
-interface AppContentType {
+interface MdContentType {
   currentItem: string
   getMdContent: Function
   isEdit: boolean
 }
 
-const AppContent: React.FC<AppContentType> = ({ currentItem, getMdContent, isEdit }) => {
+const MdContent: React.FC<MdContentType> = ({ currentItem, getMdContent, isEdit }) => {
   const [mdContent, setMdContent] = useState('')
   const [selectedTab, setSelectedTab] = useState('preview')
   useEffect(() => {
     if (currentItem.split('/')[1]) {
       axios
-        .get(`./api/docs/${currentItem}`)
+        .get(`./api/files/${encodeURIComponent(currentItem)}`)
         .then((res) => {
           setMdContent(res.data)
         })
@@ -37,4 +37,4 @@ const AppContent: React.FC<AppContentType> = ({ currentItem, getMdContent, isEdi
     </>
   )
 }
-export default AppContent
+export default MdContent
