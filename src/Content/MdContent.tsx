@@ -24,13 +24,12 @@ const MdContent: React.FC<MdContentType> = ({ currentItem, getMdContent, isEdit 
     }
     setSelectedTab(isEdit ? 'write' : 'preview')
   }, [currentItem, isEdit, setMdContent])
-
   return (
     <>
       <MdEditor
         mdContent={mdContent}
-        initSelectedTab={selectedTab}
-        setMdContent={(newValue: string): void => {
+        initSelectedTab={selectedTab as 'write' | 'preview'}
+        getCurrentMdContent={(newValue: string): void => {
           getMdContent(newValue)
         }}
       />

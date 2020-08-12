@@ -5,64 +5,32 @@ import 'react-mde/lib/styles/css/react-mde-all.css'
 
 interface MdEditorType {
   mdContent: string
-  setMdContent: Function
-  initSelectedTab: string
+  getCurrentMdContent: Function
+  initSelectedTab: 'write' | 'preview'
 }
-type selectedTabType = 'preview' | 'write' | undefined
-const loadSuggestions = (text: string): Promise<any> => {
-  return new Promise((accept, reject) => {
-    setTimeout(() => {
-      const suggestions = [
-        {
-          preview: 'Andre',
-          value: '@andre',
-        },
-        {
-          preview: 'Angela',
-          value: '@angela',
-        },
-        {
-          preview: 'David',
-          value: '@david',
-        },
-        {
-          preview: 'Louise',
-          value: '@louise',
-        },
-      ].filter((i) => i.preview.toLowerCase().includes(text.toLowerCase()))
-      accept(suggestions)
-    }, 250)
-  })
-}
-
 const converter = new Showdown.Converter({
   tables: true,
   simplifiedAutoLink: true,
   strikethrough: true,
   tasklists: true,
 })
-const MdEditor: React.FC<MdEditorType> = ({ mdContent, setMdContent, initSelectedTab }) => {
-  const [selectedTab, setSelectedTab] = useState(initSelectedTab)
+const MdEditor: React.FC<MdEditorType> = ({ mdContent, getCurrentMdContent, initSelectedTab }) => {
+  const [value, setValue] = React.useState(mdContent)
+  const [selectedTab, setSelectedTab] = React.useState(initSelectedTab)
   useEffect(() => {
-    setSelectedTab(initSelectedTab)
-  }, [initSelectedTab])
+    setValue(mdContent)
+  }, [mdContent])
   return (
     <div className="container">
       <ReactMde
-        value={mdContent}
-        onChange={(newValue: string): void => {
-          setMdContent(newValue)
+        value={value}
+        onChange={(newValue): void => {
+          setValue(newValue)
+          getCurrentMdContent(newValue)
         }}
-        selectedTab={selectedTab as selectedTabType}
+        selectedTab={selectedTab}
         onTabChange={setSelectedTab}
-        generateMarkdownPreview={(markdown: string): Promise<any> => Promise.resolve(converter.makeHtml(markdown))}
-        loadSuggestions={loadSuggestions}
-        minEditorHeight={800}
-        childProps={{
-          writeButton: {
-            tabIndex: -1,
-          },
-        }}
+        generateMarkdownPreview={(markdown) => Promise.resolve(converter.makeHtml(markdown))}
       />
     </div>
   )

@@ -11,8 +11,9 @@ interface DirectoryType {
 interface AppSidebarType {
   setCurrentItem: Function
   addItem: Function
+  refreshSideBarCount: number
 }
-const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem, addItem }) => {
+const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem, addItem, refreshSideBarCount }) => {
   const [fileDirs, setFileDirs] = useState({})
   useEffect(() => {
     axios
@@ -21,7 +22,7 @@ const AppSidebar: React.FC<AppSidebarType> = ({ setCurrentItem, addItem }) => {
         setFileDirs(res.data)
       })
       .catch((err) => {})
-  }, [])
+  }, [refreshSideBarCount])
   useEffect(() => {
     if (Object.keys(fileDirs).length > 0) {
       setCurrentItem(`${Object.keys(fileDirs)[0]}/${Object.values(fileDirs as DirectoryType)[0][0]}`)

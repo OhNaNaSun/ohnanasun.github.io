@@ -7,14 +7,16 @@ import MdContent from './MdContent'
 const { Content } = Layout
 interface MainContentType {
   currentItem: string
+  saveItemCallback: Function
 }
-const MainContent: React.FC<MainContentType> = ({ currentItem }) => {
+const MainContent: React.FC<MainContentType> = ({ currentItem, saveItemCallback }) => {
   const [mdContent, setMdContent] = useState('')
   const [isEdit, setIsEdit] = useState(false)
   const [filePath, setFilePath] = useState('')
   const [currentFileName, setCurrentFileName] = useState('')
   const postMdContent = (): void => {
-    axios.post('./api/upload', { name: `${filePath}/${currentFileName}.md`, mdContent }).then((res) => {
+    axios.post('./api/files/upload', { name: `${filePath}/${currentFileName}`, mdContent }).then((res) => {
+      saveItemCallback()
       console.log(res)
     })
   }
@@ -33,7 +35,6 @@ const MainContent: React.FC<MainContentType> = ({ currentItem }) => {
             style={{ width: '200px', marginRight: '10px' }}
             value={currentFileName}
             onChange={(e): void => {
-              console.log('onchange', e.target.value)
               setCurrentFileName(e.target.value)
             }}
           />
