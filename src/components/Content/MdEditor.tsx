@@ -5,7 +5,7 @@ import 'react-mde/lib/styles/css/react-mde-all.css'
 
 interface MdEditorType {
   mdContent: string
-  getCurrentMdContent: Function
+  changeMdContent: Function
   initSelectedTab: 'write' | 'preview'
 }
 const converter = new Showdown.Converter({
@@ -14,23 +14,26 @@ const converter = new Showdown.Converter({
   strikethrough: true,
   tasklists: true,
 })
-const MdEditor: React.FC<MdEditorType> = ({ mdContent, getCurrentMdContent, initSelectedTab }) => {
-  const [value, setValue] = React.useState(mdContent)
-  const [selectedTab, setSelectedTab] = React.useState(initSelectedTab)
+const MdEditor: React.FC<MdEditorType> = ({ mdContent, changeMdContent, initSelectedTab }) => {
+  const [value, setValue] = useState(mdContent)
+  const [selectedTab, setSelectedTab] = useState(initSelectedTab)
   useEffect(() => {
     setValue(mdContent)
   }, [mdContent])
+  useEffect(() => {
+    setSelectedTab(initSelectedTab)
+  }, [initSelectedTab])
   return (
     <div className="container">
       <ReactMde
         value={value}
         onChange={(newValue): void => {
           setValue(newValue)
-          getCurrentMdContent(newValue)
+          changeMdContent(newValue)
         }}
         selectedTab={selectedTab}
         onTabChange={setSelectedTab}
-        generateMarkdownPreview={(markdown) => Promise.resolve(converter.makeHtml(markdown))}
+        generateMarkdownPreview={(markdown: string): Promise<any> => Promise.resolve(converter.makeHtml(markdown))}
       />
     </div>
   )

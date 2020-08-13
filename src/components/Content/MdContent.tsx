@@ -3,18 +3,18 @@ import axios from 'axios'
 import MdEditor from './MdEditor'
 
 interface MdContentType {
-  currentItem: string
-  getMdContent: Function
+  currentItemPath: string
   isEdit: boolean
+  changeMdContent: Function
 }
 
-const MdContent: React.FC<MdContentType> = ({ currentItem, getMdContent, isEdit }) => {
+const MdContent: React.FC<MdContentType> = ({ currentItemPath, changeMdContent, isEdit }) => {
   const [mdContent, setMdContent] = useState('')
   const [selectedTab, setSelectedTab] = useState('preview')
   useEffect(() => {
-    if (currentItem.split('/')[1]) {
+    if (currentItemPath.split('/')[1]) {
       axios
-        .get(`./api/files/${encodeURIComponent(currentItem)}`)
+        .get(`./api/files/${encodeURIComponent(currentItemPath)}`)
         .then((res) => {
           setMdContent(res.data)
         })
@@ -22,16 +22,16 @@ const MdContent: React.FC<MdContentType> = ({ currentItem, getMdContent, isEdit 
     } else {
       setMdContent('')
     }
+  }, [currentItemPath, setMdContent])
+  useEffect(() => {
     setSelectedTab(isEdit ? 'write' : 'preview')
-  }, [currentItem, isEdit, setMdContent])
+  }, [isEdit])
   return (
     <>
       <MdEditor
         mdContent={mdContent}
         initSelectedTab={selectedTab as 'write' | 'preview'}
-        getCurrentMdContent={(newValue: string): void => {
-          getMdContent(newValue)
-        }}
+        changeMdContent={changeMdContent}
       />
     </>
   )
