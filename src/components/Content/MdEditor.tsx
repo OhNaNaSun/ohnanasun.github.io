@@ -26,6 +26,7 @@ const MdEditor: React.FC<MdEditorType> = ({ mdContent, changeMdContent, initSele
   return (
     <div className="container">
       <ReactMde
+        minEditorHeight={600}
         value={value}
         onChange={(newValue): void => {
           setValue(newValue)
