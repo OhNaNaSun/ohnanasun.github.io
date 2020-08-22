@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './App.css'
 import { Layout } from 'antd'
 import axios from 'axios'
-import MainContent from '../components/Content/MainContent'
+import MdContent from '../components/Content/MdContent'
 import AppHeader from '../components/Header'
 import AppSidebar from '../components/Sidebar'
 import BreadCrumbHeader from '../components/BreadCrumbHeader'
@@ -38,9 +38,9 @@ const App: React.FC = () => {
               setCurrentItemPath(currentItemPath.split('/')[0])
             }}
           />
-          <MainContent
+          <MdContent
             currentItemPath={currentItemPath}
-            changeMdContent={(value: string): void => {
+            returnNewMdContent={(value: string): void => {
               setMdContent(value)
             }}
           />
