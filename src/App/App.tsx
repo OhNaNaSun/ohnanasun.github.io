@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './App.css'
-import { Layout } from 'antd'
+import { Layout, message } from 'antd'
 import axios from 'axios'
 import MdContent from '../components/Content/MdContent'
 import AppHeader from '../components/Header'
@@ -17,6 +17,7 @@ const App: React.FC = () => {
         setCurrentItemPath(fileFullPath)
         setRefreshSideBarCount(refreshSideBarCount + 1)
       }
+      message.success(res.statusText)
     })
   }
   return (

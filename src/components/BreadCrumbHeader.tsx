@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Breadcrumb, Input } from 'antd'
+import { Input, Space } from 'antd'
 import { SaveOutlined, PlusOutlined } from '@ant-design/icons'
 
 interface BreadCrumbHeaderType {
@@ -18,11 +18,11 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({ currentItemPath, sav
   }, [currentItemPath])
 
   return (
-    <Breadcrumb style={{ margin: '16px 0' }}>
-      <Breadcrumb.Item>{filePath}</Breadcrumb.Item>
-      <Breadcrumb.Item>
+    <div style={{ margin: '16px 0' }}>
+      <Space>
+        {filePath} /
         <Input
-          style={{ width: '200px', marginRight: '10px' }}
+          style={{ width: '200px' }}
           value={currentFileName}
           onChange={(e): void => {
             setCurrentFileName(e.target.value)
@@ -38,8 +38,8 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({ currentItemPath, sav
             addNewItem()
           }}
         />
-      </Breadcrumb.Item>
-    </Breadcrumb>
+      </Space>
+    </div>
   )
 }
 export default BreadCrumbHeader
