@@ -13,8 +13,9 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({ currentItemPath, sav
 
   useEffect(() => {
     const fileFullPath = currentItemPath.split('/')
-    setFilePath(fileFullPath[0])
-    setCurrentFileName(fileFullPath[1])
+    const fileName = fileFullPath.pop()
+    setFilePath(fileFullPath.join(' / '))
+    setCurrentFileName(fileName as string)
   }, [currentItemPath])
 
   return (
