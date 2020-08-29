@@ -13,6 +13,7 @@
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
     "@types/showdown": "^1.9.3",
+    "@types/styled-components": "^5.1.2",
     "antd": "^4.4.3",
     "axios": "^0.19.2",
     "eslint-plugin-jest": "^23.18.0",
@@ -24,6 +25,7 @@
     "react-mde": "^10.1.0",
     "react-scripts": "3.4.1",
     "showdown": "^1.9.1",
+    "styled-components": "^5.1.1",
     "typescript": "^3.9.7"
   },
   "scripts": {
