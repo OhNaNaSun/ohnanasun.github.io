@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Layout, message } from 'antd'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
@@ -20,6 +20,9 @@ const Container: React.FC = () => {
       message.success(res.statusText)
     })
   }
+  useEffect(() => {
+    setCurrentItemPath(pathname)
+  }, [pathname])
   return (
     <Layout>
       <AppSidebar
