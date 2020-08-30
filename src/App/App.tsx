@@ -1,15 +1,15 @@
 import React from 'react'
 import './App.css'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
-import Home from '../Home/Home'
-import Page from './Page'
+import Home from '../Pages/Home'
+import Docs from '../Pages/Docs'
 
 const App: React.FC = () => {
   return (
     <Router>
       <Switch>
         <Route path="/:fileId">
-          <Page />
+          <Docs />
         </Route>
         <Route path="/">
           <Home />

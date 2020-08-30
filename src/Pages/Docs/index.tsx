@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import './App.css'
 import { Layout, message } from 'antd'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
-import MdContent from '../components/Content/MdContent'
-import AppSidebar from '../components/Sidebar'
-import BreadCrumbHeader from '../components/BreadCrumbHeader'
+import MdContent from './Content/MdContent'
+import AppSidebar from './Sidebar'
+import BreadCrumbHeader from './BreadCrumbHeader'
 
-const App: React.FC = () => {
+const Container: React.FC = () => {
   const { pathname } = useLocation()
   const [currentItemPath, setCurrentItemPath] = useState(pathname)
   const [refreshSideBarCount, setRefreshSideBarCount] = useState(0)
@@ -48,4 +47,4 @@ const App: React.FC = () => {
     </Layout>
   )
 }
-export default App
+export default Container
