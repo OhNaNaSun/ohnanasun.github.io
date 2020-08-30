@@ -15,7 +15,7 @@ const MdContent: React.FC<MdContentType> = ({ currentItemPath, returnNewMdConten
   useEffect(() => {
     if (currentItemPath.split('/')[1]) {
       axios
-        .get(`./api/files/${encodeURIComponent(currentItemPath)}`)
+        .get(`${process.env.PUBLIC_URL}/api${currentItemPath}`)
         .then((res) => {
           setMdContent(res.data)
         })

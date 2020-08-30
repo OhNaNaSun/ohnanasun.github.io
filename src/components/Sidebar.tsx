@@ -5,7 +5,7 @@ import { UserOutlined } from '@ant-design/icons'
 
 const { Sider } = Layout
 const { SubMenu } = Menu
-type itemType = string | { [key: string]: string[] }
+type itemType = string
 interface DirectoryType {
   [key: string]: Array<itemType>
 }
@@ -18,12 +18,12 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentItemPath, setCurrentItem,
   const [fileDirs, setFileDirs] = useState({})
   useEffect(() => {
     axios
-      .get(`${process.env.PUBLIC_URL}/api/files`)
+      .get(`${process.env.PUBLIC_URL}/api/files/${currentItemPath.split('/')[1]}`)
       .then((res) => {
         setFileDirs(res.data)
       })
       .catch((err) => {})
-  }, [refreshSideBarCount])
+  }, [currentItemPath, refreshSideBarCount])
   useEffect(() => {
     if (Object.keys(fileDirs).length > 0) {
       setCurrentItem(currentItemPath || `${Object.keys(fileDirs)[0]}/${Object.values(fileDirs as DirectoryType)[0][0]}`)
@@ -33,36 +33,19 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentItemPath, setCurrentItem,
     <Sider width={300} className="site-layout-background">
       {Object.keys(fileDirs).length && (
         <Menu mode="inline" selectedKeys={[currentItemPath.split('/')[1]]} style={{ height: '100%', borderRight: 0 }}>
-          {Object.keys(fileDirs).map((dirName: string) => (
+          {Object.entries(fileDirs as DirectoryType).map(([dirName, fileNames]) => (
             <SubMenu key={dirName} icon={<UserOutlined />} title={dirName}>
-              {(fileDirs as DirectoryType)[dirName].map((fileName: itemType) =>
-                typeof fileName === 'string' ? (
-                  <Menu.Item
-                    key={fileName}
-                    title={fileName}
-                    onClick={(): void => {
-                      setCurrentItem(`${dirName}/${fileName}`)
-                    }}
-                  >
-                    {fileName.split('.')[0]}
-                  </Menu.Item>
-                ) : (
-                  Object.keys(fileName).map((innerDirName) => (
-                    <SubMenu key={innerDirName} title={innerDirName}>
-                      {fileName[innerDirName].map((innerFileName: string) => (
-                        <Menu.Item
-                          key={innerFileName}
-                          onClick={(): void => {
-                            setCurrentItem(`${dirName}/${innerDirName}/${innerFileName}`)
-                          }}
-                        >
-                          {innerFileName}
-                        </Menu.Item>
-                      ))}
-                    </SubMenu>
-                  ))
-                )
-              )}
+              {fileNames.map((fileName: itemType) => (
+                <Menu.Item
+                  key={fileName}
+                  title={fileName}
+                  onClick={(): void => {
+                    setCurrentItem(`${dirName}/${fileName}`)
+                  }}
+                >
+                  {fileName.split('.')[0]}
+                </Menu.Item>
+              ))}
             </SubMenu>
           ))}
         </Menu>
