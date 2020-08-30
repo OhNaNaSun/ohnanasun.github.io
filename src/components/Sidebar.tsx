@@ -18,7 +18,7 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentItemPath, setCurrentItem,
   const [fileDirs, setFileDirs] = useState({})
   useEffect(() => {
     axios
-      .get(`./api/files`)
+      .get(`${process.env.PUBLIC_URL}/api/files`)
       .then((res) => {
         setFileDirs(res.data)
       })

@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import './App.css'
 import { Layout, message } from 'antd'
 import axios from 'axios'
+import { useLocation } from 'react-router-dom'
 import MdContent from '../components/Content/MdContent'
-import AppHeader from '../components/Header'
 import AppSidebar from '../components/Sidebar'
 import BreadCrumbHeader from '../components/BreadCrumbHeader'
 
 const App: React.FC = () => {
-  const [currentItemPath, setCurrentItemPath] = useState('')
+  const { pathname } = useLocation()
+  const [currentItemPath, setCurrentItemPath] = useState(pathname)
   const [refreshSideBarCount, setRefreshSideBarCount] = useState(0)
   const [mdContent, setMdContent] = useState('')
   const postMdContent = (fileFullPath: string): void => {
@@ -22,30 +23,27 @@ const App: React.FC = () => {
   }
   return (
     <Layout>
-      <AppHeader />
-      <Layout>
-        <AppSidebar
+      <AppSidebar
+        currentItemPath={currentItemPath}
+        setCurrentItem={setCurrentItemPath}
+        refreshSideBarCount={refreshSideBarCount}
+      />
+      <Layout style={{ padding: '0 24px 24px' }}>
+        <BreadCrumbHeader
           currentItemPath={currentItemPath}
-          setCurrentItem={setCurrentItemPath}
-          refreshSideBarCount={refreshSideBarCount}
+          saveItem={(path: string): void => {
+            postMdContent(path)
+          }}
+          addNewItem={(): void => {
+            setCurrentItemPath(currentItemPath.split('/')[0])
+          }}
         />
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <BreadCrumbHeader
-            currentItemPath={currentItemPath}
-            saveItem={(path: string): void => {
-              postMdContent(path)
-            }}
-            addNewItem={(): void => {
-              setCurrentItemPath(currentItemPath.split('/')[0])
-            }}
-          />
-          <MdContent
-            currentItemPath={currentItemPath}
-            returnNewMdContent={(value: string): void => {
-              setMdContent(value)
-            }}
-          />
-        </Layout>
+        <MdContent
+          currentItemPath={currentItemPath}
+          returnNewMdContent={(value: string): void => {
+            setMdContent(value)
+          }}
+        />
       </Layout>
     </Layout>
   )

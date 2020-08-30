@@ -52,7 +52,7 @@ const Home: React.FC = () => {
                       {fileNames.map((fileName: string) => (
                         <li className="list_item" key={fileName}>
                           <div>
-                            <a href=":;">{fileName}</a>
+                            <a href={`./${fileDirName}/${fileName}`}>{fileName.replace('.md', '')}</a>
                           </div>
                         </li>
                       ))}
