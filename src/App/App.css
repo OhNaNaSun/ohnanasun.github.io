@@ -15,7 +15,7 @@
 }
 body {
   margin: 0;
-  font: 16px/20px BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  font: 14px/20px BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 20px;
@@ -99,4 +99,7 @@ li.list_item div:before {
 li.list_item {
   counter-increment: b;
   margin-bottom: 2px;
+}
+.text {
+  color: rgba(0, 0, 0, 0.65);
 }

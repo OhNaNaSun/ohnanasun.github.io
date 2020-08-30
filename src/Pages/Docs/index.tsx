@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Layout, message } from 'antd'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
@@ -8,40 +8,32 @@ import BreadCrumbHeader from './BreadCrumbHeader'
 
 const Container: React.FC = () => {
   const { pathname } = useLocation()
-  const [currentItemPath, setCurrentItemPath] = useState(pathname)
-  const [refreshSideBarCount, setRefreshSideBarCount] = useState(0)
+  const [, currentDirName, currentCateName, currentFileName] = pathname.split('/')
   const [mdContent, setMdContent] = useState('')
-  const postMdContent = (fileFullPath: string): void => {
-    axios.post('./api/files/upload', { name: fileFullPath, mdContent }).then((res) => {
-      if (res.status === 201) {
-        setCurrentItemPath(fileFullPath)
-        setRefreshSideBarCount(refreshSideBarCount + 1)
-      }
-      message.success(res.statusText)
-    })
+  const postMdContent = (newFileName: string): void => {
+    axios
+      .post('./api/files/upload', { name: `${currentDirName}\${currentCateName}\${newFileName}`, mdContent })
+      .then((res) => {
+        message.success(res.statusText)
+      })
   }
-  useEffect(() => {
-    setCurrentItemPath(pathname)
-  }, [pathname])
   return (
     <Layout>
-      <AppSidebar
-        currentItemPath={currentItemPath}
-        setCurrentItem={setCurrentItemPath}
-        refreshSideBarCount={refreshSideBarCount}
-      />
+      <AppSidebar currentDirName={currentDirName} currentCateName={currentCateName} currentFileName={currentFileName} />
       <Layout style={{ padding: '0 24px 24px' }}>
         <BreadCrumbHeader
-          currentItemPath={currentItemPath}
-          saveItem={(path: string): void => {
-            postMdContent(path)
+          currentDirName={currentDirName}
+          currentCateName={currentCateName}
+          currentFileName={currentFileName}
+          saveItem={(newFileName: string): void => {
+            postMdContent(newFileName)
           }}
           addNewItem={(): void => {
-            setCurrentItemPath(currentItemPath.split('/')[0])
+            // setCurrentItemPath(currentItemPath.split('/')[0])
           }}
         />
         <MdContent
-          currentItemPath={currentItemPath}
+          currentItemPath={pathname}
           returnNewMdContent={(value: string): void => {
             setMdContent(value)
           }}

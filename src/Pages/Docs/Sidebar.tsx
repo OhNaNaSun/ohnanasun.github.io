@@ -11,13 +11,12 @@ interface DirectoryType {
   [key: string]: Array<itemType>
 }
 interface AppSidebarType {
-  setCurrentItem: Function
-  refreshSideBarCount: number
-  currentItemPath: string
+  currentDirName: string
+  currentCateName: string
+  currentFileName: string
 }
-const AppSidebar: React.FC<AppSidebarType> = ({ currentItemPath, setCurrentItem, refreshSideBarCount }) => {
+const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName, currentFileName }) => {
   const [fileDirs, setFileDirs] = useState({})
-  const [, currentDirName, currentCateName, currentFileName] = currentItemPath.split('/')
   useEffect(() => {
     axios
       .get(`${process.env.PUBLIC_URL}/api/files/${currentDirName}`)
@@ -25,11 +24,16 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentItemPath, setCurrentItem,
         setFileDirs(res.data)
       })
       .catch((err) => {})
-  }, [currentDirName, currentItemPath, refreshSideBarCount])
+  }, [currentDirName])
   return (
     <Sider width={300} className="site-layout-background">
       {Object.keys(fileDirs).length && (
-        <Menu mode="inline" selectedKeys={[currentCateName]} style={{ height: '100%', borderRight: 0 }}>
+        <Menu
+          mode="inline"
+          selectedKeys={[currentFileName]}
+          defaultOpenKeys={[currentCateName]}
+          style={{ height: '100%', borderRight: 0 }}
+        >
           {Object.entries(fileDirs as DirectoryType).map(([dirName, fileNames]) => (
             <SubMenu key={dirName} icon={<UserOutlined />} title={dirName}>
               {fileNames.map((fileName: itemType) => (
