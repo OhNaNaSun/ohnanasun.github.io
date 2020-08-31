@@ -6,14 +6,12 @@ import { Link } from 'react-router-dom'
 
 interface BreadCrumbHeaderType {
   saveItem: Function
-  addNewItem: Function
   currentDirName: string
   currentCateName: string
   currentFileName: string
 }
 const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
   saveItem,
-  addNewItem,
   currentDirName,
   currentCateName,
   currentFileName,
@@ -41,11 +39,9 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
             saveItem(fileName)
           }}
         />
-        <PlusOutlined
-          onClick={(): void => {
-            addNewItem()
-          }}
-        />
+        <Link to={`/${currentDirName}/${currentCateName}`}>
+          <PlusOutlined />
+        </Link>
       </Space>
     </div>
   )

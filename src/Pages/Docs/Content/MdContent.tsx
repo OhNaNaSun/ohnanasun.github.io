@@ -5,17 +5,24 @@ import MdEditor from './MdEditor'
 
 const { Content } = Layout
 interface MdContentType {
-  currentItemPath: string
   returnNewMdContent: Function
+  currentDirName: string
+  currentCateName: string
+  currentFileName: string
 }
 
-const MdContent: React.FC<MdContentType> = ({ currentItemPath, returnNewMdContent }) => {
+const MdContent: React.FC<MdContentType> = ({
+  returnNewMdContent,
+  currentDirName,
+  currentCateName,
+  currentFileName,
+}) => {
   const [mdContent, setMdContent] = useState('')
   const [selectedTab, setSelectedTab] = useState('preview')
   useEffect(() => {
-    if (currentItemPath.split('/')[1]) {
+    if (currentFileName) {
       axios
-        .get(`${process.env.PUBLIC_URL}/api${currentItemPath}`)
+        .get(`${process.env.PUBLIC_URL}/api/${currentDirName}/${currentCateName}/${currentFileName}`)
         .then((res) => {
           setMdContent(res.data)
         })
@@ -23,12 +30,10 @@ const MdContent: React.FC<MdContentType> = ({ currentItemPath, returnNewMdConten
     } else {
       setMdContent('')
     }
-  }, [currentItemPath, setMdContent])
+  }, [currentCateName, currentDirName, currentFileName, setMdContent])
   useEffect(() => {
-    const fileFullPath = currentItemPath.split('/')
-    const isEdit = !fileFullPath[1]
-    setSelectedTab(isEdit ? 'write' : 'preview')
-  }, [currentItemPath])
+    setSelectedTab(!currentFileName ? 'write' : 'preview')
+  }, [currentFileName])
   useEffect(() => {
     returnNewMdContent(mdContent)
   }, [mdContent, returnNewMdContent])
