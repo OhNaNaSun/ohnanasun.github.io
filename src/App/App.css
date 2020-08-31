@@ -13,6 +13,9 @@
 .logo {
   background: rgba(255, 255, 255, 0.3);
 }
+.hide_toolbar .mde-header {
+  display: none;
+}
 body {
   margin: 0;
   font: 14px/20px BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;

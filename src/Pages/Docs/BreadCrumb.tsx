@@ -9,12 +9,14 @@ interface BreadCrumbHeaderType {
   currentDirName: string
   currentCateName: string
   currentFileName: string
+  isReadOnly: boolean
 }
 const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
   saveItem,
   currentDirName,
   currentCateName,
   currentFileName,
+  isReadOnly,
 }) => {
   const [fileName, setFileName] = useState(currentFileName)
   useEffect(() => {
@@ -33,15 +35,20 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
           onChange={(e): void => {
             setFileName(e.target.value)
           }}
+          readOnly={isReadOnly}
         />
-        <SaveOutlined
-          onClick={(): void => {
-            saveItem(fileName)
-          }}
-        />
-        <Link to={`/${currentDirName}/${currentCateName}`}>
-          <PlusOutlined />
-        </Link>
+        {!isReadOnly && (
+          <>
+            <SaveOutlined
+              onClick={(): void => {
+                saveItem(fileName)
+              }}
+            />
+            <Link to={`/${currentDirName}/${currentCateName}`}>
+              <PlusOutlined />
+            </Link>
+          </>
+        )}
       </Space>
     </div>
   )

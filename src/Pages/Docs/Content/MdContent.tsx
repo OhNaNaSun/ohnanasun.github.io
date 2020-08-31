@@ -9,6 +9,7 @@ interface MdContentType {
   currentDirName: string
   currentCateName: string
   currentFileName: string
+  isReadOnly: boolean
 }
 
 const MdContent: React.FC<MdContentType> = ({
@@ -16,6 +17,7 @@ const MdContent: React.FC<MdContentType> = ({
   currentDirName,
   currentCateName,
   currentFileName,
+  isReadOnly,
 }) => {
   const [mdContent, setMdContent] = useState('')
   const [selectedTab, setSelectedTab] = useState('preview')
@@ -50,6 +52,7 @@ const MdContent: React.FC<MdContentType> = ({
         selectedTab={selectedTab as 'preview' | 'write'}
         changeSelectedTab={setSelectedTab}
         changeMdContent={setMdContent}
+        readOnly={isReadOnly}
       />
     </Content>
   )
