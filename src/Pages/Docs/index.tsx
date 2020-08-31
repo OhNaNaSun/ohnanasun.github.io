@@ -19,6 +19,9 @@ const Container: React.FC = () => {
       .then((res) => {
         message.success(res.statusText)
       })
+      .catch((error) => {
+        message.error(error.message)
+      })
   }
   return (
     <Layout>

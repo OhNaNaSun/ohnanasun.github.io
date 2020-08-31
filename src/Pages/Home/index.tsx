@@ -6,7 +6,7 @@ import styled from 'styled-components'
 const Banner = styled.div`
   background-image: url(${process.env.PUBLIC_URL}/anime-girl.jpeg);
   background-size: cover;
-  height: 640px;
+  height: 600px;
   background-position-y: -120px;
 `
 const Divider = styled.div`
@@ -30,7 +30,6 @@ const Home: React.FC = () => {
       .catch((err) => {})
   }, [])
 
-  //   const [categoryName, categoryDirs] = Object.entries(fileDirs)
   return (
     <>
       <Banner />
