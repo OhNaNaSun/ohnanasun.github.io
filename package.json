@@ -12,6 +12,7 @@
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
+    "@types/react-typist": "^2.0.1",
     "@types/showdown": "^1.9.3",
     "@types/styled-components": "^5.1.2",
     "antd": "^4.4.3",
@@ -25,6 +26,7 @@
     "react-mde": "^10.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-typist": "^2.0.5",
     "showdown": "^1.9.1",
     "styled-components": "^5.1.1",
     "typescript": "^3.9.7"

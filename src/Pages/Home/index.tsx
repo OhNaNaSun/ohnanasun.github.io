@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Row, Col } from 'antd'
+import { Row, Col, Popconfirm, Button } from 'antd'
 import styled from 'styled-components'
+import Typist from 'react-typist'
 
 const Banner = styled.div`
   background-image: url(${process.env.PUBLIC_URL}/anime-girl.jpeg);
@@ -27,12 +28,52 @@ const Home: React.FC = () => {
       .then((res) => {
         setFileDirs(res.data)
       })
-      .catch((err) => {})
+      .catch((err) => { })
   }, [])
 
   return (
     <>
-      <Banner />
+      <Banner>
+        <div style={{fontSize: '16px', fontFamily: 'Courier', position: 'absolute', left: '10px', top: '20px', color: 'white'}}>
+          <Typist stdTypingDelay={10} avgTypingDelay={40} cursor={{show: false}}>
+          <p> Hi hhhapz </p>
+          <p> I have one very important thing I want to say to you! </p>
+          <p> I really hope this won't ruin our friendship... </p>
+          <p> I have been thinking about it for a while.... </p>
+          <p> But I still think I need to tell you this! </p>
+          <p> .................................... </p>
+          <p> ------------------------------------ </p>
+          <Typist.Delay ms={500}/>
+          {new Array(10).fill(0).map((index)=>(
+            <div key={index} style={{float: 'left'}}>
+             <p>I have a pen</p>
+             <p>I have a apple</p>
+             <p>Uhhh!</p>
+             <p>Apple pen</p>
+              <p>I have a pen</p>
+              <p>I have pineapple</p>
+              <p>Uhhh!</p>
+              <p>Pineapple pen</p>
+              <span>Apple pen...</span>
+              <br/><span >Pineapple pen...</span>
+              <br/><span>Uh!</span><br/>
+              <span>Pen Pineapple Apple Pen</span><br/>
+              <span>Pen Pineapple Apple Pen</span><br/>
+              <span >Pen Pineapple, Pen Pen Pen Apple Apple</span><br/>
+              <span >Pen Pineapple, Pen Pen Pen Apple Pen</span><br/>
+              <span>Pen Pineapple, Pen Pen Pen Apple Apple</span><br/>
+              <span>Pen Pineapple, Pen Pen Pen Apple Apple</span><br/>
+              <span>Pen Pineapple, Pen Pen Pen Apple Pen</span><br/>
+              <span>Pen Pineapple, Pen Pen Pen Apple Apple</span><br/>
+              <span>Pen Pineapple, Pen Pen Pen Apple Apple</span><br/>
+              <span >Pen Pineapple, Pen Pen Pen Apple Pen</span><br/>
+              <span>Pen Pineapple, Pen Pen Pen Apple Apple</span>
+            </div>
+          ))}
+          
+          </Typist>
+        </div>
+      </Banner>
       <Row justify="center" style={{ marginTop: '20px' }}>
         <Col span={16}>
           {Object.entries(fileDirs as DirectoryType).map(([categoryName, categoryDirs]) => (
