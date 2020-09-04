@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Layout } from 'antd'
 import MdEditor from './MdEditor'
 
@@ -23,10 +22,12 @@ const MdContent: React.FC<MdContentType> = ({
   const [selectedTab, setSelectedTab] = useState('preview')
   useEffect(() => {
     if (currentFileName) {
-      axios
-        .get(`${process.env.PUBLIC_URL}/api/${currentDirName}/${currentCateName}/${currentFileName}`)
+      fetch(`${process.env.PUBLIC_URL}/api/${currentDirName}/${currentCateName}/${currentFileName}`)
         .then((res) => {
-          setMdContent(res.data)
+          return res.text()
+        })
+        .then((data) => {
+          setMdContent(data)
         })
         .catch((err) => {})
     } else {

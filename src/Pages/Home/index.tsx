@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Row, Col, Popconfirm, Button } from 'antd'
+import { Row, Col } from 'antd'
 import styled from 'styled-components'
 import Typist from 'react-typist'
+import TodoList from './TodoList'
 
 const Banner = styled.div`
   background-image: url(${process.env.PUBLIC_URL}/anime-girl.jpeg);
   background-size: cover;
-  height: 600px;
-  background-position-y: -120px;
+  height: 550px;
+  background-position-y: -165px;
 `
 const Divider = styled.div`
   border-bottom: 1px solid #ebebeb;
@@ -50,6 +51,11 @@ const Home: React.FC = () => {
           </Typist>
         </div>
       </Banner>
+      <Row justify="center" style={{ marginTop: '20px' }}>
+        <Col span={16}>
+          <TodoList />
+        </Col>
+      </Row>
       <Row justify="center" style={{ marginTop: '20px' }}>
         <Col span={16}>
           {Object.entries(fileDirs as DirectoryType).map(([categoryName, categoryDirs]) => (

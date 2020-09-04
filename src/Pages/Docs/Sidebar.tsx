@@ -30,15 +30,15 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName,
       {Object.keys(fileDirs).length && (
         <Menu
           mode="inline"
-          selectedKeys={[currentFileName]}
+          selectedKeys={[`${currentCateName}_${currentFileName}`]}
           defaultOpenKeys={[currentCateName]}
           style={{ height: '100%', borderRight: 0 }}
         >
           {Object.entries(fileDirs as DirectoryType).map(([dirName, fileNames]) => (
             <SubMenu key={dirName} icon={<UserOutlined />} title={dirName}>
               {fileNames.map((fileName: itemType) => (
-                <Menu.Item key={fileName} title={fileName}>
-                  <Link to={`${fileName}`}>{fileName.split('.')[0]}</Link>
+                <Menu.Item key={`${dirName}_${fileName}`} title={fileName}>
+                  <Link to={`../${dirName}/${fileName}`}>{fileName.split('.')[0]}</Link>
                 </Menu.Item>
               ))}
             </SubMenu>

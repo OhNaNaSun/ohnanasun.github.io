@@ -1,4 +1,6 @@
 @import '~antd/dist/antd.css';
+@import '~react-mde/lib/styles/css/react-mde-all.css';
+
 .logo {
   width: 120px;
   height: 31px;
@@ -15,6 +17,9 @@
 }
 .hide_toolbar .mde-header {
   display: none;
+}
+.no_border {
+  border: none;
 }
 body {
   margin: 0;
