@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, message } from 'antd'
 import axios from 'axios'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 import MdContent from './Content/MdContent'
 import AppSidebar from './Sidebar'
 import BreadCrumb from './BreadCrumb'
@@ -11,6 +11,8 @@ const Container: React.FC = () => {
   const [, currentDirName, currentCateName, currentFileName] = pathname.split('/')
   const [mdContent, setMdContent] = useState('')
   const [isReadOnly, setIsReadOnly] = useState(false)
+  const history = useHistory()
+
   useEffect(() => {
     axios.get(`${process.env.PUBLIC_URL}/api/auth`).then((res) => {
       setIsReadOnly(!res.data)
@@ -25,11 +27,13 @@ const Container: React.FC = () => {
       })
       .then((res) => {
         message.success(res.statusText)
+        history.push(`/${currentDirName}/${currentCateName}/${newFileName}`)
       })
       .catch((error) => {
         message.error(error.message)
       })
   }
+  console.log('current file name', currentFileName)
   return (
     <Layout>
       <AppSidebar currentDirName={currentDirName} currentCateName={currentCateName} currentFileName={currentFileName} />

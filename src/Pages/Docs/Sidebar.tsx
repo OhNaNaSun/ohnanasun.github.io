@@ -24,7 +24,7 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName,
         setFileDirs(res.data)
       })
       .catch((err) => {})
-  }, [currentDirName])
+  }, [currentDirName, currentFileName])
   return (
     <Sider width={300} className="site-layout-background">
       {Object.keys(fileDirs).length && (
