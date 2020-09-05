@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Row, Col } from 'antd'
+import { Row, Col, Badge } from 'antd'
 import styled from 'styled-components'
 import Typist from 'react-typist'
 import TodoList from './TodoList'
@@ -58,9 +58,15 @@ const Home: React.FC = () => {
       </Row>
       <Row justify="center" style={{ marginTop: '20px' }}>
         <Col span={16}>
-          {Object.entries(fileDirs as DirectoryType).map(([categoryName, categoryDirs]) => (
+          {Object.entries(fileDirs as DirectoryType).map(([categoryName, categoryDirs], index) => (
             <div key={categoryName} style={{ marginTop: '40px' }}>
-              <h2 style={{ marginBottom: '40px' }}>{categoryName}</h2>
+              <h2 style={{ marginBottom: '40px' }}>
+                <Badge
+                  count={`Part ${index + 1}`}
+                  style={{ backgroundColor: 'rgb(155, 107, 107)', marginRight: '5px' }}
+                />
+                {categoryName}
+              </h2>
               {categoryDirs.map((categoryDir) =>
                 Object.entries(categoryDir).map(([fileDirName, fileNames]) => (
                   <section

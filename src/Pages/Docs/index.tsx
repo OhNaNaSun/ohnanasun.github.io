@@ -11,6 +11,7 @@ const Container: React.FC = () => {
   const [, currentDirName, currentCateName, currentFileName] = pathname.split('/')
   const [mdContent, setMdContent] = useState('')
   const [isReadOnly, setIsReadOnly] = useState(false)
+  const [lastUpdateTime, setLastUpdateTime] = useState('')
   const history = useHistory()
 
   useEffect(() => {
@@ -33,7 +34,6 @@ const Container: React.FC = () => {
         message.error(error.message)
       })
   }
-  console.log('current file name', currentFileName)
   return (
     <Layout>
       <AppSidebar currentDirName={currentDirName} currentCateName={currentCateName} currentFileName={currentFileName} />
@@ -46,6 +46,7 @@ const Container: React.FC = () => {
           saveItem={(newFileName: string): void => {
             postMdContent(newFileName)
           }}
+          lastUpdateTime={lastUpdateTime}
         />
         <MdContent
           isReadOnly={isReadOnly}
@@ -54,6 +55,9 @@ const Container: React.FC = () => {
           currentFileName={currentFileName}
           returnNewMdContent={(value: string): void => {
             setMdContent(value)
+          }}
+          returnLastUpdateTime={(value: string): void => {
+            setLastUpdateTime(value)
           }}
         />
       </Layout>

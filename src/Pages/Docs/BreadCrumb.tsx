@@ -10,6 +10,7 @@ interface BreadCrumbHeaderType {
   currentCateName: string
   currentFileName: string
   isReadOnly: boolean
+  lastUpdateTime: string
 }
 const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
   saveItem,
@@ -17,6 +18,7 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
   currentCateName,
   currentFileName,
   isReadOnly,
+  lastUpdateTime,
 }) => {
   const [fileName, setFileName] = useState(currentFileName)
   useEffect(() => {
@@ -49,6 +51,7 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
             </Link>
           </>
         )}
+        {lastUpdateTime}
       </Space>
     </div>
   )

@@ -9,6 +9,7 @@ interface MdContentType {
   currentCateName: string
   currentFileName: string
   isReadOnly: boolean
+  returnLastUpdateTime: Function
 }
 
 const MdContent: React.FC<MdContentType> = ({
@@ -17,6 +18,7 @@ const MdContent: React.FC<MdContentType> = ({
   currentCateName,
   currentFileName,
   isReadOnly,
+  returnLastUpdateTime,
 }) => {
   const [mdContent, setMdContent] = useState('')
   const [selectedTab, setSelectedTab] = useState('preview')
@@ -24,6 +26,7 @@ const MdContent: React.FC<MdContentType> = ({
     if (currentFileName) {
       fetch(`${process.env.PUBLIC_URL}/api/${currentDirName}/${currentCateName}/${currentFileName}`)
         .then((res) => {
+          returnLastUpdateTime(new Date(res.headers.get('last-modified') || '')?.toLocaleString())
           return res.text()
         })
         .then((data) => {
@@ -33,7 +36,7 @@ const MdContent: React.FC<MdContentType> = ({
     } else {
       setMdContent('')
     }
-  }, [currentCateName, currentDirName, currentFileName, setMdContent])
+  }, [currentCateName, currentDirName, currentFileName, returnLastUpdateTime, setMdContent])
   useEffect(() => {
     setSelectedTab(!currentFileName ? 'write' : 'preview')
   }, [currentFileName])
