@@ -27,7 +27,13 @@ const MdContent: React.FC<MdContentType> = ({
     if (currentFileName) {
       fetch(`${process.env.PUBLIC_URL}/api/${currentDirName}/${currentCateName}/${currentFileName}`)
         .then((res) => {
-          setLastUpdatedTime(new Date(res.headers.get('last-modified') || '')?.toLocaleString())
+          setLastUpdatedTime(
+            new Date(res.headers.get('last-modified') || '')?.toLocaleDateString('en-us', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            })
+          )
           return res.text()
         })
         .then((data) => {

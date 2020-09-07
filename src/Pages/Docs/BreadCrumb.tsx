@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Input, Space } from 'antd'
-import { SaveOutlined, PlusOutlined, HomeOutlined } from '@ant-design/icons'
+import { SaveOutlined, PlusOutlined, HomeOutlined, CalendarOutlined } from '@ant-design/icons'
 
 import { Link } from 'react-router-dom'
 
@@ -51,6 +51,7 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
             </Link>
           </>
         )}
+        <CalendarOutlined />
         {lastUpdateTime}
       </Space>
     </div>

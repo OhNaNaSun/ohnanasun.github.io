@@ -59,7 +59,7 @@ const Home: React.FC = () => {
         <Col span={16}>
           {Object.entries(fileDirs as DirectoryType).map(([categoryName, categoryDirs], index) => (
             <div key={categoryName} style={{ marginTop: '40px' }}>
-              <h2 style={{ marginBottom: '40px' }}>
+              <h2 style={{ marginBottom: '40px', display: 'flex', alignItems: 'center' }}>
                 <Badge
                   count={`Part ${index + 1}`}
                   style={{ backgroundColor: 'rgb(155, 107, 107)', marginRight: '5px' }}
