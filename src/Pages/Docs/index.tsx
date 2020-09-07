@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, message } from 'antd'
-import axios from 'axios'
 import { useLocation, useHistory } from 'react-router-dom'
 import MdContent from './Content/MdContent'
 import AppSidebar from './Sidebar'
@@ -15,17 +14,24 @@ const Container: React.FC = () => {
   const history = useHistory()
 
   useEffect(() => {
-    axios.get(`${process.env.PUBLIC_URL}/api/auth`).then((res) => {
-      setIsReadOnly(!res.data)
-    })
+    fetch(`${process.env.PUBLIC_URL}/api/auth`)
+      .then((res) => res.json())
+      .then((data) => {
+        setIsReadOnly(!data)
+      })
   }, [])
 
   const postMdContent = (newFileName: string): void => {
-    axios
-      .post(`${process.env.PUBLIC_URL}/api/files/upload`, {
+    fetch(`${process.env.PUBLIC_URL}/api/files/upload`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
         name: `${currentDirName}/${currentCateName}/${newFileName}`,
         mdContent,
-      })
+      }),
+    })
       .then((res) => {
         message.success(res.statusText)
         history.push(`/${currentDirName}/${currentCateName}/${newFileName}`)

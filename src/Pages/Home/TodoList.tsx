@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import ReactMde from 'react-mde'
 import * as Showdown from 'showdown'
 
@@ -12,9 +11,11 @@ const converter = new Showdown.Converter({
 const TodoList: React.FC = () => {
   const [todoMdContent, setTodoMdContent] = useState('')
   useEffect(() => {
-    axios.get(`${process.env.PUBLIC_URL}/api/tutorial.md`).then((res) => {
-      setTodoMdContent(res.data)
-    })
+    fetch(`${process.env.PUBLIC_URL}/api/tutorial.md`)
+      .then((res) => res.text())
+      .then((data) => {
+        setTodoMdContent(data)
+      })
   }, [])
   return (
     <>

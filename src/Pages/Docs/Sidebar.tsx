@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Layout, Menu } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
@@ -18,10 +17,10 @@ interface AppSidebarType {
 const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName, currentFileName }) => {
   const [fileDirs, setFileDirs] = useState({})
   useEffect(() => {
-    axios
-      .get(`${process.env.PUBLIC_URL}/api/files/${currentDirName}`)
-      .then((res) => {
-        setFileDirs(res.data)
+    fetch(`${process.env.PUBLIC_URL}/api/files/${currentDirName}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFileDirs(data)
       })
       .catch((err) => {})
   }, [currentDirName, currentFileName])

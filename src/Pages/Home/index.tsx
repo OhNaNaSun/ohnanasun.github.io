@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Row, Col, Badge } from 'antd'
 import styled from 'styled-components'
 import Typist from 'react-typist'
@@ -24,10 +23,10 @@ interface DirectoryType {
 const Home: React.FC = () => {
   const [fileDirs, setFileDirs] = useState({})
   useEffect(() => {
-    axios
-      .get(`./api/files`)
-      .then((res) => {
-        setFileDirs(res.data)
+    fetch(`./api/files`)
+      .then((response) => response.json())
+      .then((data) => {
+        setFileDirs(data)
       })
       .catch((err) => {})
   }, [])
