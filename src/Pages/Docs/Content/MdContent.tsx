@@ -22,11 +22,12 @@ const MdContent: React.FC<MdContentType> = ({
 }) => {
   const [mdContent, setMdContent] = useState('')
   const [selectedTab, setSelectedTab] = useState('preview')
+  const [lastUpdatedTime, setLastUpdatedTime] = useState('')
   useEffect(() => {
     if (currentFileName) {
       fetch(`${process.env.PUBLIC_URL}/api/${currentDirName}/${currentCateName}/${currentFileName}`)
         .then((res) => {
-          returnLastUpdateTime(new Date(res.headers.get('last-modified') || '')?.toLocaleString())
+          setLastUpdatedTime(new Date(res.headers.get('last-modified') || '')?.toLocaleString())
           return res.text()
         })
         .then((data) => {
@@ -36,7 +37,10 @@ const MdContent: React.FC<MdContentType> = ({
     } else {
       setMdContent('')
     }
-  }, [currentCateName, currentDirName, currentFileName, returnLastUpdateTime, setMdContent])
+  }, [currentCateName, currentDirName, currentFileName, setLastUpdatedTime, setMdContent])
+  useEffect(() => {
+    returnLastUpdateTime(lastUpdatedTime)
+  }, [lastUpdatedTime, returnLastUpdateTime])
   useEffect(() => {
     setSelectedTab(!currentFileName ? 'write' : 'preview')
   }, [currentFileName])
