@@ -7,7 +7,8 @@ import BreadCrumb from './BreadCrumb'
 
 const Container: React.FC = () => {
   const { pathname } = useLocation()
-  const [, currentDirName, currentCateName, currentFileName] = pathname.split('/')
+  const [, currentDirName, currentCateName, currentPathFileName] = pathname.split('/')
+  const currentFileName = currentPathFileName === 'add' ? '' : currentPathFileName
   const [mdContent, setMdContent] = useState('')
   const [isReadOnly, setIsReadOnly] = useState(false)
   const [lastUpdateTime, setLastUpdateTime] = useState('')

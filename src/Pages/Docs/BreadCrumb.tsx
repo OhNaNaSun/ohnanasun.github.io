@@ -26,11 +26,13 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
   }, [currentFileName])
   return (
     <div style={{ margin: '16px 0' }}>
-      <Space>
+      <Space size="middle">
         <Link className="text" to="/">
           <HomeOutlined />
         </Link>
-        {currentDirName} / {currentCateName} /
+        <span>
+          {currentDirName} / {currentCateName} /
+        </span>
         <Input
           style={{ width: '300px' }}
           value={fileName}
@@ -46,13 +48,14 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
                 saveItem(fileName)
               }}
             />
-            <Link to={`/${currentDirName}/${currentCateName}`}>
+            <Link to={`/${currentDirName}/${currentCateName}/add`}>
               <PlusOutlined />
             </Link>
           </>
         )}
-        <CalendarOutlined />
-        {lastUpdateTime}
+        <span>
+          <CalendarOutlined /> {lastUpdateTime}
+        </span>
       </Space>
     </div>
   )
