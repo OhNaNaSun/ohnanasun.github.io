@@ -34,7 +34,7 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
           {currentDirName} / {currentCateName} /
         </span>
         <Input
-          style={{ width: '300px' }}
+          style={{ width: '600px' }}
           value={fileName}
           onChange={(e): void => {
             setFileName(e.target.value)

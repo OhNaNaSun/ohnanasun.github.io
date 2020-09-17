@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Layout, Menu } from 'antd'
-import { UserOutlined } from '@ant-design/icons'
+import { Divider } from 'antd'
 import { Link } from 'react-router-dom'
 
-const { Sider } = Layout
-const { SubMenu } = Menu
 type itemType = string
 interface DirectoryType {
   [key: string]: Array<itemType>
@@ -24,27 +21,30 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName,
       })
       .catch((err) => {})
   }, [currentDirName, currentFileName])
+  const currentPathName = currentCateName + currentFileName
   return (
-    <Sider width={300} className="site-layout-background">
-      {Object.keys(fileDirs).length && (
-        <Menu
-          mode="inline"
-          selectedKeys={[`${currentCateName}_${currentFileName}`]}
-          defaultOpenKeys={[currentCateName]}
-          style={{ height: '100%', borderRight: 0 }}
-        >
-          {Object.entries(fileDirs as DirectoryType).map(([dirName, fileNames]) => (
-            <SubMenu key={dirName} icon={<UserOutlined />} title={dirName}>
+    <>
+      {Object.keys(fileDirs).length &&
+        Object.entries(fileDirs as DirectoryType).map(([dirName, fileNames]) => (
+          <section key={dirName} style={{ marginBottom: '5px', counterIncrement: 'a' }}>
+            <h3>{dirName}</h3>
+            <Divider style={{ margin: '5px 0' }} />
+            <ul key={dirName} style={{ columns: 2 }} className="list" title={dirName}>
               {fileNames.map((fileName: itemType) => (
-                <Menu.Item key={`${dirName}_${fileName}`} title={fileName}>
-                  <Link to={`../${dirName}/${fileName}`}>{fileName.split('.')[0]}</Link>
-                </Menu.Item>
+                <li
+                  className={`list_item ${currentPathName === dirName + fileName ? 'selected' : ''}`}
+                  key={`${dirName}_${fileName}`}
+                  title={fileName}
+                >
+                  <div>
+                    <Link to={`../${dirName}/${fileName}`}>{fileName.split('.')[0]}</Link>
+                  </div>
+                </li>
               ))}
-            </SubMenu>
-          ))}
-        </Menu>
-      )}
-    </Sider>
+            </ul>
+          </section>
+        ))}
+    </>
   )
 }
 export default AppSidebar

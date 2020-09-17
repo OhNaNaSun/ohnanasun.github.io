@@ -108,3 +108,6 @@ li.list_item {
 .text {
   color: rgba(0, 0, 0, 0.65);
 }
+.selected {
+  background-color: antiquewhite;
+}

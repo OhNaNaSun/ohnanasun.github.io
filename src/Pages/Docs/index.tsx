@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, message } from 'antd'
+import { message, Row, Col } from 'antd'
 import { useLocation, useHistory } from 'react-router-dom'
 import MdContent from './Content/MdContent'
 import AppSidebar from './Sidebar'
@@ -42,33 +42,43 @@ const Container: React.FC = () => {
       })
   }
   return (
-    <Layout>
-      <AppSidebar currentDirName={currentDirName} currentCateName={currentCateName} currentFileName={currentFileName} />
-      <Layout style={{ padding: '0 24px 24px' }}>
-        <BreadCrumb
-          currentDirName={currentDirName}
-          currentCateName={currentCateName}
-          currentFileName={currentFileName}
-          isReadOnly={isReadOnly}
-          saveItem={(newFileName: string): void => {
-            postMdContent(newFileName)
-          }}
-          lastUpdateTime={lastUpdateTime}
-        />
-        <MdContent
-          isReadOnly={isReadOnly}
-          currentDirName={currentDirName}
-          currentCateName={currentCateName}
-          currentFileName={currentFileName}
-          returnNewMdContent={(value: string): void => {
-            setMdContent(value)
-          }}
-          returnLastUpdateTime={(value: string): void => {
-            setLastUpdateTime(value)
-          }}
-        />
-      </Layout>
-    </Layout>
+    <>
+      <Row justify="center" style={{ marginTop: '20px' }}>
+        <Col span={18}>
+          <AppSidebar
+            currentDirName={currentDirName}
+            currentCateName={currentCateName}
+            currentFileName={currentFileName}
+          />
+        </Col>
+      </Row>
+      <Row justify="center" style={{ marginTop: '20px' }}>
+        <Col span={18}>
+          <BreadCrumb
+            currentDirName={currentDirName}
+            currentCateName={currentCateName}
+            currentFileName={currentFileName}
+            isReadOnly={isReadOnly}
+            saveItem={(newFileName: string): void => {
+              postMdContent(newFileName)
+            }}
+            lastUpdateTime={lastUpdateTime}
+          />
+          <MdContent
+            isReadOnly={isReadOnly}
+            currentDirName={currentDirName}
+            currentCateName={currentCateName}
+            currentFileName={currentFileName}
+            returnNewMdContent={(value: string): void => {
+              setMdContent(value)
+            }}
+            returnLastUpdateTime={(value: string): void => {
+              setLastUpdateTime(value)
+            }}
+          />
+        </Col>
+      </Row>
+    </>
   )
 }
 export default Container
