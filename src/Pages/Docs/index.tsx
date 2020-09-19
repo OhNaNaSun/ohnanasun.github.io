@@ -52,7 +52,7 @@ const Container: React.FC = () => {
           />
         </Col>
       </Row>
-      <Row justify="center" style={{ marginTop: '20px' }}>
+      <Row justify="center" style={{ margin: '20px 0' }}>
         <Col span={18}>
           <BreadCrumb
             currentDirName={currentDirName}

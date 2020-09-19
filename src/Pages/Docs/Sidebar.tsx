@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Divider } from 'antd'
+import { Divider, message } from 'antd'
 import { Link } from 'react-router-dom'
+
+import { DeleteOutlined } from '@ant-design/icons'
 
 type itemType = string
 interface DirectoryType {
@@ -13,15 +15,34 @@ interface AppSidebarType {
 }
 const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName, currentFileName }) => {
   const [fileDirs, setFileDirs] = useState({})
+  const [defaultFileName, setDefaultName] = useState('')
+  const [deletedCount, setDeletedCount] = useState(0)
   useEffect(() => {
     fetch(`${process.env.PUBLIC_URL}/api/files/${currentDirName}`)
       .then((res) => res.json())
       .then((data) => {
         setFileDirs(data)
+        if (data && typeof data === 'object') {
+          const firstFileName = ([] as string[]).concat(...Object.values(data as DirectoryType))
+          setDefaultName(firstFileName[0])
+        }
       })
       .catch((err) => {})
-  }, [currentDirName, currentFileName])
+  }, [currentDirName, currentFileName, deletedCount])
   const currentPathName = currentCateName + currentFileName
+  const deleteFile = (filePath: string): void => {
+    fetch(`${process.env.PUBLIC_URL}/api/files/${encodeURIComponent(filePath)}`, {
+      method: 'DELETE',
+    })
+      .then((res) => res.text())
+      .then((data) => {
+        message.success(data)
+        setDeletedCount(deletedCount + 1)
+      })
+      .catch((err) => {
+        message.error(err.message)
+      })
+  }
   return (
     <>
       {Object.keys(fileDirs).length &&
@@ -38,6 +59,12 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName,
                 >
                   <div>
                     <Link to={`../${dirName}/${fileName}`}>{fileName.split('.')[0]}</Link>
+                    <DeleteOutlined
+                      style={{ float: 'right' }}
+                      onClick={(): void => {
+                        deleteFile(`${currentDirName}/${dirName}/${fileName}`)
+                      }}
+                    />
                   </div>
                 </li>
               ))}
