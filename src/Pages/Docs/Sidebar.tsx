@@ -34,10 +34,14 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName,
     fetch(`${process.env.PUBLIC_URL}/api/files/${encodeURIComponent(filePath)}`, {
       method: 'DELETE',
     })
-      .then((res) => res.text())
-      .then((data) => {
-        message.success(data)
-        setDeletedCount(deletedCount + 1)
+      .then((res) => res.json())
+      .then((data: { statusCode: number; message: string }) => {
+        if (data.statusCode === 200) {
+          message.success(data.message)
+          setDeletedCount(deletedCount + 1)
+        } else {
+          message.error(data.message)
+        }
       })
       .catch((err) => {
         message.error(err.message)
