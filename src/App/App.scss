@@ -86,25 +86,27 @@ ul.list {
   column-gap: 10px;
   -webkit-columns: 3;
   columns: 3;
+
+  li.list_item {
+    counter-increment: b;
+    margin-bottom: 2px;
+    div {
+      position: relative;
+      padding-left: 38px;
+      margin-bottom: 2px;
+      &:before {
+        position: absolute;
+        top: 4px;
+        left: 0;
+        font-family: Consolas, Lucida Console, Menlo, Monaco, monospace;
+        font-size: 12px;
+        line-height: 16px;
+        content: counter(a) '.' counter(b);
+      }
+    }
+  }
 }
-li.list_item div {
-  position: relative;
-  padding-left: 38px;
-  margin-bottom: 2px;
-}
-li.list_item div:before {
-  position: absolute;
-  top: 4px;
-  left: 0;
-  font-family: Consolas, Lucida Console, Menlo, Monaco, monospace;
-  font-size: 12px;
-  line-height: 16px;
-  content: counter(a) '.' counter(b);
-}
-li.list_item {
-  counter-increment: b;
-  margin-bottom: 2px;
-}
+
 .text {
   color: rgba(0, 0, 0, 0.65);
 }
