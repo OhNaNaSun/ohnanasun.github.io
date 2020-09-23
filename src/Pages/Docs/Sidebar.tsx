@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Divider, message } from 'antd'
+import { Divider, message, Collapse } from 'antd'
 import { Link } from 'react-router-dom'
 
 import { DeleteOutlined } from '@ant-design/icons'
 
+const { Panel } = Collapse
 type itemType = string
 interface DirectoryType {
   [key: string]: Array<itemType>
@@ -48,34 +49,35 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName,
       })
   }
   return (
-    <>
+    <Collapse defaultActiveKey={[currentCateName]} ghost>
       {Object.keys(fileDirs).length &&
         Object.entries(fileDirs as DirectoryType).map(([dirName, fileNames]) => (
-          <section key={dirName} style={{ marginBottom: '5px', counterIncrement: 'a' }}>
-            <h3>{dirName}</h3>
+          <Panel header={<h3>{dirName}</h3>} key={dirName}>
             <Divider style={{ margin: '5px 0' }} />
-            <ul key={dirName} style={{ columns: 2 }} className="list" title={dirName}>
-              {fileNames.map((fileName: itemType) => (
-                <li
-                  className={`list_item ${currentPathName === dirName + fileName ? 'selected' : ''}`}
-                  key={`${dirName}_${fileName}`}
-                  title={fileName}
-                >
-                  <div>
-                    <Link to={`../${dirName}/${fileName}`}>{fileName.split('.')[0]}</Link>
-                    <DeleteOutlined
-                      style={{ float: 'right' }}
-                      onClick={(): void => {
-                        deleteFile(`${currentDirName}/${dirName}/${fileName}`)
-                      }}
-                    />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </section>
+            <section key={dirName} style={{ marginBottom: '5px', counterIncrement: 'a' }}>
+              <ul key={dirName} style={{ columns: 2 }} className="list" title={dirName}>
+                {fileNames.map((fileName: itemType) => (
+                  <li
+                    className={`list_item ${currentPathName === dirName + fileName ? 'selected' : ''}`}
+                    key={`${dirName}_${fileName}`}
+                    title={fileName}
+                  >
+                    <div>
+                      <Link to={`../${dirName}/${fileName}`}>{fileName.split('.')[0]}</Link>
+                      <DeleteOutlined
+                        style={{ float: 'right', lineHeight: 'inherit' }}
+                        onClick={(): void => {
+                          deleteFile(`${currentDirName}/${dirName}/${fileName}`)
+                        }}
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </Panel>
         ))}
-    </>
+    </Collapse>
   )
 }
 export default AppSidebar
