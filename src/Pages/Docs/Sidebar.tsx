@@ -3,6 +3,7 @@ import { Divider, message, Collapse } from 'antd'
 import { Link } from 'react-router-dom'
 
 import { DeleteOutlined } from '@ant-design/icons'
+import styled from 'styled-components'
 
 const { Panel } = Collapse
 type itemType = string
@@ -14,42 +15,47 @@ interface AppSidebarType {
   currentCateName: string
   currentFileName: string
 }
+const StyledCollapse = styled(Collapse)`
+  font-size: 16px;
+`
 const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName, currentFileName }) => {
   const [fileDirs, setFileDirs] = useState({})
   const [defaultFileName, setDefaultName] = useState('')
   const [deletedCount, setDeletedCount] = useState(0)
   useEffect(() => {
-    fetch(`${process.env.PUBLIC_URL}/api/files/${currentDirName}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setFileDirs(data)
-        if (data && typeof data === 'object') {
-          const firstFileName = ([] as string[]).concat(...Object.values(data as DirectoryType))
+    ;(async (): Promise<void> => {
+      try {
+        const fileListResponse = await fetch(`${process.env.PUBLIC_URL}/api/files/${currentDirName}`)
+        const fileList = await fileListResponse.json()
+        setFileDirs(fileList)
+        if (fileList && typeof fileList === 'object') {
+          const firstFileName = ([] as string[]).concat(...Object.values(fileList as DirectoryType))
           setDefaultName(firstFileName[0])
         }
-      })
-      .catch((err) => {})
+      } catch (err) {
+        message.error(err)
+      }
+    })()
   }, [currentDirName, currentFileName, deletedCount])
   const currentPathName = currentCateName + currentFileName
-  const deleteFile = (filePath: string): void => {
-    fetch(`${process.env.PUBLIC_URL}/api/files/${encodeURIComponent(filePath)}`, {
-      method: 'DELETE',
-    })
-      .then((res) => res.json())
-      .then((data: { statusCode: number; message: string }) => {
-        if (data.statusCode === 200) {
-          message.success(data.message)
-          setDeletedCount(deletedCount + 1)
-        } else {
-          message.error(data.message)
-        }
+  const deleteFile = async (filePath: string): Promise<void> => {
+    try {
+      const deleteFileResponse = await fetch(`${process.env.PUBLIC_URL}/api/files/${encodeURIComponent(filePath)}`, {
+        method: 'DELETE',
       })
-      .catch((err) => {
-        message.error(err.message)
-      })
+      const resData = await deleteFileResponse.json()
+      if (resData.statusCode === 200) {
+        message.success(resData.message)
+        setDeletedCount(deletedCount + 1)
+      } else {
+        message.error(resData.message)
+      }
+    } catch (err) {
+      message.error(err.message)
+    }
   }
   return (
-    <Collapse defaultActiveKey={[currentCateName]} ghost>
+    <StyledCollapse defaultActiveKey={[currentCateName]} ghost>
       {Object.keys(fileDirs).length &&
         Object.entries(fileDirs as DirectoryType).map(([dirName, fileNames]) => (
           <Panel header={<h3>{dirName}</h3>} key={dirName}>
@@ -77,7 +83,7 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName,
             </section>
           </Panel>
         ))}
-    </Collapse>
+    </StyledCollapse>
   )
 }
 export default AppSidebar

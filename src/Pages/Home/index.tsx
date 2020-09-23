@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Row, Col, Badge } from 'antd'
+import { Row, Col, Badge, message } from 'antd'
 import styled from 'styled-components'
 import Typist from 'react-typist'
 import TodoList from './TodoList'
@@ -23,12 +23,15 @@ interface DirectoryType {
 const Home: React.FC = () => {
   const [fileDirs, setFileDirs] = useState({})
   useEffect(() => {
-    fetch(`./api/files`)
-      .then((response) => response.json())
-      .then((data) => {
-        setFileDirs(data)
-      })
-      .catch((err) => {})
+    ;(async (): Promise<void> => {
+      try {
+        const fileMapResponse = await fetch(`./api/files`)
+        const fileMap = await fileMapResponse.json()
+        setFileDirs(fileMap)
+      } catch (err) {
+        message.error(err)
+      }
+    })()
   }, [])
 
   return (

@@ -24,25 +24,24 @@ const MdContent: React.FC<MdContentType> = ({
   const [selectedTab, setSelectedTab] = useState('preview')
   const [lastUpdatedTime, setLastUpdatedTime] = useState('')
   useEffect(() => {
-    if (currentFileName) {
-      fetch(`${process.env.PUBLIC_URL}/api/${currentDirName}/${currentCateName}/${currentFileName}`)
-        .then((res) => {
-          setLastUpdatedTime(
-            new Date(res.headers.get('last-modified') || '')?.toLocaleDateString('en-us', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-            })
-          )
-          return res.text()
-        })
-        .then((data) => {
-          setMdContent(data)
-        })
-        .catch((err) => {})
-    } else {
-      setMdContent('')
-    }
+    ;(async (): Promise<void> => {
+      if (currentFileName) {
+        const fileResponse = await fetch(
+          `${process.env.PUBLIC_URL}/api/${currentDirName}/${currentCateName}/${currentFileName}`
+        )
+        setLastUpdatedTime(
+          new Date(fileResponse.headers.get('last-modified') || '')?.toLocaleDateString('en-us', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          })
+        )
+        const fileText = await fileResponse.text()
+        setMdContent(fileText)
+      } else {
+        setMdContent('')
+      }
+    })()
   }, [currentCateName, currentDirName, currentFileName, setLastUpdatedTime, setMdContent])
   useEffect(() => {
     returnLastUpdateTime(lastUpdatedTime)

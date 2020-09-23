@@ -27,7 +27,7 @@ const MdEditor: React.FC<MdEditorType> = ({ mdContent, changeMdContent, selected
         classes={readOnly ? { reactMde: 'hide_toolbar' } : {}}
         selectedTab={selectedTab as MdEditorType['selectedTab']}
         onTabChange={changeSelectedTab}
-        generateMarkdownPreview={(markdown: string): Promise<any> => Promise.resolve(converter.makeHtml(markdown))}
+        generateMarkdownPreview={(markdown: string): Promise<string> => Promise.resolve(converter.makeHtml(markdown))}
       />
     </div>
   )

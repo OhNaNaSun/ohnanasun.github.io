@@ -11,11 +11,11 @@ const converter = new Showdown.Converter({
 const TodoList: React.FC = () => {
   const [todoMdContent, setTodoMdContent] = useState('')
   useEffect(() => {
-    fetch(`${process.env.PUBLIC_URL}/api/tutorial.md`)
-      .then((res) => res.text())
-      .then((data) => {
-        setTodoMdContent(data)
-      })
+    ;(async (): Promise<void> => {
+      const tutorialReponse = await fetch(`${process.env.PUBLIC_URL}/api/tutorial.md`)
+      const tutorialText = await tutorialReponse.text()
+      setTodoMdContent(tutorialText)
+    })()
   }, [])
   return (
     <>
@@ -25,7 +25,7 @@ const TodoList: React.FC = () => {
         value={todoMdContent}
         classes={{ reactMde: 'hide_toolbar no_border' }}
         selectedTab="preview"
-        generateMarkdownPreview={(markdown: string): Promise<any> => Promise.resolve(converter.makeHtml(markdown))}
+        generateMarkdownPreview={(markdown: string): Promise<string> => Promise.resolve(converter.makeHtml(markdown))}
       />
     </>
   )

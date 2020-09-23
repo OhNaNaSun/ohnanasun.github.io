@@ -15,31 +15,31 @@ const Container: React.FC = () => {
   const history = useHistory()
 
   useEffect(() => {
-    fetch(`${process.env.PUBLIC_URL}/api/auth`)
-      .then((res) => res.json())
-      .then((data) => {
-        setIsReadOnly(!data)
-      })
+    ;(async (): Promise<void> => {
+      const authResponse = await fetch(`${process.env.PUBLIC_URL}/api/auth`)
+      const authData = await authResponse.json()
+      setIsReadOnly(!authData)
+    })()
   }, [])
 
-  const postMdContent = (newFileName: string): void => {
-    fetch(`${process.env.PUBLIC_URL}/api/files/upload`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify({
-        name: `${currentDirName}/${currentCateName}/${newFileName}`,
-        mdContent,
-      }),
-    })
-      .then((res) => {
-        message.success(res.statusText)
-        history.push(`/${currentDirName}/${currentCateName}/${newFileName}`)
+  const postMdContent = async (newFileName: string): Promise<void> => {
+    try {
+      const uploadFileResponse = await fetch(`${process.env.PUBLIC_URL}/api/files/upload`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify({
+          name: `${currentDirName}/${currentCateName}/${newFileName}`,
+          mdContent,
+        }),
       })
-      .catch((error) => {
-        message.error(error.message)
-      })
+      const { statusText } = uploadFileResponse
+      message.success(statusText)
+      history.push(`/${currentDirName}/${currentCateName}/${newFileName}`)
+    } catch (error) {
+      message.error(error.message)
+    }
   }
   return (
     <>
