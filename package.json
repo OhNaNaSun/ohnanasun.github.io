@@ -20,7 +20,6 @@
     "eslint-plugin-jest-dom": "^3.1.4",
     "eslint-plugin-testing-library": "^3.3.2",
     "http-proxy-middleware": "^1.0.5",
-    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-mde": "^10.1.0",

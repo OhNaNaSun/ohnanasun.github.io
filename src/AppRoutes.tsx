@@ -1,10 +1,9 @@
 import React from 'react'
-import './App.scss'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
-import Home from '../Pages/Home'
-import Docs from '../Pages/Docs'
+import Home from './Pages/Home'
+import Docs from './Pages/Docs'
 
-const App: React.FC = () => {
+const AppRoute: React.FC = () => {
   return (
     <Router>
       <Switch>
@@ -18,4 +17,4 @@ const App: React.FC = () => {
     </Router>
   )
 }
-export default App
+export default AppRoute

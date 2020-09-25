@@ -1,10 +1,12 @@
-@import '~antd/dist/antd.css';
-@import '~react-mde/lib/styles/css/react-mde-all.css';
+import 'antd/dist/antd.css'
+import 'react-mde/lib/styles/css/react-mde-all.css'
+import { createGlobalStyle } from 'styled-components'
 
+const GlobalStyle = createGlobalStyle`
 .logo {
   width: 120px;
   height: 31px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.3);
   margin: 16px 28px 16px 0;
   float: left;
 }
@@ -12,8 +14,12 @@
 .site-layout-background {
   background: #fff;
 }
-.logo {
-  background: rgba(255, 255, 255, 0.3);
+
+.text {
+  color: rgba(0, 0, 0, 0.65);
+}
+.selected {
+  background-color: antiquewhite;
 }
 .hide_toolbar .mde-header {
   display: none;
@@ -61,7 +67,8 @@ pre,
 td,
 th,
 ul {
-  margin: 0;
+  margin: 0;@import '~antd/dist/antd.css';
+@import '~react-mde/lib/styles/css/react-mde-all.css';
   padding: 0;
 }
 
@@ -106,10 +113,5 @@ ul.list {
     }
   }
 }
-
-.text {
-  color: rgba(0, 0, 0, 0.65);
-}
-.selected {
-  background-color: antiquewhite;
-}
+`
+export default GlobalStyle
