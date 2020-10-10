@@ -43,7 +43,7 @@ const Container: React.FC = () => {
   }
   return (
     <>
-      <Row justify="center" style={{ marginTop: '20px' }}>
+      <Row justify="center" style={{ marginTop: '20px', marginLeft: '-20px' }}>
         <Col span={18}>
           <AppSidebar
             currentDirName={currentDirName}

@@ -17,6 +17,13 @@ interface AppSidebarType {
 }
 const StyledCollapse = styled(Collapse)`
   font-size: 16px;
+  .ant-collapse-item > .ant-collapse-content-box {
+    padding-top: 10px;
+  }
+  .ant-collapse-item > .ant-collapse-header {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 `
 const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName, currentFileName }) => {
   const [fileDirs, setFileDirs] = useState({})
@@ -59,9 +66,9 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName,
       {Object.keys(fileDirs).length &&
         Object.entries(fileDirs as DirectoryType).map(([dirName, fileNames]) => (
           <Panel header={<h3>{dirName}</h3>} key={dirName}>
-            <Divider style={{ margin: '5px 0' }} />
-            <section key={dirName} style={{ marginBottom: '5px', counterIncrement: 'a' }}>
-              <ul key={dirName} style={{ columns: 2 }} className="list" title={dirName}>
+            <Divider style={{ marginTop: '0', marginBottom: '3px' }} />
+            <section key={dirName} style={{ margin: '20px 0 5px 20px' }}>
+              <ol key={dirName} style={{ columns: 1 }} title={dirName}>
                 {fileNames.map((fileName: itemType) => (
                   <li
                     className={`list_item ${currentPathName === dirName + fileName ? 'selected' : ''}`}
@@ -79,7 +86,7 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName,
                     </div>
                   </li>
                 ))}
-              </ul>
+              </ol>
             </section>
           </Panel>
         ))}
