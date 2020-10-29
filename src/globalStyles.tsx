@@ -28,11 +28,13 @@ const GlobalStyle = createGlobalStyle`
   border: none;
 }
 body {
-  margin: 0;
-  font: 16px/20px BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 20px;
+    margin: 5% auto;
+    background: #f2f2f2;
+    color: #444444;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    text-shadow: 0 1px 0 #ffffff;
 }
 
 code {
@@ -96,17 +98,16 @@ ul.list {
 
   li.list_item {
     counter-increment: b;
-    margin-bottom: 2px;
     div {
       position: relative;
       padding-left: 38px;
       margin-bottom: 2px;
       &:before {
         position: absolute;
-        top: 4px;
+        top: 7px;
         left: 0;
         font-family: Consolas, Lucida Console, Menlo, Monaco, monospace;
-        font-size: 12px;
+        font-size: 50%;
         line-height: 16px;
         content: counter(a) '.' counter(b);
       }
