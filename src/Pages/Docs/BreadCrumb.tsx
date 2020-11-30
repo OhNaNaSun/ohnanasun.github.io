@@ -33,30 +33,31 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
         <span>
           {currentDirName} / {currentCateName} /
         </span>
-        <Input
-          style={{ width: '600px' }}
-          value={fileName}
-          onChange={(e): void => {
-            setFileName(e.target.value)
-          }}
-          readOnly={isReadOnly}
-        />
-        {!isReadOnly && (
-          <>
-            <SaveOutlined
-              onClick={(): void => {
-                saveItem(fileName)
-              }}
-            />
-            <Link to={`/${currentDirName}/${currentCateName}/add`}>
-              <PlusOutlined />
-            </Link>
-          </>
-        )}
-        <span>
-          <CalendarOutlined /> {lastUpdateTime}
-        </span>
       </Space>
+      <br />
+      <Input
+        value={fileName}
+        style={{ display: 'table-cell', width: '100%' }}
+        onChange={(e): void => {
+          setFileName(e.target.value)
+        }}
+        readOnly={isReadOnly}
+      />
+      {!isReadOnly && (
+        <span style={{ display: 'table-cell', width: '200px' }}>
+          <SaveOutlined
+            onClick={(): void => {
+              saveItem(fileName)
+            }}
+          />
+          <Link to={`/${currentDirName}/${currentCateName}/add`}>
+            <PlusOutlined />
+          </Link>
+        </span>
+      )}
+      <span style={{ display: 'table-cell', width: '300px' }}>
+        <CalendarOutlined /> {lastUpdateTime}
+      </span>
     </div>
   )
 }

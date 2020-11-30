@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { message, Row, Col } from 'antd'
 import { useLocation, useHistory } from 'react-router-dom'
+import PageHeader from 'components/PageHeader'
 import MdContent from './Content/MdContent'
 import AppSidebar from './Sidebar'
 import BreadCrumb from './BreadCrumb'
@@ -43,6 +44,7 @@ const Container: React.FC = () => {
   }
   return (
     <>
+      <PageHeader />
       <Row justify="center" style={{ marginTop: '20px', marginLeft: '-20px' }}>
         <Col span={18}>
           <AppSidebar

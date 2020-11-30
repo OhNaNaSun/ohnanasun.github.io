@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Badge, message } from 'antd'
 import styled from 'styled-components'
-import Typist from 'react-typist'
+import PageHeader from 'components/PageHeader'
 import TodoList from './TodoList'
 
-const Banner = styled.div`
-  background-image: url(${process.env.PUBLIC_URL}/anime-girl.jpeg);
-  background-size: cover;
-  height: 550px;
-  background-position-y: -165px;
-`
 const Divider = styled.div`
   border-bottom: 1px solid #ebebeb;
   margin-bottom: 16px;
@@ -36,23 +30,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Banner>
-        <div
-          style={{
-            fontSize: '16px',
-            fontFamily: 'Courier',
-            position: 'absolute',
-            left: '404px',
-            top: '326px',
-            color: 'white',
-          }}
-        >
-          <Typist stdTypingDelay={10} avgTypingDelay={40} cursor={{ show: false }}>
-            Hello World
-            <Typist.Delay ms={500} />
-          </Typist>
-        </div>
-      </Banner>
+      <PageHeader />
       <Row justify="center" style={{ marginTop: '20px' }}>
         <Col span={16}>
           <TodoList />
