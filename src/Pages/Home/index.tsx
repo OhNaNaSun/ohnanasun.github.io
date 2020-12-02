@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Row, Col, Badge, message } from 'antd'
 import styled from 'styled-components'
 import PageHeader from 'components/PageHeader'
-import TodoList from './TodoList'
+import TodoList from 'components/TodoList'
 
 const Divider = styled.div`
   border-bottom: 1px solid #ebebeb;

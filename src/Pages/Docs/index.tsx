@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { message, Row, Col } from 'antd'
 import { useLocation, useHistory } from 'react-router-dom'
 import PageHeader from 'components/PageHeader'
-import MdContent from './Content/MdContent'
-import AppSidebar from './Sidebar'
-import BreadCrumb from './BreadCrumb'
+import BreadCrumb from 'components/BreadCrumb'
+import MdContent from 'components/MdContent'
+import AppSidebar from 'components/Sidebar'
 
 const Container: React.FC = () => {
   const { pathname } = useLocation()
