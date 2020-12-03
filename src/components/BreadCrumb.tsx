@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Input, Space } from 'antd'
-import { SaveOutlined, PlusOutlined, HomeOutlined, CalendarOutlined } from '@ant-design/icons'
+import { SaveOutlined, PlusOutlined, CalendarOutlined } from '@ant-design/icons'
 
 import { Link } from 'react-router-dom'
 
@@ -27,9 +27,6 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
   return (
     <div style={{ margin: '16px 0' }}>
       <Space size="middle">
-        <Link className="text" to="/">
-          <HomeOutlined />
-        </Link>
         <span>
           {currentDirName} / {currentCateName} /
         </span>
