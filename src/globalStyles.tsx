@@ -68,8 +68,7 @@ pre,
 td,
 th,
 ul {
-  margin: 0;@import '~antd/dist/antd.css';
-@import '~react-mde/lib/styles/css/react-mde-all.css';
+  margin: 0;
   padding: 0;
 }
 
@@ -111,6 +110,12 @@ ul.list {
         content: counter(a) '.' counter(b);
       }
     }
+  }
+}
+.react-mde {
+  border: none;
+  .mde-header{
+    border: none
   }
 }
 `

@@ -2,11 +2,22 @@ import React from 'react'
 import Typist from 'react-typist'
 import { PageHeader as Header } from 'antd'
 import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
+import SearchBox from 'components/SearchBox'
 
+// .ant-page-header-heading-sub-title
+const StyledPageHeader = styled(Header)`
+  .ant-page-header-heading-left {
+    overflow: visible;
+  }
+  .ant-page-header-heading-sub-title {
+    overflow: visible;
+  }
+`
 const PageHeader: React.FC = () => {
   const history = useHistory()
   return (
-    <Header
+    <StyledPageHeader
       className="site-page-header"
       style={{ border: '1px solid rgb(235, 237, 240)' }}
       onBack={(): void => {
@@ -19,7 +30,12 @@ const PageHeader: React.FC = () => {
           <Typist.Delay ms={500} />
         </Typist>,
       ]}
-      subTitle="❤️"
+      subTitle={
+        <>
+          ❤️
+          <SearchBox key={0} />
+        </>
+      }
       avatar={{ src: `${process.env.PUBLIC_URL}/cat.jpg` }}
     />
   )
