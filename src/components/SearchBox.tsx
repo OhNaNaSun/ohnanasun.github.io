@@ -21,6 +21,7 @@ const SearchBox: React.FC = () => {
         allowClear
         onChange={handleSearch}
       />
+      {/*
       <List
         itemLayout="horizontal"
         style={{
@@ -42,6 +43,7 @@ const SearchBox: React.FC = () => {
           </List.Item>
         )}
       />
+        */}
     </div>
   )
 }

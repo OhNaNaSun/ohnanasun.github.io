@@ -1,7 +1,7 @@
 import React from 'react'
 import Typist from 'react-typist'
 import { PageHeader as Header } from 'antd'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import SearchBox from 'components/SearchBox'
 
@@ -16,12 +16,13 @@ const StyledPageHeader = styled(Header)`
 `
 const PageHeader: React.FC = () => {
   const history = useHistory()
+  const { hash } = useLocation()
   return (
     <StyledPageHeader
       className="site-page-header"
       style={{ border: '1px solid rgb(235, 237, 240)' }}
       onBack={(): void => {
-        history.push('/')
+        history.push(`/${hash}`)
       }}
       title="NaNa's World"
       extra={[

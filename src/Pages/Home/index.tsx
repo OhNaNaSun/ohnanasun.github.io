@@ -3,6 +3,7 @@ import { Row, Col, Badge, message } from 'antd'
 import styled from 'styled-components'
 import PageHeader from 'components/PageHeader'
 import TodoList from 'components/TodoList'
+import { useLocation } from 'react-router-dom'
 
 const Divider = styled.div`
   border-bottom: 1px solid #ebebeb;
@@ -16,6 +17,7 @@ interface DirectoryType {
 }
 const Home: React.FC = () => {
   const [fileDirs, setFileDirs] = useState({})
+  const { hash } = useLocation()
   useEffect(() => {
     ;(async (): Promise<void> => {
       try {
@@ -27,7 +29,12 @@ const Home: React.FC = () => {
       }
     })()
   }, [])
-
+  useEffect(() => {
+    if (hash && hash.substr(1)) {
+      const ele = document.getElementById(hash.substr(1))
+      ele?.scrollIntoView()
+    }
+  }, [hash, fileDirs])
   return (
     <>
       <PageHeader />
@@ -45,7 +52,10 @@ const Home: React.FC = () => {
                   count={`Part ${index + 1}`}
                   style={{ backgroundColor: 'rgb(155, 107, 107)', marginRight: '5px' }}
                 />
-                {categoryName}
+                {categoryName}{' '}
+                <a href={`#${categoryName}`} id={`${categoryName}`}>
+                  #
+                </a>
               </h2>
               {categoryDirs.map((categoryDir) =>
                 Object.entries(categoryDir).map(([fileDirName, fileNames]) => (
@@ -60,7 +70,9 @@ const Home: React.FC = () => {
                       {fileNames.map((fileName: string) => (
                         <li className="list_item" key={fileName}>
                           <div>
-                            <a href={`./${categoryName}/${fileDirName}/${fileName}`}>{fileName.replace('.md', '')}</a>
+                            <a href={`./${categoryName}/${fileDirName}/${fileName}#${categoryName}`}>
+                              {fileName.replace('.md', '')}
+                            </a>
                           </div>
                         </li>
                       ))}
