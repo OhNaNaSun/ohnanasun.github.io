@@ -14,6 +14,7 @@ interface AppSidebarType {
   currentDirName: string
   currentCateName: string
   currentFileName: string
+  isReadOnly: boolean
 }
 const StyledCollapse = styled(Collapse)`
   font-size: 16px;
@@ -25,7 +26,7 @@ const StyledCollapse = styled(Collapse)`
     padding-bottom: 5px;
   }
 `
-const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName, currentFileName }) => {
+const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName, currentFileName, isReadOnly }) => {
   const [fileDirs, setFileDirs] = useState({})
   const [defaultFileName, setDefaultName] = useState('')
   const [deletedCount, setDeletedCount] = useState(0)
@@ -77,12 +78,14 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName,
                   >
                     <div>
                       <Link to={`../${dirName}/${fileName}`}>{fileName.split('.')[0]}</Link>
-                      <DeleteOutlined
-                        style={{ float: 'right', lineHeight: 'inherit' }}
-                        onClick={(): void => {
-                          deleteFile(`${currentDirName}/${dirName}/${fileName}`)
-                        }}
-                      />
+                      {!isReadOnly && (
+                        <DeleteOutlined
+                          style={{ float: 'right', lineHeight: 'inherit' }}
+                          onClick={(): void => {
+                            deleteFile(`${currentDirName}/${dirName}/${fileName}`)
+                          }}
+                        />
+                      )}
                     </div>
                   </li>
                 ))}

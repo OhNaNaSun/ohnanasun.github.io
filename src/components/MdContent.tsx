@@ -56,7 +56,7 @@ const MdContent: React.FC<MdContentType> = ({
     <Content
       className="site-layout-background"
       style={{
-        margin: 0,
+        margin: '0 0 0 -10px',
         minHeight: 280,
       }}
     >

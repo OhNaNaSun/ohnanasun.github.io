@@ -51,10 +51,11 @@ const Container: React.FC = () => {
             currentDirName={currentDirName}
             currentCateName={currentCateName}
             currentFileName={currentFileName}
+            isReadOnly={isReadOnly}
           />
         </Col>
       </Row>
-      <Row justify="center" style={{ margin: '20px 0' }}>
+      <Row justify="center" style={{ margin: '20px 0', paddingBottom: '50px' }}>
         <Col span={18}>
           <BreadCrumb
             currentDirName={currentDirName}

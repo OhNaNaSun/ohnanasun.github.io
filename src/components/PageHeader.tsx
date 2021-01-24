@@ -27,13 +27,15 @@ const PageHeader: React.FC = () => {
       title="NaNa's World"
       extra={[
         <Typist key={1} stdTypingDelay={10} avgTypingDelay={40} cursor={{ show: false }}>
-          have fun
+          have fun{' '}
+          <span role="img" aria-label="lala">
+            ❤️
+          </span>
           <Typist.Delay ms={500} />
         </Typist>,
       ]}
       subTitle={
         <>
-          ❤️
           <SearchBox key={0} />
         </>
       }
