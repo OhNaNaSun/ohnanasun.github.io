@@ -15,6 +15,10 @@ const Container: React.FC = () => {
   const [lastUpdateTime, setLastUpdateTime] = useState('')
   const history = useHistory()
 
+  const [fileName, setFileName] = useState(currentFileName)
+  useEffect(() => {
+    setFileName(currentFileName)
+  }, [currentFileName])
   useEffect(() => {
     ;(async (): Promise<void> => {
       const authResponse = await fetch(`${process.env.PUBLIC_URL}/api/auth`)
@@ -57,28 +61,32 @@ const Container: React.FC = () => {
       </Row>
       <Row justify="center" style={{ margin: '20px 0', paddingBottom: '50px' }}>
         <Col span={18}>
-          <BreadCrumb
-            currentDirName={currentDirName}
-            currentCateName={currentCateName}
-            currentFileName={currentFileName}
-            isReadOnly={isReadOnly}
-            saveItem={(newFileName: string): void => {
-              postMdContent(newFileName)
-            }}
-            lastUpdateTime={lastUpdateTime}
-          />
-          <MdContent
-            isReadOnly={isReadOnly}
-            currentDirName={currentDirName}
-            currentCateName={currentCateName}
-            currentFileName={currentFileName}
-            returnNewMdContent={(value: string): void => {
-              setMdContent(value)
-            }}
-            returnLastUpdateTime={(value: string): void => {
-              setLastUpdateTime(value)
-            }}
-          />
+          <div className="scrollable-container">
+            <BreadCrumb
+              currentDirName={currentDirName}
+              currentCateName={currentCateName}
+              isReadOnly={isReadOnly}
+              fileName={fileName}
+              setFileName={setFileName}
+              lastUpdateTime={lastUpdateTime}
+            />
+            <MdContent
+              saveItem={(newFileName: string): void => {
+                postMdContent(newFileName)
+              }}
+              isReadOnly={isReadOnly}
+              fileName={fileName}
+              currentDirName={currentDirName}
+              currentCateName={currentCateName}
+              currentFileName={currentFileName}
+              returnNewMdContent={(value: string): void => {
+                setMdContent(value)
+              }}
+              returnLastUpdateTime={(value: string): void => {
+                setLastUpdateTime(value)
+              }}
+            />
+          </div>
         </Col>
       </Row>
     </>

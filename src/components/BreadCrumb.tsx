@@ -1,29 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Input, Space, Row, Col } from 'antd'
-import { SaveOutlined, PlusOutlined, CalendarOutlined } from '@ant-design/icons'
-
-import { Link } from 'react-router-dom'
+import { CalendarOutlined } from '@ant-design/icons'
 
 interface BreadCrumbHeaderType {
-  saveItem: Function
   currentDirName: string
   currentCateName: string
-  currentFileName: string
   isReadOnly: boolean
   lastUpdateTime: string
+  fileName: string
+  setFileName: Function
 }
 const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
-  saveItem,
   currentDirName,
   currentCateName,
-  currentFileName,
   isReadOnly,
+  fileName,
+  setFileName,
   lastUpdateTime,
 }) => {
-  const [fileName, setFileName] = useState(currentFileName)
-  useEffect(() => {
-    setFileName(currentFileName)
-  }, [currentFileName])
   return (
     <Space direction="vertical" style={{ width: '100%', margin: '16px 0' }}>
       <Space size="middle">
@@ -42,18 +36,6 @@ const BreadCrumbHeader: React.FC<BreadCrumbHeaderType> = ({
           />
         </Col>
         <Col span="3">
-          {!isReadOnly && (
-            <span style={{ display: 'table-cell', width: '200px' }}>
-              <SaveOutlined
-                onClick={(): void => {
-                  saveItem(fileName)
-                }}
-              />
-              <Link to={`/${currentDirName}/${currentCateName}/add`}>
-                <PlusOutlined />
-              </Link>
-            </span>
-          )}
           <span style={{ marginLeft: '5px' }}>
             <CalendarOutlined /> {lastUpdateTime}
           </span>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Layout } from 'antd'
+import { Affix } from 'antd'
+import { SaveOutlined, PlusOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 import MdEditor from './MdEditor'
 
-const { Content } = Layout
 interface MdContentType {
   returnNewMdContent: Function
   currentDirName: string
@@ -10,6 +11,8 @@ interface MdContentType {
   currentFileName: string
   isReadOnly: boolean
   returnLastUpdateTime: Function
+  saveItem: Function
+  fileName: string
 }
 
 const MdContent: React.FC<MdContentType> = ({
@@ -19,10 +22,13 @@ const MdContent: React.FC<MdContentType> = ({
   currentFileName,
   isReadOnly,
   returnLastUpdateTime,
+  saveItem,
+  fileName,
 }) => {
   const [mdContent, setMdContent] = useState('')
   const [selectedTab, setSelectedTab] = useState('preview')
   const [lastUpdatedTime, setLastUpdatedTime] = useState('')
+
   useEffect(() => {
     ;(async (): Promise<void> => {
       if (currentFileName) {
@@ -53,13 +59,28 @@ const MdContent: React.FC<MdContentType> = ({
     returnNewMdContent(mdContent)
   }, [mdContent, returnNewMdContent])
   return (
-    <Content
-      className="site-layout-background"
+    <div
+      className="site-layout-background scrollable-container"
       style={{
         margin: '0 0 0 -10px',
         minHeight: 280,
       }}
     >
+      {!isReadOnly && (
+        <Affix offsetTop={300} style={{ position: 'absolute', left: '-10%' }}>
+          <SaveOutlined
+            style={{ fontSize: '1.5rem' }}
+            onClick={(): void => {
+              saveItem(fileName)
+            }}
+          />
+          <br />
+          <br />
+          <Link to={`/${currentDirName}/${currentCateName}/add`}>
+            <PlusOutlined style={{ fontSize: '1.5rem' }} />
+          </Link>
+        </Affix>
+      )}
       <MdEditor
         mdContent={mdContent}
         selectedTab={selectedTab as 'preview' | 'write'}
@@ -67,7 +88,7 @@ const MdContent: React.FC<MdContentType> = ({
         changeMdContent={setMdContent}
         readOnly={isReadOnly}
       />
-    </Content>
+    </div>
   )
 }
 export default MdContent
