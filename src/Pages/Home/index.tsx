@@ -13,7 +13,7 @@ const Divider = styled.div`
 
 type itemType = { [key: string]: string[] }
 interface DirectoryType {
-  [key: string]: Array<itemType>
+  [key: string]: itemType
 }
 const Home: React.FC = () => {
   const [fileDirs, setFileDirs] = useState({})
@@ -57,17 +57,14 @@ const Home: React.FC = () => {
                   #
                 </a>
               </h2>
-              {categoryDirs.map((categoryDir) =>
-                Object.entries(categoryDir).map(([fileDirName, fileNames]) => (
-                  <section
-                    key={fileDirName}
-                    className="section"
-                    style={{ marginBottom: '24px', counterIncrement: 'a' }}
-                  >
-                    <h3>{fileDirName}</h3>
-                    <Divider />
-                    <ul className="list">
-                      {fileNames.map((fileName: string) => (
+              {/* {categoryDirs.map((categoryDir) => */}
+              {Object.entries(categoryDirs).map(([fileDirName, fileNames]) => (
+                <section key={fileDirName} className="section" style={{ marginBottom: '24px', counterIncrement: 'a' }}>
+                  <h3>{fileDirName}</h3>
+                  <Divider />
+                  <ul className="list">
+                    {Array.isArray(fileNames) &&
+                      fileNames.map((fileName: string) => (
                         <li className="list_item" key={fileName}>
                           <div>
                             <a href={`./${categoryName}/${fileDirName}/${fileName}#${categoryName}`}>
@@ -76,10 +73,10 @@ const Home: React.FC = () => {
                           </div>
                         </li>
                       ))}
-                    </ul>
-                  </section>
-                ))
-              )}
+                  </ul>
+                </section>
+              ))}
+              {/* )} */}
             </div>
           ))}
         </Col>

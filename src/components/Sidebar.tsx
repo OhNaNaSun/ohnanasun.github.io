@@ -70,25 +70,26 @@ const AppSidebar: React.FC<AppSidebarType> = ({ currentDirName, currentCateName,
             <Divider style={{ marginTop: '0', marginBottom: '3px' }} />
             <section key={dirName} style={{ margin: '20px 0 5px 20px' }}>
               <ol key={dirName} style={{ columns: 1 }} title={dirName}>
-                {fileNames.map((fileName: itemType) => (
-                  <li
-                    className={`list_item ${currentPathName === dirName + fileName ? 'selected' : ''}`}
-                    key={`${dirName}_${fileName}`}
-                    title={fileName}
-                  >
-                    <div>
-                      <Link to={`../${dirName}/${fileName}`}>{fileName.split('.')[0]}</Link>
-                      {!isReadOnly && (
-                        <DeleteOutlined
-                          style={{ float: 'right', lineHeight: 'inherit' }}
-                          onClick={(): void => {
-                            deleteFile(`${currentDirName}/${dirName}/${fileName}`)
-                          }}
-                        />
-                      )}
-                    </div>
-                  </li>
-                ))}
+                {Array.isArray(fileNames) &&
+                  fileNames.map((fileName: itemType) => (
+                    <li
+                      className={`list_item ${currentPathName === dirName + fileName ? 'selected' : ''}`}
+                      key={`${dirName}_${fileName}`}
+                      title={fileName}
+                    >
+                      <div>
+                        <Link to={`../${dirName}/${fileName}`}>{fileName.split('.')[0]}</Link>
+                        {!isReadOnly && (
+                          <DeleteOutlined
+                            style={{ float: 'right', lineHeight: 'inherit' }}
+                            onClick={(): void => {
+                              deleteFile(`${currentDirName}/${dirName}/${fileName}`)
+                            }}
+                          />
+                        )}
+                      </div>
+                    </li>
+                  ))}
               </ol>
             </section>
           </Panel>
