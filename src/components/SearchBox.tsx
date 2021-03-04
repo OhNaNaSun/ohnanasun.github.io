@@ -7,10 +7,8 @@ const SearchBox: React.FC = () => {
   const [searchResult, setSearchResult] = useState([])
   const handleSearch = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
     const { value } = e.target
-    console.log('on search', value)
     const searchReponse = await fetch(`${process.env.PUBLIC_URL}/api/files/search?content=${value}`)
     const result = await searchReponse.json()
-    console.log(result)
     setSearchResult(result)
   }
   return (
