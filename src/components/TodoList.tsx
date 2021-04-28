@@ -23,7 +23,6 @@ const TodoList: React.FC = () => {
       <ReactMde
         minPreviewHeight={50}
         value={todoMdContent}
-        classes={{ reactMde: 'hide_toolbar no_border' }}
         selectedTab="preview"
         generateMarkdownPreview={(markdown: string): Promise<string> => Promise.resolve(converter.makeHtml(markdown))}
       />

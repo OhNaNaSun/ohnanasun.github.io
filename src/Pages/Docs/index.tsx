@@ -9,7 +9,6 @@ const Container: React.FC = () => {
   const { pathname } = useLocation()
   const [, currentDirName, currentCateName, currentPathFileName] = pathname.split('/')
   const currentFileName = currentPathFileName === 'add' ? '' : currentPathFileName
-  const [mdContent, setMdContent] = useState('')
   const [isReadOnly, setIsReadOnly] = useState(false)
   const [lastUpdateTime, setLastUpdateTime] = useState('')
   const history = useHistory()
@@ -26,7 +25,7 @@ const Container: React.FC = () => {
     })()
   }, [])
 
-  const postMdContent = async (newFileName: string): Promise<void> => {
+  const postMdContent = async (newFileName: string, content: string): Promise<void> => {
     try {
       const uploadFileResponse = await fetch(`${process.env.PUBLIC_URL}/api/files/upload`, {
         method: 'POST',
@@ -35,7 +34,7 @@ const Container: React.FC = () => {
         },
         body: JSON.stringify({
           name: `${currentDirName}/${currentCateName}/${newFileName}`,
-          mdContent,
+          mdContent: content,
         }),
       })
       const { statusText } = uploadFileResponse
@@ -69,17 +68,14 @@ const Container: React.FC = () => {
               lastUpdateTime={lastUpdateTime}
             />
             <MdContent
-              saveItem={(newFileName: string): void => {
-                postMdContent(newFileName)
+              saveItem={(newFileName: string, content: string): void => {
+                postMdContent(newFileName, content)
               }}
               isReadOnly={isReadOnly}
               fileName={fileName}
               currentDirName={currentDirName}
               currentCateName={currentCateName}
               currentFileName={currentFileName}
-              returnNewMdContent={(value: string): void => {
-                setMdContent(value)
-              }}
               returnLastUpdateTime={(value: string): void => {
                 setLastUpdateTime(value)
               }}

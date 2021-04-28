@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import MdEditor from './MdEditor'
 
 interface MdContentType {
-  returnNewMdContent: Function
   currentDirName: string
   currentCateName: string
   currentFileName: string
@@ -16,7 +15,6 @@ interface MdContentType {
 }
 
 const MdContent: React.FC<MdContentType> = ({
-  returnNewMdContent,
   currentDirName,
   currentCateName,
   currentFileName,
@@ -25,7 +23,7 @@ const MdContent: React.FC<MdContentType> = ({
   saveItem,
   fileName,
 }) => {
-  const [mdContent, setMdContent] = useState('')
+  const [mdContentState, setMdContentState] = useState('')
   const [selectedTab, setSelectedTab] = useState('preview')
   const [lastUpdatedTime, setLastUpdatedTime] = useState('')
 
@@ -43,21 +41,19 @@ const MdContent: React.FC<MdContentType> = ({
           })
         )
         const fileText = await fileResponse.text()
-        setMdContent(fileText)
+        setMdContentState(fileText)
       } else {
-        setMdContent('')
+        setMdContentState('')
       }
     })()
-  }, [currentCateName, currentDirName, currentFileName, setLastUpdatedTime, setMdContent])
+  }, [currentCateName, currentDirName, currentFileName, setLastUpdatedTime])
   useEffect(() => {
     returnLastUpdateTime(lastUpdatedTime)
   }, [lastUpdatedTime, returnLastUpdateTime])
   useEffect(() => {
     setSelectedTab(!currentFileName ? 'write' : 'preview')
   }, [currentFileName])
-  useEffect(() => {
-    returnNewMdContent(mdContent)
-  }, [mdContent, returnNewMdContent])
+
   return (
     <div
       className="site-layout-background scrollable-container"
@@ -68,23 +64,15 @@ const MdContent: React.FC<MdContentType> = ({
     >
       {!isReadOnly && (
         <Affix offsetTop={300} style={{ position: 'absolute', left: '-10%' }}>
-          <SaveOutlined
-            style={{ fontSize: '1.5rem' }}
-            onClick={(): void => {
-              saveItem(fileName)
-            }}
-          />
-          <br />
-          <br />
           <Link to={`/${currentDirName}/${currentCateName}/add`}>
             <PlusOutlined style={{ fontSize: '1.5rem' }} />
           </Link>
         </Affix>
       )}
       <MdEditor
-        mdContent={mdContent}
+        postMdContent={(content: string): void => saveItem(fileName, content)}
+        mdContent={mdContentState}
         selectedTab={selectedTab as 'preview' | 'write'}
-        changeMdContent={setMdContent}
         readOnly={isReadOnly}
       />
     </div>

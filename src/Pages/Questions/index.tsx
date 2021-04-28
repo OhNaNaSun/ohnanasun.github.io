@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Row, message } from 'antd'
 import MdEditor from 'components/MdEditor'
-import { SaveOutlined } from '@ant-design/icons'
 
 const QuestionPage: React.FC = () => {
   const [questionMdContent, setQuestionMdContent] = useState('')
@@ -12,7 +11,7 @@ const QuestionPage: React.FC = () => {
       setQuestionMdContent(tutorialText)
     })()
   }, [])
-  const postMdContent = async (): Promise<void> => {
+  const postMdContent = async (content: string): Promise<void> => {
     try {
       const uploadFileResponse = await fetch(`${process.env.PUBLIC_URL}/api/files/upload`, {
         method: 'POST',
@@ -21,7 +20,7 @@ const QuestionPage: React.FC = () => {
         },
         body: JSON.stringify({
           name: `./statics/question.md`,
-          mdContent: questionMdContent,
+          mdContent: content,
         }),
       })
       const { statusText } = uploadFileResponse
@@ -33,13 +32,7 @@ const QuestionPage: React.FC = () => {
   }
   return (
     <Row style={{ margin: '20px auto', width: '80%' }}>
-      <SaveOutlined
-        style={{ fontSize: '1.5rem' }}
-        onClick={(): void => {
-          postMdContent()
-        }}
-      />
-      <MdEditor mdContent={questionMdContent} changeMdContent={setQuestionMdContent} readOnly={false} />
+      <MdEditor postMdContent={postMdContent} mdContent={questionMdContent} readOnly={false} />
     </Row>
   )
 }

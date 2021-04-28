@@ -113,9 +113,10 @@ ul.list {
   }
 }
 .react-mde {
-  border: none;
   .mde-header{
-    border: none
+    .mde-tabs{
+      margin-left: 5%
+    }
   }
 }
 `
