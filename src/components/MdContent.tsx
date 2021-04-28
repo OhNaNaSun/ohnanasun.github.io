@@ -84,7 +84,6 @@ const MdContent: React.FC<MdContentType> = ({
       <MdEditor
         mdContent={mdContent}
         selectedTab={selectedTab as 'preview' | 'write'}
-        changeSelectedTab={setSelectedTab}
         changeMdContent={setMdContent}
         readOnly={isReadOnly}
       />

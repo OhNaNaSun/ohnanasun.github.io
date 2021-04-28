@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactMde from 'react-mde'
 import * as Showdown from 'showdown'
 
 interface MdEditorType {
   mdContent: string
   changeMdContent: Function
-  selectedTab: 'write' | 'preview'
-  changeSelectedTab: (tab: 'preview' | 'write') => void
-  readOnly: boolean
+  selectedTab?: 'write' | 'preview'
+  changeSelectedTab?: (tab: 'preview' | 'write') => void
+  readOnly?: boolean
 }
 const converter = new Showdown.Converter({
   tables: true,
@@ -16,8 +16,12 @@ const converter = new Showdown.Converter({
   tasklists: true,
 })
 const MdEditor: React.FC<MdEditorType> = ({ mdContent, changeMdContent, selectedTab, changeSelectedTab, readOnly }) => {
+  const [selectedTabName, setSelectedTabName] = useState(selectedTab || 'preview')
+  useEffect(() => {
+    selectedTab && setSelectedTabName(selectedTab)
+  }, [selectedTab])
   return (
-    <div className="container">
+    <div style={{ width: '100%' }}>
       <ReactMde
         minEditorHeight={600}
         value={mdContent}
@@ -25,8 +29,8 @@ const MdEditor: React.FC<MdEditorType> = ({ mdContent, changeMdContent, selected
           changeMdContent(newValue)
         }}
         classes={readOnly ? { reactMde: 'hide_toolbar' } : {}}
-        selectedTab={selectedTab as MdEditorType['selectedTab']}
-        onTabChange={changeSelectedTab}
+        selectedTab={selectedTabName as MdEditorType['selectedTab']}
+        onTabChange={setSelectedTabName}
         generateMarkdownPreview={(markdown: string): Promise<string> => Promise.resolve(converter.makeHtml(markdown))}
       />
     </div>

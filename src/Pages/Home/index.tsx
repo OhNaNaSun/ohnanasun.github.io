@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Badge, message } from 'antd'
 import styled from 'styled-components'
-import PageHeader from 'components/PageHeader'
 import TodoList from 'components/TodoList'
 import { useLocation } from 'react-router-dom'
 
@@ -37,7 +36,6 @@ const Home: React.FC = () => {
   }, [hash, fileDirs])
   return (
     <>
-      <PageHeader />
       <Row justify="center" style={{ marginTop: '20px' }}>
         <Col span={16}>
           <TodoList />
