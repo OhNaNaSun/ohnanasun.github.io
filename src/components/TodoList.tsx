@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ReactMde from 'react-mde'
 import * as Showdown from 'showdown'
+import { Link } from 'react-router-dom'
 
 const converter = new Showdown.Converter({
   tables: true,
@@ -19,6 +20,7 @@ const TodoList: React.FC = () => {
   }, [])
   return (
     <>
+      <Link to="/question">Questions</Link>
       <h2 style={{ marginBottom: '30px' }}>Tutorials</h2>
       <ReactMde
         minPreviewHeight={50}
