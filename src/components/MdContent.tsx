@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Affix } from 'antd'
-import { SaveOutlined, PlusOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
 import MdEditor from './MdEditor'
 
 interface MdContentType {
@@ -62,14 +59,9 @@ const MdContent: React.FC<MdContentType> = ({
         minHeight: 280,
       }}
     >
-      {!isReadOnly && (
-        <Affix offsetTop={300} style={{ position: 'absolute', left: '-10%' }}>
-          <Link to={`/${currentDirName}/${currentCateName}/add`}>
-            <PlusOutlined style={{ fontSize: '1.5rem' }} />
-          </Link>
-        </Affix>
-      )}
       <MdEditor
+        currentDirName={currentDirName}
+        currentCateName={currentCateName}
         postMdContent={(content: string): void => saveItem(fileName, content)}
         mdContent={mdContentState}
         selectedTab={selectedTab as 'preview' | 'write'}

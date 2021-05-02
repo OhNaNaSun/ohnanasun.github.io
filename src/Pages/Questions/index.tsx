@@ -19,7 +19,7 @@ const QuestionPage: React.FC = () => {
           'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify({
-          name: `./statics/question.md`,
+          name: `question.md`,
           mdContent: content,
         }),
       })

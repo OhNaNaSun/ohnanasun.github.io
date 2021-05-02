@@ -10,7 +10,7 @@ const AppRoute: React.FC = () => {
     <Router>
       <PageHeader />
       <Switch>
-        <Route path="/question">
+        <Route path="/question" exact>
           <Questions />
         </Route>
         <Route path="/:fileId">

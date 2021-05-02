@@ -115,7 +115,7 @@ ul.list {
 .react-mde {
   .mde-header{
     .mde-tabs{
-      margin-left: 5%
+      margin-left: 75px
     }
   }
 }
