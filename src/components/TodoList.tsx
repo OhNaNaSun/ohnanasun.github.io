@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import ReactMde from 'react-mde'
 import * as Showdown from 'showdown'
-import { Link } from 'react-router-dom'
+import Paper from '@material-ui/core/Paper'
+import Box from '@material-ui/core/Box'
 
 const converter = new Showdown.Converter({
   tables: true,
@@ -19,16 +19,13 @@ const TodoList: React.FC = () => {
     })()
   }, [])
   return (
-    <>
-      <Link to="/question">Questions</Link>
-      <h2 style={{ marginBottom: '30px' }}>Tutorials</h2>
-      <ReactMde
-        minPreviewHeight={50}
-        value={todoMdContent}
-        selectedTab="preview"
-        generateMarkdownPreview={(markdown: string): Promise<string> => Promise.resolve(converter.makeHtml(markdown))}
-      />
-    </>
+    <Box mt={2}>
+      <Paper variant="outlined">
+        <Box p={2}>
+          <div dangerouslySetInnerHTML={{ __html: converter.makeHtml(todoMdContent) }} />
+        </Box>
+      </Paper>
+    </Box>
   )
 }
 export default TodoList

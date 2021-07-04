@@ -5,7 +5,7 @@ import BreadCrumb from 'components/BreadCrumb'
 import MdContent from 'components/MdContent'
 import AppSidebar from 'components/Sidebar'
 
-const Container: React.FC = () => {
+const Doc: React.FC = () => {
   const { pathname } = useLocation()
   const [, currentDirName, currentCateName, currentPathFileName] = pathname.split('/')
   const currentFileName = currentPathFileName === 'add' ? '' : currentPathFileName
@@ -86,4 +86,4 @@ const Container: React.FC = () => {
     </>
   )
 }
-export default Container
+export default Doc

@@ -3,6 +3,7 @@ import { Row, Col, Badge, message } from 'antd'
 import styled from 'styled-components'
 import TodoList from 'components/TodoList'
 import { useLocation } from 'react-router-dom'
+import Grid from '@material-ui/core/Grid'
 
 const Divider = styled.div`
   border-bottom: 1px solid #ebebeb;
@@ -36,13 +37,11 @@ const Home: React.FC = () => {
   }, [hash, fileDirs])
   return (
     <>
-      <Row justify="center" style={{ marginTop: '20px' }}>
-        <Col span={16}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
           <TodoList />
-        </Col>
-      </Row>
-      <Row justify="center" style={{ marginTop: '20px' }}>
-        <Col span={16}>
+        </Grid>
+        <Grid item xs={12}>
           {Object.entries(fileDirs as DirectoryType).map(([categoryName, categoryDirs], index) => (
             <div key={categoryName} style={{ marginTop: '40px' }}>
               <h2 style={{ marginBottom: '40px', display: 'flex', alignItems: 'center' }}>
@@ -77,8 +76,8 @@ const Home: React.FC = () => {
               {/* )} */}
             </div>
           ))}
-        </Col>
-      </Row>
+        </Grid>
+      </Grid>
     </>
   )
 }
