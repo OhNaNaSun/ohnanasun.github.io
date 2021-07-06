@@ -18,6 +18,9 @@ const App: React.FC = () => {
     overrides: {
       MuiCssBaseline: {
         '@global': {
+          body: {
+            backgroundColor: '#424242',
+          },
           a: {
             color: 'rgb(83, 155, 245)',
             fontWeight: 600,
@@ -32,7 +35,7 @@ const App: React.FC = () => {
         main: '#212121',
       },
       secondary: {
-        main: '#455a64',
+        main: '#90caf9',
       },
     },
   })
@@ -41,23 +44,29 @@ const App: React.FC = () => {
       <CssBaseline />
       <Paper>
         <Router>
-          <PageHeader />
-          <Container>
-            <Switch>
-              <Route path="/edit" exact>
-                <EditPage />
-              </Route>
-              <Route path="/question" exact>
+          <Switch>
+            <Route path="/edit" exact>
+              <EditPage />
+            </Route>
+            <Route path="/question" exact>
+              <PageHeader />
+              <Container>
                 <Questions />
-              </Route>
-              <Route path="/:fileId">
+              </Container>
+            </Route>
+            <Route path="/:fileId">
+              <PageHeader />
+              <Container>
                 <Docs />
-              </Route>
-              <Route path="/">
+              </Container>
+            </Route>
+            <Route path="/">
+              <PageHeader />
+              <Container>
                 <Home />
-              </Route>
-            </Switch>
-          </Container>
+              </Container>
+            </Route>
+          </Switch>
         </Router>
       </Paper>
     </ThemeProvider>

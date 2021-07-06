@@ -17,18 +17,18 @@ const StyledContainer = styled.div`
     box-sizing: border-box;
   }
 
-  html {
-    font-size: 62.5%;
-  }
+  // html {
+  //   font-size: 62.5%;
+  // }
 
-  body {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.6rem;
-    background-color: #cecece;
-    padding: 1.5rem;
-    color: #fafafa;
-    background-color: #616161;
-  }
+  // body {
+  //   font-family: 'Open Sans', sans-serif;
+  //   font-size: 1.6rem;
+  //   background-color: #cecece;
+  //   padding: 1.5rem;
+  //   color: #fafafa;
+  //   background-color: #616161;
+  // }
 
   a,
   a:visited {
@@ -105,7 +105,7 @@ const StyledContainer = styled.div`
     text-transform: uppercase;
     h3 {
       margin: 0;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
     button {
