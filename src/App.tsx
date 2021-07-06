@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper'
 import Home from './pages/Home'
 import Docs from './pages/Doc'
 import Questions from './pages/Questions'
+import EditPage from './pages/EditPage'
 
 const App: React.FC = () => {
   const theme = createMuiTheme({
@@ -41,8 +42,11 @@ const App: React.FC = () => {
       <Paper>
         <Router>
           <PageHeader />
-          <Container maxWidth="md">
+          <Container>
             <Switch>
+              <Route path="/edit" exact>
+                <EditPage />
+              </Route>
               <Route path="/question" exact>
                 <Questions />
               </Route>
