@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import List from '@material-ui/core/List'
 import ListItem, { ListItemProps } from '@material-ui/core/ListItem'
+import Button from '@material-ui/core/Button'
 
 type QuestionMapType = { content: string; title: string }[]
 
@@ -27,7 +28,6 @@ const QuestionPage: React.FC = () => {
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number): void => {
     setTabIndex(newValue)
   }
-  console.log(questionList)
   return (
     <div style={{ margin: '20px auto', width: '90%' }}>
       <Tabs value={tabIndex} onChange={handleChange}>
@@ -46,6 +46,9 @@ const QuestionPage: React.FC = () => {
               </ListItem>
             ))}
           </List>
+          <Button target="_blank" href={`${tabContentMap[tabIndex].key}/edit`} color="secondary">
+            + Add
+          </Button>
         </Box>
       </div>
     </div>

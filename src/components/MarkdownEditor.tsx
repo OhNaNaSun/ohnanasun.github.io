@@ -155,24 +155,21 @@ const StyledContainer = styled.div`
     height: 100%;
   }
 `
-const MarkdownEditor: React.FC = () => {
-  // MarkdownEditor extends React.Component {
-  const [text, setText] = useState('')
+interface MdEditorProps {
+  mdContent?: string
+  returnMdContent: (arg0: string) => void
+}
+const MarkdownEditor: React.FC<MdEditorProps> = ({ mdContent, returnMdContent }) => {
+  const [text, setText] = useState(mdContent || '')
   const [editorMaximized, setEditorMaximized] = useState(false)
   const [previewerMaximized, setPreviewerMaximized] = useState(false)
-  //   constructor() {
-  //     super()
-  //     this.state = { text: placeholder, editorMaximized: false, previewerMaximized: false }
-  //     this.onChange = this.onChange.bind(this)
-  //     this.handleMaximize = this.handleMaximize.bind(this)
-  //   }
-
   const onChange = (e: { target: { value: any } }): void => {
     const { value } = e.target
     setText(value)
-    // this.setState({ text: value })
   }
-
+  useEffect(() => {
+    returnMdContent(text)
+  }, [returnMdContent, text])
   const handleMaximize = (val: { target: { name: any } }): void => {
     const { name } = val.target
     // const value = this.state[name]
@@ -180,8 +177,6 @@ const MarkdownEditor: React.FC = () => {
     // setEditorMaximized(!value)
   }
 
-  //   render() {
-  // const { text, editorMaximized, previewerMaximized } = this.state
   return (
     <StyledContainer>
       <div className="container">
@@ -201,7 +196,6 @@ const MarkdownEditor: React.FC = () => {
       </div>
     </StyledContainer>
   )
-  //   }
 }
 
 function Titlebar(props: { titleName: any; fullscreen: any; name: any }) {

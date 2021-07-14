@@ -45,7 +45,7 @@ const App: React.FC = () => {
       <Paper>
         <Router>
           <Switch>
-            <Route path="/edit" exact>
+            <Route path="/:category/:fileId">
               <EditPage />
             </Route>
             <Route path="/question" exact>
