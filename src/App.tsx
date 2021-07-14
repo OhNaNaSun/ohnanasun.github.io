@@ -7,7 +7,7 @@ import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
 import Home from './pages/Home'
 import Docs from './pages/Doc'
-import Questions from './pages/Questions'
+import QuestionPage from './pages/Question'
 import EditPage from './pages/EditPage'
 
 const App: React.FC = () => {
@@ -51,7 +51,7 @@ const App: React.FC = () => {
             <Route path="/question" exact>
               <PageHeader />
               <Container>
-                <Questions />
+                <QuestionPage />
               </Container>
             </Route>
             <Route path="/:fileId">
