@@ -18,62 +18,6 @@ const StyledContainer = styled.div`
     box-sizing: border-box;
   }
 
-  // html {
-  //   font-size: 62.5%;
-  // }
-
-  // body {
-  //   font-family: 'Open Sans', sans-serif;
-  //   font-size: 1.6rem;
-  //   background-color: #cecece;
-  //   padding: 1.5rem;
-  //   color: #fafafa;
-  //   background-color: #616161;
-  // }
-
-  a,
-  a:visited {
-    color: #64b5f6;
-  }
-
-  a:hover {
-    color: #2196f3;
-  }
-
-  img {
-    max-width: 100%;
-  }
-
-  pre {
-    white-space: pre-wrap;
-    background-color: #616161;
-    padding: 2rem;
-    line-height: 2rem;
-    border-radius: 0.5rem;
-  }
-
-  code {
-    background-color: #616161;
-    padding: 0.2rem 0.5rem;
-  }
-
-  hr {
-    border: none;
-    height: 1px;
-    background-color: #616161;
-  }
-
-  table {
-    border-collapse: collapse;
-  }
-
-  table,
-  th,
-  td {
-    padding: 0.5rem;
-    border: 2px solid#9E9E9E;
-  }
-
   .container {
     max-width: 2000px;
     margin: 0 auto;
@@ -236,7 +180,7 @@ function Previewer(props: { text: any; handleMaximize: any; visible: any; maximi
   return (
     <div className="window">
       <Titlebar titleName="Previewer" fullscreen={handleMaximize} name="previewerMaximized" />
-      <div id="preview" dangerouslySetInnerHTML={{ __html: converter.makeHtml(text) }} />
+      <div id="preview" className="markdown-body" dangerouslySetInnerHTML={{ __html: converter.makeHtml(text) }} />
     </div>
   )
 }

@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.pxToRem(15),
       color: theme.palette.text.secondary,
     },
+    questionBox: {
+      backgroundColor: '#2D333B',
+    },
   })
 )
 const QuestionPage: React.FC = () => {
@@ -67,17 +70,19 @@ const QuestionPage: React.FC = () => {
         ))}
       </Tabs>
       <div role="tabpanel">
-        <Box p={3}>
+        <Box p={3} className={classes.questionBox}>
           <div>
             {questionList?.map(({ title, content }, index) => (
-              <Accordion key={index} expanded={expanded === 'panel1'} onChange={handleChangeExpand('panel1')}>
+              <Accordion key={index} expanded onChange={handleChangeExpand('panel1')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
                   <Typography className={classes.heading}>{title}</Typography>
-                  <Typography className={classes.secondaryHeading}>I am an accordion</Typography>
+                  <Typography className={classes.secondaryHeading} />
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
-                    <span dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
+                    <div className="markdown-body">
+                      <span dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
+                    </div>
                   </Typography>
                 </AccordionDetails>
               </Accordion>
@@ -92,3 +97,10 @@ const QuestionPage: React.FC = () => {
   )
 }
 export default QuestionPage
+function rgb(
+  arg0: number,
+  arg1: number,
+  arg2: number
+): string | import('@material-ui/styles').PropsFunc<{}, string | undefined> | undefined {
+  throw new Error('Function not implemented.')
+}

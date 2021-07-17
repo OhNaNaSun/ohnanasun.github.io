@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import Docs from './pages/Doc'
 import QuestionPage from './pages/Question'
 import EditPage from './pages/EditPage'
+import './css/markdown-body.css'
 
 const App: React.FC = () => {
   const theme = createMuiTheme({
@@ -19,7 +20,7 @@ const App: React.FC = () => {
       MuiCssBaseline: {
         '@global': {
           body: {
-            backgroundColor: '#424242',
+            backgroundColor: '#272c34',
           },
           a: {
             color: 'rgb(83, 155, 245)',
@@ -33,9 +34,13 @@ const App: React.FC = () => {
       type: 'dark',
       primary: {
         main: '#212121',
+        // main: '#272c34',
       },
       secondary: {
         main: '#90caf9',
+      },
+      background: {
+        paper: '#272c34',
       },
     },
   })
