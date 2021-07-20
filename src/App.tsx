@@ -22,6 +22,10 @@ const App: React.FC = () => {
           body: {
             backgroundColor: '#272c34',
           },
+          '*': {
+            fontFamily:
+              '-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji',
+          },
           a: {
             color: 'rgb(83, 155, 245)',
             fontWeight: 600,

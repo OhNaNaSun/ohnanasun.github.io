@@ -306,6 +306,7 @@
 }
 .markdown-body code,
 .markdown-body tt {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
   padding: 0.2em 0.4em;
   margin: 0;
   font-size: 85%;

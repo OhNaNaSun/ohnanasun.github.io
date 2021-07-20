@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MarkdownEditor from 'components/MarkdownEditor'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -32,11 +32,22 @@ const EditPage: React.FC = () => {
   const classes = useStyles()
   const { category, fileId } = useParams()
   const [mdContent, setMdContent] = useState('')
+  const [docTitle, setDocTitle] = useState('')
   const [message, setMessage] = useState<{ text: string; status: 'success' | 'error' } | null>(null)
   const handleClose = (): void => {
     setMessage(null)
   }
 
+  useEffect(() => {
+    const getDocContent = async (): Promise<void> => {
+      const fetchContentRes = await fetch(`${process.env.PUBLIC_URL}/api/documents/${category}/${fileId}`)
+      const { statusText } = fetchContentRes
+      const resData = await fetchContentRes.json()
+      setDocTitle(resData.title)
+      setMdContent(resData.content)
+    }
+    getDocContent()
+  }, [category, fileId])
   return (
     <>
       <div className={classes.root}>
@@ -49,7 +60,13 @@ const EditPage: React.FC = () => {
         </AppBar>
       </div>
       <div className={classes.editor}>
-        <DocOperationBox category={category} setMessage={setMessage} mdContent={mdContent} />
+        <DocOperationBox
+          fileId={fileId}
+          docTitle={docTitle}
+          category={category}
+          setMessage={setMessage}
+          mdContent={mdContent}
+        />
         <MarkdownEditor mdContent={mdContent} returnMdContent={setMdContent} />
         <Snackbar
           open={!!message}

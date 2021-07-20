@@ -80,7 +80,6 @@ const StyledContainer = styled.div`
     width: 100%;
     height: 100%;
     padding: 1rem 2rem;
-    padding-top: 2rem;
     padding-bottom: 5rem;
     outline: none;
     border: none;
@@ -94,6 +93,8 @@ const StyledContainer = styled.div`
 
   #preview {
     padding: 1rem 2rem;
+    font-size: 1.1rem;
+    line-height: 1.2rem;
     padding-bottom: 3rem;
     background-color: ${$bg};
     height: 100%;
@@ -104,13 +105,16 @@ interface MdEditorProps {
   returnMdContent: (arg0: string) => void
 }
 const MarkdownEditor: React.FC<MdEditorProps> = ({ mdContent, returnMdContent }) => {
-  const [text, setText] = useState(mdContent || '')
+  const [text, setText] = useState('')
   const [editorMaximized, setEditorMaximized] = useState(false)
   const [previewerMaximized, setPreviewerMaximized] = useState(false)
   const onChange = (e: { target: { value: any } }): void => {
     const { value } = e.target
     setText(value)
   }
+  useEffect(() => {
+    mdContent && setText(mdContent)
+  }, [mdContent])
   useEffect(() => {
     returnMdContent(text)
   }, [returnMdContent, text])

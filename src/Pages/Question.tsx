@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
-      flexBasis: '33.33%',
+      // flexBasis: '33.33%',
       flexShrink: 0,
     },
     secondaryHeading: {
@@ -76,7 +76,7 @@ const QuestionPage: React.FC = () => {
               <Accordion key={index} expanded onChange={handleChangeExpand('panel1')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
                   <Typography className={classes.heading}>{title}</Typography>
-                  <Typography className={classes.secondaryHeading} />
+                  {/* <Typography className={classes.secondaryHeading} /> */}
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
@@ -88,7 +88,7 @@ const QuestionPage: React.FC = () => {
               </Accordion>
             ))}
           </div>
-          <Button target="_blank" href={`${tabContentMap[tabIndex].key}/edit`} color="secondary">
+          <Button target="_blank" href={`${tabContentMap[tabIndex].key}/add`} color="secondary">
             + Add
           </Button>
         </Box>
