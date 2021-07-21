@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 import MessageBar from 'components/MessageBar'
+import Divider from '@material-ui/core/Divider'
 
 type QuestionMapType = { content: string; title: string; _id: string }[]
 const converter = new Showdown.Converter({
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
     },
     heading: {
-      fontSize: theme.typography.pxToRem(15),
+      fontSize: theme.typography.pxToRem(17),
       flexShrink: 0,
       flexGrow: 1,
     },
@@ -90,7 +91,7 @@ const QuestionPage: React.FC = () => {
         <Box p={3} className={classes.questionBox}>
           <div>
             {questionList?.map(({ title, content, _id }, index) => (
-              <Accordion key={index} expanded onChange={handleChangeExpand('panel1')}>
+              <Accordion key={index}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
                   <Typography className={classes.heading}>{title}</Typography>
                   <DeleteOutlineIcon
@@ -100,6 +101,7 @@ const QuestionPage: React.FC = () => {
                     }}
                   />
                 </AccordionSummary>
+                <Divider />
                 <AccordionDetails>
                   <div className="markdown-body">
                     <span dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />

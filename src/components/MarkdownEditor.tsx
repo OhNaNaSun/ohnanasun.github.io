@@ -86,7 +86,7 @@ const StyledContainer = styled.div`
     border-radius: 0;
     resize: vertical;
     font-size: 1.1rem;
-    line-height: 1.2rem;
+    line-height: 1.5rem;
     color: #fafafa;
     background-color: ${$bg};
   }
@@ -94,7 +94,7 @@ const StyledContainer = styled.div`
   #preview {
     padding: 1rem 2rem;
     font-size: 1.1rem;
-    line-height: 1.2rem;
+    line-height: 1.5rem;
     padding-bottom: 3rem;
     background-color: ${$bg};
     height: 100%;
