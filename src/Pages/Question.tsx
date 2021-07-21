@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
@@ -10,8 +10,10 @@ import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
+import MessageBar from 'components/MessageBar'
 
-type QuestionMapType = { content: string; title: string }[]
+type QuestionMapType = { content: string; title: string; _id: string }[]
 const converter = new Showdown.Converter({
   tables: true,
   simplifiedAutoLink: true,
@@ -30,12 +32,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
-      // flexBasis: '33.33%',
       flexShrink: 0,
+      flexGrow: 1,
     },
     secondaryHeading: {
-      fontSize: theme.typography.pxToRem(15),
-      color: theme.palette.text.secondary,
+      fontSize: theme.typography.pxToRem(20),
     },
     questionBox: {
       backgroundColor: '#2D333B',
@@ -46,44 +47,63 @@ const QuestionPage: React.FC = () => {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState<string | false>(false)
 
+  const [message, setMessage] = useState<{ text: string; status: 'success' | 'error' } | null>(null)
   const handleChangeExpand = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false)
   }
   const [tabIndex, setTabIndex] = React.useState(0)
   const [questionList, setQuestionList] = useState<QuestionMapType | null>(null)
-  useEffect(() => {
+  const fetchDoc = useCallback(() => {
     ;(async (): Promise<void> => {
       const fileMapResponse = await fetch(`./api/documents/${tabContentMap[tabIndex].key}`)
       const fileMap = await fileMapResponse.json()
       setQuestionList(fileMap)
     })()
   }, [tabIndex])
+  useEffect(() => {
+    fetchDoc()
+  }, [fetchDoc])
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number): void => {
     setTabIndex(newValue)
   }
+  const deleteDoc = async (id: string): Promise<void> => {
+    const fileMapResponse = await fetch(`./api/documents/${tabContentMap[tabIndex].key}/${id}`, {
+      method: 'DELETE',
+    })
+    const res = await fileMapResponse.json()
+    if (res.status === 'success') {
+      setMessage({ status: res.status, text: res.message })
+      fetchDoc()
+    }
+  }
   return (
     <div style={{ margin: '20px auto', width: '90%' }}>
+      {message && <MessageBar messageIn={message} />}
       <Tabs value={tabIndex} onChange={handleChange}>
         {tabContentMap.map(({ key, name }) => (
           <Tab key={key} label={name} />
         ))}
       </Tabs>
+
       <div role="tabpanel">
         <Box p={3} className={classes.questionBox}>
           <div>
-            {questionList?.map(({ title, content }, index) => (
+            {questionList?.map(({ title, content, _id }, index) => (
               <Accordion key={index} expanded onChange={handleChangeExpand('panel1')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
                   <Typography className={classes.heading}>{title}</Typography>
-                  {/* <Typography className={classes.secondaryHeading} /> */}
+                  <DeleteOutlineIcon
+                    className={classes.secondaryHeading}
+                    onClick={(): void => {
+                      deleteDoc(_id)
+                    }}
+                  />
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>
-                    <div className="markdown-body">
-                      <span dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
-                    </div>
-                  </Typography>
+                  <div className="markdown-body">
+                    <span dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
+                  </div>
                 </AccordionDetails>
               </Accordion>
             ))}
@@ -97,10 +117,3 @@ const QuestionPage: React.FC = () => {
   )
 }
 export default QuestionPage
-function rgb(
-  arg0: number,
-  arg1: number,
-  arg2: number
-): string | import('@material-ui/styles').PropsFunc<{}, string | undefined> | undefined {
-  throw new Error('Function not implemented.')
-}
