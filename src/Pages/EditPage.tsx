@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   editor: {
     width: '90%',
     margin: '0 auto',
-    marginTop: theme.spacing(12),
+    marginTop: theme.spacing(5),
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -46,38 +46,27 @@ const EditPage: React.FC = () => {
       setDocTitle(resData.title)
       setMdContent(resData.content)
     }
-    getDocContent()
+    fileId !== 'add' && getDocContent()
   }, [category, fileId])
   return (
-    <>
-      <div className={classes.root}>
-        <AppBar position="fixed">
-          <Toolbar>
-            <IconButton edge="start" aria-label="menu" className={classes.menuButton}>
-              <MenuIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-      </div>
-      <div className={classes.editor}>
-        <DocOperationBox
-          fileId={fileId}
-          docTitle={docTitle}
-          category={category}
-          setMessage={setMessage}
-          mdContent={mdContent}
-        />
-        <MarkdownEditor mdContent={mdContent} returnMdContent={setMdContent} />
-        <Snackbar
-          open={!!message}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          autoHideDuration={6000}
-          onClose={handleClose}
-        >
-          <Alert severity={message?.status}>{message?.text}</Alert>
-        </Snackbar>
-      </div>
-    </>
+    <div className={classes.editor}>
+      <DocOperationBox
+        fileId={fileId}
+        docTitle={docTitle}
+        category={category}
+        setMessage={setMessage}
+        mdContent={mdContent}
+      />
+      <MarkdownEditor mdContent={mdContent} returnMdContent={setMdContent} />
+      <Snackbar
+        open={!!message}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert severity={message?.status}>{message?.text}</Alert>
+      </Snackbar>
+    </div>
   )
 }
 export default EditPage

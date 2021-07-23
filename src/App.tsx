@@ -53,24 +53,22 @@ const App: React.FC = () => {
       <CssBaseline />
       <Paper>
         <Router>
+          <PageHeader />
           <Switch>
             <Route path="/:category/:fileId">
               <EditPage />
             </Route>
             <Route path="/question" exact>
-              <PageHeader />
               <Container>
                 <QuestionPage />
               </Container>
             </Route>
             <Route path="/:fileId">
-              <PageHeader />
               <Container>
                 <Docs />
               </Container>
             </Route>
             <Route path="/">
-              <PageHeader />
               <Container>
                 <Home />
               </Container>

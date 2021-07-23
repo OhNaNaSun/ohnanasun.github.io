@@ -110,7 +110,7 @@ const QuestionPage: React.FC = () => {
               </Accordion>
             ))}
           </div>
-          <Button target="_blank" href={`${tabContentMap[tabIndex].key}/add`} color="secondary">
+          <Button href={`${tabContentMap[tabIndex].key}/add`} color="secondary">
             + Add
           </Button>
         </Box>

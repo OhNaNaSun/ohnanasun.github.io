@@ -11,12 +11,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     marginBottom: theme.spacing(2),
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
+  },
+  button: {
+    marginLeft: theme.spacing(2),
   },
   textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
     width: '80%',
   },
 }))
@@ -75,12 +74,22 @@ const DocOperationBox: React.FC<DocOperationBoxProps> = ({ docTitle, fileId, cat
         value={title}
       />
       <Button
+        className={classes.button}
         variant="outlined"
         onClick={(): void => {
           postNewFile()
         }}
       >
         Save
+      </Button>
+      <Button
+        className={classes.button}
+        variant="outlined"
+        onClick={(): void => {
+          history.push(`/question`)
+        }}
+      >
+        Back
       </Button>
     </Box>
   )
