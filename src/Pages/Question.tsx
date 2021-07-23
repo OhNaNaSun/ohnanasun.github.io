@@ -13,8 +13,18 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 import MessageBar from 'components/MessageBar'
 import Divider from '@material-ui/core/Divider'
+import EditIcon from '@material-ui/icons/Edit'
+import { useHistory } from 'react-router-dom'
+import { Link as UiLink } from '@material-ui/core'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 
-type QuestionMapType = { content: string; title: string; _id: string }[]
+interface QuestionData {
+  content: string
+  title: string
+  _id: string
+}
+type QuestionStateType = QuestionData & { isExpanded: boolean }
+type QuestionMapType = QuestionStateType[]
 const converter = new Showdown.Converter({
   tables: true,
   simplifiedAutoLink: true,
@@ -35,30 +45,37 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.pxToRem(17),
       flexShrink: 0,
       flexGrow: 1,
+      display: 'flex',
     },
     secondaryHeading: {
+      marginRight: theme.spacing(2),
       fontSize: theme.typography.pxToRem(20),
     },
     questionBox: {
       backgroundColor: '#2D333B',
     },
+    button: {
+      fontSize: theme.typography.pxToRem(15),
+      float: 'right',
+      display: 'flex',
+    },
   })
 )
 const QuestionPage: React.FC = () => {
   const classes = useStyles()
-  const [expanded, setExpanded] = React.useState<string | false>(false)
-
+  const history = useHistory()
   const [message, setMessage] = useState<{ text: string; status: 'success' | 'error' } | null>(null)
-  const handleChangeExpand = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
-    setExpanded(isExpanded ? panel : false)
-  }
   const [tabIndex, setTabIndex] = React.useState(0)
   const [questionList, setQuestionList] = useState<QuestionMapType | null>(null)
   const fetchDoc = useCallback(() => {
     ;(async (): Promise<void> => {
       const fileMapResponse = await fetch(`./api/documents/${tabContentMap[tabIndex].key}`)
       const fileMap = await fileMapResponse.json()
-      setQuestionList(fileMap)
+      setQuestionList(
+        fileMap.map((item: QuestionData) => {
+          return { ...item, isExpanded: false }
+        })
+      )
     })()
   }, [tabIndex])
   useEffect(() => {
@@ -90,10 +107,27 @@ const QuestionPage: React.FC = () => {
       <div role="tabpanel">
         <Box p={3} className={classes.questionBox}>
           <div>
-            {questionList?.map(({ title, content, _id }, index) => (
-              <Accordion key={index}>
+            {questionList?.map(({ title, content, _id, isExpanded }, index) => (
+              <Accordion
+                expanded={isExpanded}
+                key={index}
+                onChange={(): void => {
+                  setQuestionList((pre) => {
+                    if (!pre) return null
+                    const newState = [...pre]
+                    newState[index].isExpanded = !isExpanded
+                    return newState
+                  })
+                }}
+              >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
                   <Typography className={classes.heading}>{title}</Typography>
+                  <EditIcon
+                    className={classes.secondaryHeading}
+                    onClick={(): void => {
+                      history.push(`/${tabContentMap[tabIndex].key}/${_id}`)
+                    }}
+                  />
                   <DeleteOutlineIcon
                     className={classes.secondaryHeading}
                     onClick={(): void => {
@@ -103,8 +137,16 @@ const QuestionPage: React.FC = () => {
                 </AccordionSummary>
                 <Divider />
                 <AccordionDetails>
-                  <div className="markdown-body">
-                    <span dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
+                  <div>
+                    <div className="markdown-body">
+                      <span dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
+                    </div>
+                    <div>
+                      <UiLink component="button" className={classes.button} color="secondary" onClick={() => {}}>
+                        collapse
+                        <ArrowUpwardIcon fontSize="small" />
+                      </UiLink>
+                    </div>
                   </div>
                 </AccordionDetails>
               </Accordion>

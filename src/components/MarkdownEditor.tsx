@@ -10,7 +10,7 @@ const converter = new Showdown.Converter({
   strikethrough: true,
   tasklists: true,
 })
-const $bg = '#424242'
+const $bg = '#2d333b'
 const $titlebarBg = '#212121'
 const $text = '#bdbdbd'
 const StyledContainer = styled.div`
