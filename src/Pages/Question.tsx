@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
     },
     heading: {
-      fontSize: theme.typography.pxToRem(17),
+      fontSize: theme.typography.pxToRem(15),
       flexShrink: 0,
       flexGrow: 1,
       display: 'flex',
@@ -90,6 +90,14 @@ const QuestionPage: React.FC = () => {
       fetchDoc()
     }
   }
+  const collpaseItem = (isExpanded: boolean, index: number): void => {
+    setQuestionList((pre) => {
+      if (!pre) return null
+      const newState = [...pre]
+      newState[index].isExpanded = !isExpanded
+      return newState
+    })
+  }
   return (
     <div style={{ margin: '20px auto', width: '90%' }}>
       {message && <MessageBar messageIn={message} />}
@@ -107,12 +115,7 @@ const QuestionPage: React.FC = () => {
                 expanded={isExpanded}
                 key={index}
                 onChange={(): void => {
-                  setQuestionList((pre) => {
-                    if (!pre) return null
-                    const newState = [...pre]
-                    newState[index].isExpanded = !isExpanded
-                    return newState
-                  })
+                  collpaseItem(isExpanded, index)
                 }}
               >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
@@ -137,7 +140,14 @@ const QuestionPage: React.FC = () => {
                       <span dangerouslySetInnerHTML={{ __html: ShowdownConverter.makeHtml(content) }} />
                     </div>
                     <div>
-                      <UiLink component="button" className={classes.button} color="secondary" onClick={() => {}}>
+                      <UiLink
+                        component="button"
+                        className={classes.button}
+                        color="secondary"
+                        onClick={(): void => {
+                          collpaseItem(isExpanded, index)
+                        }}
+                      >
                         collapse
                         <ArrowUpwardIcon fontSize="small" />
                       </UiLink>

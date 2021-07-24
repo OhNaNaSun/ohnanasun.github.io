@@ -40,6 +40,7 @@ const App: React.FC = () => {
         main: '#212121',
         // main: '#272c34',
       },
+      text: { primary: '#adbac7' },
       secondary: {
         main: '#90caf9',
       },
