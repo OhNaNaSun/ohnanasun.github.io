@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from 'react'
-
-// https://codepen.io/KrissSteindals/pen/yrBdQe?editors=0110
-import * as Showdown from 'showdown'
 import styled from 'styled-components'
+import ShowdownConverter from 'components/ShowdownConverter'
 
-const converter = new Showdown.Converter({
-  tables: true,
-  simplifiedAutoLink: true,
-  strikethrough: true,
-  tasklists: true,
-})
 const $bg = '#2d333b'
 const $titlebarBg = '#212121'
 const $text = '#bdbdbd'
@@ -184,7 +176,11 @@ function Previewer(props: { text: any; handleMaximize: any; visible: any; maximi
   return (
     <div className="window">
       <Titlebar titleName="Previewer" fullscreen={handleMaximize} name="previewerMaximized" />
-      <div id="preview" className="markdown-body" dangerouslySetInnerHTML={{ __html: converter.makeHtml(text) }} />
+      <div
+        id="preview"
+        className="markdown-body"
+        dangerouslySetInnerHTML={{ __html: ShowdownConverter.makeHtml(text) }}
+      />
     </div>
   )
 }

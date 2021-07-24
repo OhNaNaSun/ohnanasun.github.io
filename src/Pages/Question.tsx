@@ -4,7 +4,6 @@ import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
-import * as Showdown from 'showdown'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
@@ -18,6 +17,8 @@ import { useHistory } from 'react-router-dom'
 import { Link as UiLink } from '@material-ui/core'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 
+import ShowdownConverter from 'components/ShowdownConverter'
+
 interface QuestionData {
   content: string
   title: string
@@ -25,12 +26,6 @@ interface QuestionData {
 }
 type QuestionStateType = QuestionData & { isExpanded: boolean }
 type QuestionMapType = QuestionStateType[]
-const converter = new Showdown.Converter({
-  tables: true,
-  simplifiedAutoLink: true,
-  strikethrough: true,
-  tasklists: true,
-})
 const tabContentMap = [
   { key: 'javascript', name: 'JavaScript' },
   { key: 'html', name: 'HTML' },
@@ -139,7 +134,7 @@ const QuestionPage: React.FC = () => {
                 <AccordionDetails>
                   <div>
                     <div className="markdown-body">
-                      <span dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
+                      <span dangerouslySetInnerHTML={{ __html: ShowdownConverter.makeHtml(content) }} />
                     </div>
                     <div>
                       <UiLink component="button" className={classes.button} color="secondary" onClick={() => {}}>

@@ -22,6 +22,7 @@
     "eslint-plugin-jest": "^23.18.0",
     "eslint-plugin-jest-dom": "^3.1.4",
     "eslint-plugin-testing-library": "^3.3.2",
+    "highlight.js": "^11.1.0",
     "http-proxy-middleware": "^1.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
