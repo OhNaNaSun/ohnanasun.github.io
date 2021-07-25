@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   button: {
-    marginLeft: theme.spacing(2),
+    marginLeft: theme.spacing(1),
   },
   textField: {
     width: '80%',
@@ -90,6 +90,15 @@ const DocOperationBox: React.FC<DocOperationBoxProps> = ({ docTitle, fileId, cat
         }}
       >
         Back
+      </Button>
+      <Button
+        className={classes.button}
+        variant="outlined"
+        onClick={(): void => {
+          history.push(`/${category}/add`)
+        }}
+      >
+        Add
       </Button>
     </Box>
   )

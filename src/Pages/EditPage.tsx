@@ -33,7 +33,12 @@ const EditPage: React.FC = () => {
   const handleClose = (): void => {
     setMessage(null)
   }
-
+  useEffect(() => {
+    if (fileId === 'add') {
+      setDocTitle('')
+      setMdContent('')
+    }
+  }, [fileId])
   useEffect(() => {
     const getDocContent = async (): Promise<void> => {
       const fetchContentRes = await fetch(`${process.env.PUBLIC_URL}/api/documents/${category}/${fileId}`)

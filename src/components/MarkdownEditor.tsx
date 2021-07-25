@@ -105,7 +105,7 @@ const MarkdownEditor: React.FC<MdEditorProps> = ({ mdContent, returnMdContent })
     setText(value)
   }
   useEffect(() => {
-    mdContent && setText(mdContent)
+    typeof mdContent === 'string' && setText(mdContent)
   }, [mdContent])
   useEffect(() => {
     returnMdContent(text)

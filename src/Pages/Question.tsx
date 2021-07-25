@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
-      flexShrink: 0,
       flexGrow: 1,
       display: 'flex',
     },

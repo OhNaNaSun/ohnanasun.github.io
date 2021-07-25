@@ -6,7 +6,6 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
 import Home from './pages/Home'
-import Docs from './pages/Doc'
 import QuestionPage from './pages/Question'
 import EditPage from './pages/EditPage'
 import './css/markdown-body.css'
@@ -64,12 +63,7 @@ const App: React.FC = () => {
                 <QuestionPage />
               </Container>
             </Route>
-            <Route path="/:fileId">
-              <Container>
-                <Docs />
-              </Container>
-            </Route>
-            <Route path="/">
+            <Route path="/" exact>
               <Container>
                 <Home />
               </Container>
