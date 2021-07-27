@@ -34,7 +34,10 @@ const tabContentMap = [
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: '100%',
+      margin: '20px auto',
+    },
+    accordingTitle: {
+      alignItems: 'center',
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
@@ -98,7 +101,7 @@ const QuestionPage: React.FC = () => {
     })
   }
   return (
-    <div style={{ margin: '20px auto', width: '90%' }}>
+    <div className={classes.root}>
       {message && <MessageBar messageIn={message} />}
       <Tabs value={tabIndex} onChange={handleChange}>
         {tabContentMap.map(({ key, name }) => (
@@ -117,7 +120,12 @@ const QuestionPage: React.FC = () => {
                   collpaseItem(isExpanded, index)
                 }}
               >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+                <AccordionSummary
+                  classes={{ content: classes.accordingTitle }}
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
+                >
                   <Typography className={classes.heading}>{title}</Typography>
                   <EditIcon
                     className={classes.secondaryHeading}
