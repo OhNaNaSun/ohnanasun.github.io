@@ -17,7 +17,7 @@ import EditIcon from '@material-ui/icons/Edit'
 
 import { Link as UiLink } from '@material-ui/core'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
-
+import CircularProgress from '@material-ui/core/CircularProgress'
 import ShowdownConverter from 'components/ShowdownConverter'
 
 interface QuestionData {
@@ -52,6 +52,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     questionBox: {
       backgroundColor: '#2D333B',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '10px',
     },
     button: {
       fontSize: theme.typography.pxToRem(15),
@@ -64,6 +68,7 @@ const QuestionPage: React.FC = () => {
   const classes = useStyles()
   const history = useHistory()
   const { hash } = useLocation()
+  const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState<{ text: string; status: 'success' | 'error' } | null>(null)
   const hashTabIndex = tabContentMap.findIndex(({ key }) => key === hash.replace('#', ''))
   const [tabIndex, setTabIndex] = React.useState(hashTabIndex !== -1 ? hashTabIndex : 0)
@@ -71,8 +76,10 @@ const QuestionPage: React.FC = () => {
   const [questionList, setQuestionList] = useState<QuestionMapType | null>(null)
   const fetchDoc = useCallback(() => {
     ;(async (): Promise<void> => {
+      setIsLoading(true)
       const fileMapResponse = await fetch(`./api/documents/${tabContentMap[tabIndex].key}`)
       const fileMap = await fileMapResponse.json()
+      setIsLoading(false)
       setQuestionList(
         fileMap.map((item: QuestionData) => {
           return { ...item, isExpanded: false }
@@ -113,65 +120,68 @@ const QuestionPage: React.FC = () => {
           <Tab key={key} label={name} />
         ))}
       </Tabs>
-
       <div role="tabpanel">
         <Box p={3} className={classes.questionBox}>
-          <div>
-            {questionList?.map(({ title, content, _id, isExpanded }, index) => (
-              <Accordion
-                expanded={isExpanded}
-                key={index}
-                onChange={(): void => {
-                  collpaseItem(isExpanded, index)
-                }}
-              >
-                <AccordionSummary
-                  classes={{ content: classes.accordingTitle }}
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1bh-content"
-                  id="panel1bh-header"
+          {isLoading ? (
+            <CircularProgress size={30} color="secondary" />
+          ) : (
+            <Box width="100%">
+              {questionList?.map(({ title, content, _id, isExpanded }, index) => (
+                <Accordion
+                  expanded={isExpanded}
+                  key={index}
+                  onChange={(): void => {
+                    collpaseItem(isExpanded, index)
+                  }}
                 >
-                  <Typography className={classes.heading}>{title}</Typography>
-                  <EditIcon
-                    className={classes.secondaryHeading}
-                    onClick={(): void => {
-                      history.push(`/${tabContentMap[tabIndex].key}/${_id}`)
-                    }}
-                  />
-                  <DeleteOutlineIcon
-                    className={classes.secondaryHeading}
-                    onClick={(): void => {
-                      deleteDoc(_id)
-                    }}
-                  />
-                </AccordionSummary>
-                <Divider />
-                <AccordionDetails>
-                  <div>
-                    <div className="markdown-body">
-                      <span dangerouslySetInnerHTML={{ __html: ShowdownConverter.makeHtml(content) }} />
-                    </div>
+                  <AccordionSummary
+                    classes={{ content: classes.accordingTitle }}
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1bh-content"
+                    id="panel1bh-header"
+                  >
+                    <Typography className={classes.heading}>{title}</Typography>
+                    <EditIcon
+                      className={classes.secondaryHeading}
+                      onClick={(): void => {
+                        history.push(`/${tabContentMap[tabIndex].key}/${_id}`)
+                      }}
+                    />
+                    <DeleteOutlineIcon
+                      className={classes.secondaryHeading}
+                      onClick={(): void => {
+                        deleteDoc(_id)
+                      }}
+                    />
+                  </AccordionSummary>
+                  <Divider />
+                  <AccordionDetails>
                     <div>
-                      <UiLink
-                        component="button"
-                        className={classes.button}
-                        color="secondary"
-                        onClick={(): void => {
-                          collpaseItem(isExpanded, index)
-                        }}
-                      >
-                        collapse
-                        <ArrowUpwardIcon fontSize="small" />
-                      </UiLink>
+                      <div className="markdown-body">
+                        <span dangerouslySetInnerHTML={{ __html: ShowdownConverter.makeHtml(content) }} />
+                      </div>
+                      <div>
+                        <UiLink
+                          component="button"
+                          className={classes.button}
+                          color="secondary"
+                          onClick={(): void => {
+                            collpaseItem(isExpanded, index)
+                          }}
+                        >
+                          collapse
+                          <ArrowUpwardIcon fontSize="small" />
+                        </UiLink>
+                      </div>
                     </div>
-                  </div>
-                </AccordionDetails>
-              </Accordion>
-            ))}
-          </div>
-          <Button href={`${tabContentMap[tabIndex].key}/add`} color="secondary">
-            + Add
-          </Button>
+                  </AccordionDetails>
+                </Accordion>
+              ))}
+              <Button href={`${tabContentMap[tabIndex].key}/add`} color="secondary">
+                + Add
+              </Button>
+            </Box>
+          )}
         </Box>
       </div>
     </div>
