@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Tabs from '@material-ui/core/Tabs'
+import { useLocation, useHistory } from 'react-router-dom'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
@@ -13,7 +14,7 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 import MessageBar from 'components/MessageBar'
 import Divider from '@material-ui/core/Divider'
 import EditIcon from '@material-ui/icons/Edit'
-import { useHistory } from 'react-router-dom'
+
 import { Link as UiLink } from '@material-ui/core'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 
@@ -28,6 +29,7 @@ type QuestionStateType = QuestionData & { isExpanded: boolean }
 type QuestionMapType = QuestionStateType[]
 const tabContentMap = [
   { key: 'javascript', name: 'JavaScript' },
+  { key: 'react', name: 'React' },
   { key: 'html', name: 'HTML' },
   { key: 'css', name: 'CSS' },
 ]
@@ -61,8 +63,11 @@ const useStyles = makeStyles((theme: Theme) =>
 const QuestionPage: React.FC = () => {
   const classes = useStyles()
   const history = useHistory()
+  const { hash } = useLocation()
   const [message, setMessage] = useState<{ text: string; status: 'success' | 'error' } | null>(null)
-  const [tabIndex, setTabIndex] = React.useState(0)
+  const hashTabIndex = tabContentMap.findIndex(({ key }) => key === hash.replace('#', ''))
+  const [tabIndex, setTabIndex] = React.useState(hashTabIndex !== -1 ? hashTabIndex : 0)
+
   const [questionList, setQuestionList] = useState<QuestionMapType | null>(null)
   const fetchDoc = useCallback(() => {
     ;(async (): Promise<void> => {

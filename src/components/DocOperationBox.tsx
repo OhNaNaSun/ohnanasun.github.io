@@ -86,7 +86,7 @@ const DocOperationBox: React.FC<DocOperationBoxProps> = ({ docTitle, fileId, cat
         className={classes.button}
         variant="outlined"
         onClick={(): void => {
-          history.push(`/question`)
+          history.push(`/question#${category}`)
         }}
       >
         Back
