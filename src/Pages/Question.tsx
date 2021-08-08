@@ -9,7 +9,6 @@ import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 import MessageBar from 'components/MessageBar'
 import Divider from '@material-ui/core/Divider'
@@ -19,11 +18,14 @@ import { Link as UiLink } from '@material-ui/core'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import ShowdownConverter from 'components/ShowdownConverter'
+import { SortableContainer, SortableElement } from 'react-sortable-hoc'
+import arrayMove from 'array-move'
+import useStyles from './QuestionStyle'
 
 interface QuestionData {
-  content: string
+  content?: string
   title: string
-  _id: string
+  id: string
 }
 type QuestionStateType = QuestionData & { isExpanded: boolean }
 type QuestionMapType = QuestionStateType[]
@@ -33,37 +35,7 @@ const tabContentMap = [
   { key: 'html', name: 'HTML' },
   { key: 'css', name: 'CSS' },
 ]
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      margin: '20px auto',
-    },
-    accordingTitle: {
-      alignItems: 'center',
-    },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-      flexGrow: 1,
-      display: 'flex',
-    },
-    secondaryHeading: {
-      marginRight: theme.spacing(2),
-      fontSize: theme.typography.pxToRem(20),
-    },
-    questionBox: {
-      backgroundColor: '#2D333B',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: '10px',
-    },
-    button: {
-      fontSize: theme.typography.pxToRem(15),
-      float: 'right',
-      display: 'flex',
-    },
-  })
-)
+
 const QuestionPage: React.FC = () => {
   const classes = useStyles()
   const history = useHistory()
@@ -108,9 +80,76 @@ const QuestionPage: React.FC = () => {
     setQuestionList((pre) => {
       if (!pre) return null
       const newState = [...pre]
-      newState[index].isExpanded = !isExpanded
+      newState[index].isExpanded = isExpanded
       return newState
     })
+  }
+
+  const SortableItem = SortableElement(({ value, sortIndex }: { value: QuestionStateType; sortIndex: number }) => {
+    const { title, id, isExpanded, content } = value
+    return (
+      <Accordion
+        expanded={isExpanded}
+        key={sortIndex}
+        onChange={(e, expanded): void => {
+          collpaseItem(expanded, sortIndex)
+        }}
+      >
+        <AccordionSummary
+          classes={{ content: classes.accordingTitle }}
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          id={`panel1bh-header-${sortIndex}`}
+        >
+          <Typography className={classes.heading}>{title}</Typography>
+          <EditIcon
+            className={classes.secondaryHeading}
+            onClick={(): void => {
+              history.push(`/${tabContentMap[tabIndex].key}/${id}`)
+            }}
+          />
+          <DeleteOutlineIcon
+            className={classes.secondaryHeading}
+            onClick={(): void => {
+              deleteDoc(id)
+            }}
+          />
+        </AccordionSummary>
+        <Divider />
+        <AccordionDetails>
+          <div>
+            <div className="markdown-body">
+              <span dangerouslySetInnerHTML={{ __html: ShowdownConverter.makeHtml(content || '') }} />
+            </div>
+            <div>
+              <UiLink
+                component="button"
+                className={classes.button}
+                color="secondary"
+                onClick={(): void => {
+                  collpaseItem(!isExpanded, sortIndex)
+                }}
+              >
+                collapse
+                <ArrowUpwardIcon fontSize="small" />
+              </UiLink>
+            </div>
+          </div>
+        </AccordionDetails>
+      </Accordion>
+    )
+  })
+  const SortableList = SortableContainer(({ items }: { items: QuestionMapType }) => {
+    return (
+      <ul>
+        {(items || []).map((value, index) => (
+          <SortableItem key={`item-${index}`} index={index} sortIndex={index} value={value} />
+        ))}
+      </ul>
+    )
+  })
+  const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
+    setQuestionList((preItems) => arrayMove(preItems || [], oldIndex, newIndex))
   }
   return (
     <div className={classes.root}>
@@ -126,57 +165,10 @@ const QuestionPage: React.FC = () => {
             <CircularProgress size={30} color="secondary" />
           ) : (
             <Box width="100%">
-              {questionList?.map(({ title, content, _id, isExpanded }, index) => (
-                <Accordion
-                  expanded={isExpanded}
-                  key={index}
-                  onChange={(): void => {
-                    collpaseItem(isExpanded, index)
-                  }}
-                >
-                  <AccordionSummary
-                    classes={{ content: classes.accordingTitle }}
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
-                  >
-                    <Typography className={classes.heading}>{title}</Typography>
-                    <EditIcon
-                      className={classes.secondaryHeading}
-                      onClick={(): void => {
-                        history.push(`/${tabContentMap[tabIndex].key}/${_id}`)
-                      }}
-                    />
-                    <DeleteOutlineIcon
-                      className={classes.secondaryHeading}
-                      onClick={(): void => {
-                        deleteDoc(_id)
-                      }}
-                    />
-                  </AccordionSummary>
-                  <Divider />
-                  <AccordionDetails>
-                    <div>
-                      <div className="markdown-body">
-                        <span dangerouslySetInnerHTML={{ __html: ShowdownConverter.makeHtml(content) }} />
-                      </div>
-                      <div>
-                        <UiLink
-                          component="button"
-                          className={classes.button}
-                          color="secondary"
-                          onClick={(): void => {
-                            collpaseItem(isExpanded, index)
-                          }}
-                        >
-                          collapse
-                          <ArrowUpwardIcon fontSize="small" />
-                        </UiLink>
-                      </div>
-                    </div>
-                  </AccordionDetails>
-                </Accordion>
-              ))}
+              <SortableList distance={2} items={questionList || []} onSortEnd={onSortEnd} />
+              {/* {questionList?.map(({ title, content, _id, isExpanded }, index) => (
+
+              ))} */}
               <Button href={`${tabContentMap[tabIndex].key}/add`} color="secondary">
                 + Add
               </Button>
