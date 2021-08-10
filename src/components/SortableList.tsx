@@ -9,8 +9,8 @@ import Divider from '@material-ui/core/Divider'
 import EditIcon from '@material-ui/icons/Edit'
 import AccordionDetail from 'components/AccordionDetail'
 import { useHistory } from 'react-router-dom'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
 import { QuestionStateType, QuestionMapType } from '../types'
-
 import tabContentMap from '../constants'
 import useStyles from '../pages/QuestionStyle'
 
@@ -61,7 +61,9 @@ const SortableListContainer: React.FC<SortableListContainerProps> = ({
           />
         </AccordionSummary>
         <Divider />
-        <AccordionDetail {...{ content, isExpanded, sortIndex, collapseItem }} />
+        <AccordionDetails>
+          <AccordionDetail {...{ content, isExpanded, sortIndex, collapseItem }} />
+        </AccordionDetails>
       </Accordion>
     )
   })

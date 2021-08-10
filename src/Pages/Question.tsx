@@ -22,7 +22,7 @@ const QuestionPage: React.FC = () => {
   const hashTabIndex = tabContentMap.findIndex(({ key }) => key === hash.replace('#', ''))
   const [tabIndex, setTabIndex] = React.useState(hashTabIndex !== -1 ? hashTabIndex : 0)
 
-  const [questionList, setQuestionList] = useState<QuestionMapType | null>(null)
+  const [questionList, setQuestionList] = useState<QuestionMapType>([])
   const fetchDoc = useCallback(() => {
     ;(async (): Promise<void> => {
       setIsLoading(true)
@@ -53,11 +53,18 @@ const QuestionPage: React.FC = () => {
       fetchDoc()
     }
   }
-  const collapseItem = (isExpanded: boolean, index: number): void => {
+  const collapseItem = async (isExpanded: boolean, index: number): Promise<void> => {
+    let { content } = questionList[index]
+    if (isExpanded && !content) {
+      const getDocContent = await fetch(`./api/documents/${tabContentMap[tabIndex].key}/${questionList[index].id}`, {
+        method: 'GET',
+      })
+      const res = await getDocContent.json()
+      content = res.content
+    }
     setQuestionList((pre) => {
-      if (!pre) return null
       const newState = [...pre]
-      newState[index].isExpanded = isExpanded
+      newState[index] = { ...newState[index], isExpanded, content }
       return newState
     })
   }
