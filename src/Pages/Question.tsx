@@ -30,9 +30,11 @@ const QuestionPage: React.FC = () => {
       const fileMap = await fileMapResponse.json()
       setIsLoading(false)
       setQuestionList(
-        fileMap.map((item: QuestionData) => {
-          return { ...item, isExpanded: false }
-        })
+        fileMap
+          .map((item: QuestionData) => {
+            return { ...item, isExpanded: false }
+          })
+          .sort((a: QuestionData, b: QuestionData) => a.seq - b.seq)
       )
     })()
   }, [tabIndex])
@@ -71,9 +73,24 @@ const QuestionPage: React.FC = () => {
   const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }): void => {
     setQuestionList((preItems) => arrayMove(preItems || [], oldIndex, newIndex))
   }
+  const saveSort = async (): Promise<void> => {
+    const ids = questionList.map(({ id }) => id)
+    const getDocContent = await fetch(`./api/documents/${tabContentMap[tabIndex].key}/seq`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(ids),
+    })
+    const res = await getDocContent.json()
+    setMessage({ status: res.status, text: res.message })
+  }
   return (
     <div className={classes.root}>
       {message && <MessageBar messageIn={message} />}
+      <Button onClick={saveSort} variant="outlined">
+        Save Sort
+      </Button>
       <Tabs value={tabIndex} onChange={handleChange}>
         {tabContentMap.map(({ key, name }) => (
           <Tab key={key} label={name} />
