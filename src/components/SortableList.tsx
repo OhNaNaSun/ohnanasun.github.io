@@ -10,6 +10,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import AccordionDetail from 'components/AccordionDetail'
 import { useHistory } from 'react-router-dom'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import { QuestionStateType, QuestionMapType } from '../types'
 import tabContentMap from '../constants'
 import useStyles from '../pages/QuestionStyle'
@@ -20,6 +21,7 @@ interface SortableListContainerProps {
   onSortEnd: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void
   deleteDoc: (id: string) => Promise<void>
   questionList: QuestionMapType | null
+  moveToTop: (arg0: number) => void
 }
 const SortableListContainer: React.FC<SortableListContainerProps> = ({
   collapseItem,
@@ -27,6 +29,7 @@ const SortableListContainer: React.FC<SortableListContainerProps> = ({
   onSortEnd,
   deleteDoc,
   tabIndex,
+  moveToTop,
 }) => {
   const history = useHistory()
   const classes = useStyles()
@@ -47,6 +50,7 @@ const SortableListContainer: React.FC<SortableListContainerProps> = ({
           id={`panel1bh-header-${sortIndex}`}
         >
           <Typography className={classes.heading}>{title}</Typography>
+          <ArrowUpwardIcon className={classes.secondaryHeading} onClick={(): void => moveToTop(sortIndex)} />
           <EditIcon
             className={classes.secondaryHeading}
             onClick={(): void => {

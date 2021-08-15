@@ -73,6 +73,9 @@ const QuestionPage: React.FC = () => {
   const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }): void => {
     setQuestionList((preItems) => arrayMove(preItems || [], oldIndex, newIndex))
   }
+  const moveToTop = (oldIndex: number): void => {
+    setQuestionList((preItems) => arrayMove(preItems || [], oldIndex, 0))
+  }
   const saveSort = async (): Promise<void> => {
     const ids = questionList.map(({ id }) => id)
     const getDocContent = await fetch(`./api/documents/${tabContentMap[tabIndex].key}/seq`, {
@@ -102,7 +105,7 @@ const QuestionPage: React.FC = () => {
             <CircularProgress size={30} color="secondary" />
           ) : (
             <Box width="100%">
-              <SortableList {...{ tabIndex, collapseItem, onSortEnd, deleteDoc, questionList }} />
+              <SortableList {...{ moveToTop, tabIndex, collapseItem, onSortEnd, deleteDoc, questionList }} />
               <Button href={`${tabContentMap[tabIndex].key}/add`} color="secondary">
                 + Add
               </Button>
