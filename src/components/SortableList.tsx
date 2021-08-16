@@ -1,19 +1,19 @@
 import { SortableContainer, SortableElement } from 'react-sortable-hoc'
 import React from 'react'
-import Accordion from '@material-ui/core/Accordion'
-import AccordionSummary from '@material-ui/core/AccordionSummary'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
-import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import EditIcon from '@material-ui/icons/Edit'
 import AccordionDetail from 'components/AccordionDetail'
 import { useHistory } from 'react-router-dom'
-import AccordionDetails from '@material-ui/core/AccordionDetails'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
-import { QuestionStateType, QuestionMapType } from '../types'
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
+import CardContent from '@material-ui/core/CardContent'
+import Collapse from '@material-ui/core/Collapse'
+import IconButton from '@material-ui/core/IconButton'
 import tabContentMap from '../constants'
-import useStyles from '../pages/QuestionStyle'
+import { QuestionStateType, QuestionMapType } from '../types'
 
 interface SortableListContainerProps {
   tabIndex: number
@@ -32,43 +32,65 @@ const SortableListContainer: React.FC<SortableListContainerProps> = ({
   moveToTop,
 }) => {
   const history = useHistory()
-  const classes = useStyles()
   const SortableItem = SortableElement(({ value, sortIndex }: { value: QuestionStateType; sortIndex: number }) => {
     const { title, id, isExpanded, content } = value
     return (
-      <Accordion
-        expanded={isExpanded}
-        key={sortIndex}
-        onChange={(e, expanded): void => {
-          collapseItem(expanded, sortIndex)
-        }}
-      >
-        <AccordionSummary
-          classes={{ content: classes.accordingTitle }}
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id={`panel1bh-header-${sortIndex}`}
-        >
-          <Typography className={classes.heading}>{title}</Typography>
-          <ArrowUpwardIcon className={classes.secondaryHeading} onClick={(): void => moveToTop(sortIndex)} />
-          <EditIcon
-            className={classes.secondaryHeading}
-            onClick={(): void => {
-              history.push(`/${tabContentMap[tabIndex].key}/${id}`)
-            }}
-          />
-          <DeleteOutlineIcon
-            className={classes.secondaryHeading}
-            onClick={(): void => {
-              deleteDoc(id)
-            }}
-          />
-        </AccordionSummary>
+      <Card>
+        <CardHeader
+          disableTypography
+          action={
+            <>
+              <IconButton
+                onClick={(): void => collapseItem(!isExpanded, sortIndex)}
+                size="small"
+                color="inherit"
+                aria-label="Expand"
+                component="span"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+              <IconButton
+                onClick={(): void => moveToTop(sortIndex)}
+                size="small"
+                color="inherit"
+                aria-label="Move to top"
+                component="span"
+              >
+                <ArrowUpwardIcon />
+              </IconButton>
+              <IconButton
+                onClick={(): void => {
+                  history.push(`/${tabContentMap[tabIndex].key}/${id}`)
+                }}
+                size="small"
+                color="inherit"
+                aria-label="Move to top"
+                component="span"
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton
+                onClick={(): void => {
+                  deleteDoc(id)
+                }}
+                size="small"
+                color="inherit"
+                aria-label="Delete"
+                component="span"
+              >
+                <DeleteOutlineIcon />
+              </IconButton>
+            </>
+          }
+          title={title}
+        />
         <Divider />
-        <AccordionDetails>
-          <AccordionDetail {...{ content, isExpanded, sortIndex, collapseItem }} />
-        </AccordionDetails>
-      </Accordion>
+        <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <AccordionDetail {...{ content, isExpanded, sortIndex, collapseItem }} />
+          </CardContent>
+        </Collapse>
+      </Card>
     )
   })
   const SortableList = SortableContainer(({ items }: { items: QuestionMapType }) => {

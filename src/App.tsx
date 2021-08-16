@@ -1,5 +1,6 @@
 import React from 'react'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { ThemeProvider, createTheme } from '@material-ui/core/styles'
+
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import PageHeader from 'components/PageHeader'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -11,7 +12,7 @@ import EditPage from './pages/EditPage'
 import './css/markdown-body.css'
 
 const App: React.FC = () => {
-  const theme = createMuiTheme({
+  const theme = createTheme({
     typography: {
       fontSize: 16,
     },
@@ -30,6 +31,11 @@ const App: React.FC = () => {
             fontWeight: 600,
             lineHeight: '21px',
           },
+        },
+      },
+      MuiSvgIcon: {
+        root: {
+          fontSize: '1.3rem',
         },
       },
     },
