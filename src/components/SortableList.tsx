@@ -1,5 +1,5 @@
 import { SortableContainer, SortableElement } from 'react-sortable-hoc'
-import React from 'react'
+import React, { useState } from 'react'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 import Divider from '@material-ui/core/Divider'
@@ -14,6 +14,7 @@ import Collapse from '@material-ui/core/Collapse'
 import IconButton from '@material-ui/core/IconButton'
 import tabContentMap from '../constants'
 import { QuestionStateType, QuestionMapType } from '../types'
+import AlertDialog from './AlertDialog'
 
 interface SortableListContainerProps {
   tabIndex: number
@@ -32,6 +33,8 @@ const SortableListContainer: React.FC<SortableListContainerProps> = ({
   moveToTop,
 }) => {
   const history = useHistory()
+  const [isOpen, setIsOpen] = useState(false)
+  const [deletingId, setDeletingId] = useState('')
   const SortableItem = SortableElement(({ value, sortIndex }: { value: QuestionStateType; sortIndex: number }) => {
     const { title, id, isExpanded, content } = value
     return (
@@ -71,7 +74,8 @@ const SortableListContainer: React.FC<SortableListContainerProps> = ({
               </IconButton>
               <IconButton
                 onClick={(): void => {
-                  deleteDoc(id)
+                  setDeletingId(id)
+                  setIsOpen(true)
                 }}
                 size="small"
                 color="inherit"
@@ -102,6 +106,22 @@ const SortableListContainer: React.FC<SortableListContainerProps> = ({
       </div>
     )
   })
-  return <SortableList distance={2} items={questionList || []} onSortEnd={onSortEnd} />
+  return (
+    <>
+      <SortableList distance={2} items={questionList || []} onSortEnd={onSortEnd} />
+      <AlertDialog
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        title={
+          questionList?.find(({ id }) => {
+            return id === deletingId
+          })?.title
+        }
+        confirmCallback={(): void => {
+          deleteDoc(deletingId)
+        }}
+      />
+    </>
+  )
 }
 export default SortableListContainer
