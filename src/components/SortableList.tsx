@@ -38,63 +38,65 @@ const SortableListContainer: React.FC<SortableListContainerProps> = ({
   const SortableItem = SortableElement(({ value, sortIndex }: { value: QuestionStateType; sortIndex: number }) => {
     const { title, id, isExpanded, content } = value
     return (
-      <Card>
-        <CardHeader
-          disableTypography
-          action={
-            <>
-              <IconButton
-                onClick={(): void => collapseItem(!isExpanded, sortIndex)}
-                size="small"
-                color="inherit"
-                aria-label="Expand"
-                component="span"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-              <IconButton
-                onClick={(): void => moveToTop(sortIndex)}
-                size="small"
-                color="inherit"
-                aria-label="Move to top"
-                component="span"
-              >
-                <ArrowUpwardIcon />
-              </IconButton>
-              <IconButton
-                onClick={(): void => {
-                  history.push(`/${tabContentMap[tabIndex].key}/${id}`)
-                }}
-                size="small"
-                color="inherit"
-                aria-label="Move to top"
-                component="span"
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                onClick={(): void => {
-                  setDeletingId(id)
-                  setIsOpen(true)
-                }}
-                size="small"
-                color="inherit"
-                aria-label="Delete"
-                component="span"
-              >
-                <DeleteOutlineIcon />
-              </IconButton>
-            </>
-          }
-          title={title}
-        />
+      <>
+        <Card>
+          <CardHeader
+            disableTypography
+            action={
+              <>
+                <IconButton
+                  onClick={(): void => collapseItem(!isExpanded, sortIndex)}
+                  size="small"
+                  color="inherit"
+                  aria-label="Expand"
+                  component="span"
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+                <IconButton
+                  onClick={(): void => moveToTop(sortIndex)}
+                  size="small"
+                  color="inherit"
+                  aria-label="Move to top"
+                  component="span"
+                >
+                  <ArrowUpwardIcon />
+                </IconButton>
+                <IconButton
+                  onClick={(): void => {
+                    history.push(`/${tabContentMap[tabIndex].key}/${id}`)
+                  }}
+                  size="small"
+                  color="inherit"
+                  aria-label="Move to top"
+                  component="span"
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  onClick={(): void => {
+                    setDeletingId(id)
+                    setIsOpen(true)
+                  }}
+                  size="small"
+                  color="inherit"
+                  aria-label="Delete"
+                  component="span"
+                >
+                  <DeleteOutlineIcon />
+                </IconButton>
+              </>
+            }
+            title={title}
+          />
+          <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <AccordionDetail {...{ content, isExpanded, sortIndex, collapseItem }} />
+            </CardContent>
+          </Collapse>
+        </Card>
         <Divider />
-        <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <AccordionDetail {...{ content, isExpanded, sortIndex, collapseItem }} />
-          </CardContent>
-        </Collapse>
-      </Card>
+      </>
     )
   })
   const SortableList = SortableContainer(({ items }: { items: QuestionMapType }) => {

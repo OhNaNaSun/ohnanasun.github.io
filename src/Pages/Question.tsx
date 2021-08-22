@@ -10,7 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import arrayMove from 'array-move'
 import SortableList from 'components/SortableList'
 import useStyles from './QuestionStyle'
-import { QuestionData, QuestionMapType } from '../types'
+import { QuestionData, QuestionMapType, docCountType } from '../types'
 
 import tabContentMap from '../constants'
 
@@ -18,6 +18,7 @@ const QuestionPage: React.FC = () => {
   const classes = useStyles()
   const { hash } = useLocation()
   const [isLoading, setIsLoading] = useState(false)
+  const [countMap, setCountMap] = useState<docCountType | null>(null)
   const [message, setMessage] = useState<{ text: string; status: 'success' | 'error' } | null>(null)
   const hashTabIndex = tabContentMap.findIndex(({ key }) => key === hash.replace('#', ''))
   const [tabIndex, setTabIndex] = React.useState(hashTabIndex !== -1 ? hashTabIndex : 0)
@@ -38,6 +39,14 @@ const QuestionPage: React.FC = () => {
       )
     })()
   }, [tabIndex])
+  useEffect(() => {
+    ;(async (): Promise<void> => {
+      const countMapResponse = await fetch(`./api/documents/count`)
+      const countMapData = await countMapResponse.json()
+      setCountMap(countMapData)
+    })()
+  }, [tabIndex])
+
   useEffect(() => {
     fetchDoc()
   }, [fetchDoc])
@@ -91,12 +100,15 @@ const QuestionPage: React.FC = () => {
   return (
     <div className={classes.root}>
       {message && <MessageBar messageIn={message} />}
-      <Button onClick={saveSort} variant="outlined">
+      <Button onClick={saveSort} color="secondary">
         Save Sort
+      </Button>
+      <Button href={`${tabContentMap[tabIndex].key}/add`} color="secondary">
+        + Add
       </Button>
       <Tabs value={tabIndex} onChange={handleChange}>
         {tabContentMap.map(({ key, name }) => (
-          <Tab key={key} label={name} />
+          <Tab key={key} label={`${name} ${countMap ? countMap[key] : ''}`} />
         ))}
       </Tabs>
       <div role="tabpanel">
