@@ -108,7 +108,7 @@ const QuestionPage: React.FC = () => {
       </Button>
       <Tabs value={tabIndex} onChange={handleChange}>
         {tabContentMap.map(({ key, name }) => (
-          <Tab key={key} label={`${name} ${countMap ? countMap[key] : ''}`} />
+          <Tab key={key} label={`${name} ${countMap ? `(${countMap[key]})` : ''}`} />
         ))}
       </Tabs>
       <div role="tabpanel">
