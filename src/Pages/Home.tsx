@@ -30,7 +30,7 @@ const Home: React.FC = () => {
     })()
   }, [])
   useEffect(() => {
-    if (hash && hash.substr(1)) {
+    if (hash?.substr(1)) {
       const ele = document.getElementById(hash.substr(1))
       ele?.scrollIntoView()
     }

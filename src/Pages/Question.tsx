@@ -101,7 +101,7 @@ const QuestionPage: React.FC = () => {
     <div className={classes.root}>
       {message && <MessageBar messageIn={message} />}
       <Button onClick={saveSort} color="secondary">
-        Save Sort
+        Save Order
       </Button>
       <Button href={`${tabContentMap[tabIndex].key}/add`} color="secondary">
         + Add
