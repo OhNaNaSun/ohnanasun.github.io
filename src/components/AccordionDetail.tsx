@@ -14,7 +14,12 @@ interface AccordionDetailProps {
 const AccordionDetail: React.FC<AccordionDetailProps> = ({ content, isExpanded, sortIndex, collapseItem }) => {
   const classes = useStyles()
   return (
-    <div>
+    <div
+      style={{
+        background: '#3A404C',
+        padding: '20px',
+      }}
+    >
       <div className="markdown-body">
         <span dangerouslySetInnerHTML={{ __html: ShowdownConverter.makeHtml(content || '') }} />
       </div>

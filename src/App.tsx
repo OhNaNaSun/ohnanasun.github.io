@@ -14,7 +14,7 @@ import './css/markdown-body.css'
 const App: React.FC = () => {
   const theme = createTheme({
     typography: {
-      fontSize: 16,
+      fontSize: 17,
     },
     overrides: {
       MuiCssBaseline: {
