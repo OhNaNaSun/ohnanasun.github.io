@@ -16,7 +16,6 @@ const AccordionDetail: React.FC<AccordionDetailProps> = ({ content, isExpanded, 
   return (
     <div
       style={{
-        background: '#3A404C',
         padding: '20px',
       }}
     >

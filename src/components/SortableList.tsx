@@ -13,17 +13,9 @@ import CardContent from '@material-ui/core/CardContent'
 import Collapse from '@material-ui/core/Collapse'
 import IconButton from '@material-ui/core/IconButton'
 import tabContentMap from '../constants'
-import { QuestionStateType, QuestionMapType } from '../types'
+import { SortableListContainerProps, QuestionStateType, QuestionMapType } from '../types'
 import AlertDialog from './AlertDialog'
 
-interface SortableListContainerProps {
-  tabIndex: number
-  collapseItem: (isExpanded: boolean, index: number) => void
-  onSortEnd: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void
-  deleteDoc: (id: string) => Promise<void>
-  questionList: QuestionMapType | null
-  moveToTop: (arg0: number) => void
-}
 const SortableListContainer: React.FC<SortableListContainerProps> = ({
   collapseItem,
   questionList,
@@ -39,7 +31,12 @@ const SortableListContainer: React.FC<SortableListContainerProps> = ({
     const { title, id, isExpanded, content } = value
     return (
       <>
-        <Card>
+        <Card
+          style={{
+            background: 'rgb(58, 64, 76)',
+            marginTop: '2px',
+          }}
+        >
           <CardHeader
             disableTypography
             action={
@@ -90,6 +87,7 @@ const SortableListContainer: React.FC<SortableListContainerProps> = ({
             title={title}
           />
           <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+            <Divider />
             <CardContent>
               <AccordionDetail {...{ content, isExpanded, sortIndex, collapseItem }} />
             </CardContent>
