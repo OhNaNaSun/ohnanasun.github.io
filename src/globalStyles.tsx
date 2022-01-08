@@ -1,4 +1,4 @@
-import 'antd/dist/antd.css'
+// import 'antd/dist/antd.css'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 import { createGlobalStyle } from 'styled-components'
 

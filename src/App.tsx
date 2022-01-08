@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { ThemeProvider, createTheme } from '@material-ui/core/styles'
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
@@ -6,10 +6,13 @@ import PageHeader from 'components/PageHeader'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
-import Home from './pages/Home'
-import QuestionPage from './pages/Question'
-import EditPage from './pages/EditPage'
 import './css/markdown-body.css'
+
+const EditPage = React.lazy(() => import('./pages/EditPage'))
+
+const QuestionPage = React.lazy(() => import('./pages/Question'))
+
+const Home = React.lazy(() => import('./pages/Home'))
 
 const App: React.FC = () => {
   const theme = createTheme({
@@ -60,21 +63,23 @@ const App: React.FC = () => {
       <Paper>
         <Router>
           <PageHeader />
-          <Switch>
-            <Route path="/:category/:fileId">
-              <EditPage />
-            </Route>
-            <Route path="/question" exact>
-              <Container>
-                <QuestionPage />
-              </Container>
-            </Route>
-            <Route path="/" exact>
-              <Container>
-                <Home />
-              </Container>
-            </Route>
-          </Switch>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Switch>
+              <Route path="/:category/:fileId">
+                <EditPage />
+              </Route>
+              <Route path="/question" exact>
+                <Container>
+                  <QuestionPage />
+                </Container>
+              </Route>
+              <Route path="/" exact>
+                <Container>
+                  <Home />
+                </Container>
+              </Route>
+            </Switch>
+          </Suspense>
         </Router>
       </Paper>
     </ThemeProvider>

@@ -19,7 +19,7 @@
   "gitlens.views.fileHistory.enabled": true,
   "gitlens.views.lineHistory.enabled": true,
   "markdown.extension.preview.autoShowPreviewToSide": true,
-  "window.zoomLevel": 0,
+  "window.zoomLevel": 1,
   "workbench.fontAliasing": "antialiased",
   "workbench.startupEditor": "newUntitledFile",
   "javascript.format.enable": false,
