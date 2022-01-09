@@ -4,7 +4,6 @@ import ShowdownConverter from 'components/ShowdownConverter'
 
 const $bg = '#2d333b'
 const $titlebarBg = '#212121'
-const $text = '#bdbdbd'
 const StyledContainer = styled.div`
   * {
     box-sizing: border-box;
@@ -98,8 +97,8 @@ interface MdEditorProps {
 }
 const MarkdownEditor: React.FC<MdEditorProps> = ({ mdContent, returnMdContent }) => {
   const [text, setText] = useState('')
-  const [editorMaximized, setEditorMaximized] = useState(false)
-  const [previewerMaximized, setPreviewerMaximized] = useState(false)
+  const [editorMaximized] = useState(false)
+  const [previewerMaximized] = useState(false)
   const onChange = (e: { target: { value: any } }): void => {
     const { value } = e.target
     setText(value)
@@ -111,10 +110,6 @@ const MarkdownEditor: React.FC<MdEditorProps> = ({ mdContent, returnMdContent })
     returnMdContent(text)
   }, [returnMdContent, text])
   const handleMaximize = (val: { target: { name: any } }): void => {
-    const { name } = val.target
-    // const value = this.state[name]
-    // this.setState({ [name]: !value })
-    // setEditorMaximized(!value)
   }
 
   return (
