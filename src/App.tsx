@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { ThemeProvider, createTheme } from '@material-ui/core/styles'
 
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { Route, HashRouter as Router, Switch } from 'react-router-dom'
 import PageHeader from 'components/PageHeader'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
