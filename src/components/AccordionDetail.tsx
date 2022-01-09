@@ -3,7 +3,7 @@ import { Link as UiLink } from '@material-ui/core'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import ShowdownConverter from 'components/ShowdownConverter'
 
-import useStyles from '../pages/QuestionStyle'
+import useStyles from '../page/QuestionStyle'
 
 interface AccordionDetailProps {
   content?: string

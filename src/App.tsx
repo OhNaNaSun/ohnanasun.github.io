@@ -8,11 +8,11 @@ import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
 import './css/markdown-body.css'
 
-const EditPage = React.lazy(() => import('./pages/EditPage'))
+const EditPage = React.lazy(() => import('./page/EditPage'))
 
-const QuestionPage = React.lazy(() => import('./pages/Question'))
+const QuestionPage = React.lazy(() => import('./page/Question'))
 
-const Home = React.lazy(() => import('./pages/Home'))
+const Home = React.lazy(() => import('./page/Home'))
 
 const App: React.FC = () => {
   const theme = createTheme({
