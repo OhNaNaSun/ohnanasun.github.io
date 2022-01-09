@@ -28,7 +28,7 @@ const MdContent: React.FC<MdContentType> = ({
     ;(async (): Promise<void> => {
       if (currentFileName) {
         const fileResponse = await fetch(
-          `${process.env.PUBLIC_URL}/api/${currentDirName}/${currentCateName}/${currentFileName}`
+          `${process.env.REACT_APP_API_URL}/${currentDirName}/${currentCateName}/${currentFileName}`
         )
         setLastUpdatedTime(
           new Date(fileResponse.headers.get('last-modified') || '')?.toLocaleDateString('en-us', {

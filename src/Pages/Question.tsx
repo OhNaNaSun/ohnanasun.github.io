@@ -24,10 +24,11 @@ const QuestionPage: React.FC = () => {
   const [tabIndex, setTabIndex] = React.useState(hashTabIndex !== -1 ? hashTabIndex : 0)
 
   const [questionList, setQuestionList] = useState<QuestionMapType>([])
+  console.log('env', process.env)
   const fetchDoc = useCallback(() => {
     ;(async (): Promise<void> => {
       setIsLoading(true)
-      const fileMapResponse = await fetch(`./api/documents/${tabContentMap[tabIndex].key}`)
+      const fileMapResponse = await fetch(`${process.env.REACT_APP_API_URL}/documents/${tabContentMap[tabIndex].key}`)
       const fileMap = await fileMapResponse.json()
       setIsLoading(false)
       setQuestionList(
@@ -41,7 +42,7 @@ const QuestionPage: React.FC = () => {
   }, [tabIndex])
   useEffect(() => {
     ;(async (): Promise<void> => {
-      const countMapResponse = await fetch(`./api/documents/count`)
+      const countMapResponse = await fetch(`${process.env.REACT_APP_API_URL}/documents/count`)
       const countMapData = await countMapResponse.json()
       setCountMap(countMapData)
     })()
@@ -55,9 +56,12 @@ const QuestionPage: React.FC = () => {
     setTabIndex(newValue)
   }
   const deleteDoc = async (id: string): Promise<void> => {
-    const fileMapResponse = await fetch(`./api/documents/${tabContentMap[tabIndex].key}/${id}`, {
-      method: 'DELETE',
-    })
+    const fileMapResponse = await fetch(
+      `${process.env.REACT_APP_API_URL}/documents/${tabContentMap[tabIndex].key}/${id}`,
+      {
+        method: 'DELETE',
+      }
+    )
     const res = await fileMapResponse.json()
     if (res.status === 'success') {
       setMessage({ status: res.status, text: res.message })
@@ -67,9 +71,12 @@ const QuestionPage: React.FC = () => {
   const collapseItem = async (isExpanded: boolean, index: number): Promise<void> => {
     let { content } = questionList[index]
     if (isExpanded && !content) {
-      const getDocContent = await fetch(`./api/documents/${tabContentMap[tabIndex].key}/${questionList[index].id}`, {
-        method: 'GET',
-      })
+      const getDocContent = await fetch(
+        `${process.env.REACT_APP_API_URL}/documents/${tabContentMap[tabIndex].key}/${questionList[index].id}`,
+        {
+          method: 'GET',
+        }
+      )
       const res = await getDocContent.json()
       content = res.content
     }
@@ -87,7 +94,7 @@ const QuestionPage: React.FC = () => {
   }
   const saveSort = async (): Promise<void> => {
     const ids = questionList.map(({ id }) => id)
-    const getDocContent = await fetch(`./api/documents/${tabContentMap[tabIndex].key}/seq`, {
+    const getDocContent = await fetch(`${process.env.REACT_APP_API_URL}/documents/${tabContentMap[tabIndex].key}/seq`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

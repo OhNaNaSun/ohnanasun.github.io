@@ -41,7 +41,7 @@ const EditPage: React.FC = () => {
   }, [fileId])
   useEffect(() => {
     const getDocContent = async (): Promise<void> => {
-      const fetchContentRes = await fetch(`${process.env.PUBLIC_URL}/api/documents/${category}/${fileId}`)
+      const fetchContentRes = await fetch(`${process.env.REACT_APP_API_URL}/documents/${category}/${fileId}`)
       const { statusText } = fetchContentRes
       const resData = await fetchContentRes.json()
       setDocTitle(resData.title)

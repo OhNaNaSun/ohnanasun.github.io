@@ -13,7 +13,7 @@ const TodoList: React.FC = () => {
   const [todoMdContent, setTodoMdContent] = useState('')
   useEffect(() => {
     ;(async (): Promise<void> => {
-      const tutorialReponse = await fetch(`${process.env.PUBLIC_URL}/api/tutorial.md`)
+      const tutorialReponse = await fetch(`${process.env.REACT_APP_API_URL}/tutorial.md`)
       const tutorialText = await tutorialReponse.text()
       setTodoMdContent(tutorialText)
     })()

@@ -39,7 +39,7 @@ const DocOperationBox: React.FC<DocOperationBoxProps> = ({ docTitle, fileId, cat
       return
     }
     const uploadFileResponse = await fetch(
-      `${process.env.PUBLIC_URL}/api/documents/${category}${fileId === 'add' ? '' : `/${fileId}`}`,
+      `${process.env.REACT_APP_API_URL}/documents/${category}${fileId === 'add' ? '' : `/${fileId}`}`,
       {
         method: fileId === 'add' ? 'POST' : 'PATCH',
         headers: {
