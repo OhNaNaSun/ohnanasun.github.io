@@ -1,28 +1,26 @@
-name: CI
+name: Deploy to GitHub Pages
+    on:
+      push:
+        branches:
+          - master
+    jobs:
+      build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v1
 
-on:
-  push:
-    branches:
-      - master
+        - name: Build
+          run: |
+            npm install
+            npm run-script build
+          env:
+            REACT_APP_INSTAGRAM_ACCESS_TOKEN: ${{ secrets.REACT_APP_INSTAGRAM_ACCESS_TOKEN }}
+            REACT_APP_SMTP_SECURE_TOKEN: ${{ secrets.REACT_APP_SMTP_SECURE_TOKEN }}
 
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    
-    - name: Checkout
-      uses: actions/checkout@v1
-
-    - name: Build
-      run: |
-        npm install
-        npm run-script build
-      env:
-        REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@4.1.5
-      with:
-        BRANCH: master
-        FOLDER: build
+        - name: Deploy
+          uses: JamesIves/github-pages-deploy-action@releases/v3
+          with:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_KEY }}
+            BRANCH: gh-pages
+            FOLDER: dist
