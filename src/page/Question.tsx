@@ -24,7 +24,6 @@ const QuestionPage: React.FC = () => {
   const [tabIndex, setTabIndex] = React.useState(hashTabIndex !== -1 ? hashTabIndex : 0)
 
   const [questionList, setQuestionList] = useState<QuestionMapType>([])
-  console.log('env', process.env)
   const fetchDoc = useCallback(() => {
     ;(async (): Promise<void> => {
       setIsLoading(true)
