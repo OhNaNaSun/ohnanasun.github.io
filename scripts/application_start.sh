@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#give permission for everything in the express-app directory
+#give permission for everything in the react-app directory
 sudo chmod -R 777 /home/ec2-user/react-app
 
 #navigate into our working directory where we have all our github files
@@ -15,4 +15,4 @@ export NVM_DIR="$HOME/.nvm"
 npm install
 
 #start our node app in the background
-node app.js > app.out.log 2> app.err.log < /dev/null &
+npm start > app.out.log 2> app.err.log < /dev/null &
