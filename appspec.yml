@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/nestjs-app
+    destination: /home/ec2-user/react-app
 hooks:
   ApplicationStop:
     - location: scripts/application_stop.sh
