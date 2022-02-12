@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from 'react'
 import MarkdownEditor from 'components/MarkdownEditor'
 import { makeStyles } from '@material-ui/core/styles'
@@ -5,7 +6,6 @@ import { useParams } from 'react-router-dom'
 import Alert from '@material-ui/lab/Alert'
 import Snackbar from '@material-ui/core/Snackbar'
 import DocOperationBox from '../components/DocOperationBox'
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -30,6 +30,7 @@ const EditPage: React.FC = () => {
   const [mdContent, setMdContent] = useState('')
   const [docTitle, setDocTitle] = useState('')
   const [message, setMessage] = useState<{ text: string; status: 'success' | 'error' } | null>(null)
+
   const handleClose = (): void => {
     setMessage(null)
   }

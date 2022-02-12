@@ -5,6 +5,7 @@ export interface QuestionData {
   seq: number
 }
 export enum categoryContants {
+  Post = 'post',
   JavaScript = 'javascript',
   HTML = 'html',
   React = 'react',

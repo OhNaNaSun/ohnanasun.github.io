@@ -1,10 +1,11 @@
-import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
+/* eslint-disable */
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
-import { useHistory } from 'react-router-dom'
-import React, { useState, Dispatch, SetStateAction, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { useHistory } from 'react-router-dom';
+import React, { useState, Dispatch, SetStateAction, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   titleBox: {
@@ -18,25 +19,25 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: '80%',
   },
-}))
+}));
 interface DocOperationBoxProps {
-  fileId: string
-  docTitle: string
-  category: string
-  setMessage: Dispatch<SetStateAction<{ status: 'error' | 'success'; text: string } | null>>
-  mdContent: string
+  fileId: string;
+  docTitle: string;
+  category: string;
+  setMessage: Dispatch<SetStateAction<{ status: 'error' | 'success'; text: string } | null>>;
+  mdContent: string;
 }
 const DocOperationBox: React.FC<DocOperationBoxProps> = ({ docTitle, fileId, category, setMessage, mdContent }) => {
-  const classes = useStyles()
-  const history = useHistory()
-  const [title, setTitle] = useState('')
+  const classes = useStyles();
+  const history = useHistory();
+  const [title, setTitle] = useState('');
   useEffect(() => {
-    setTitle(docTitle)
-  }, [docTitle])
+    setTitle(docTitle);
+  }, [docTitle]);
   const postNewFile = async (): Promise<void> => {
     if (!title) {
-      setMessage({ status: 'error', text: 'title is required' })
-      return
+      setMessage({ status: 'error', text: 'title is required' });
+      return;
     }
     const uploadFileResponse = await fetch(
       `${process.env.REACT_APP_API_URL}/documents/${category}${fileId === 'add' ? '' : `/${fileId}`}`,
@@ -50,12 +51,12 @@ const DocOperationBox: React.FC<DocOperationBoxProps> = ({ docTitle, fileId, cat
           content: mdContent,
         }),
       }
-    )
-    const { statusText } = uploadFileResponse
-    const resData = await uploadFileResponse.json()
-    setMessage({ status: 'success', text: statusText })
-    history.push(`./${resData.id}`)
-  }
+    );
+    const { statusText } = uploadFileResponse;
+    const resData = await uploadFileResponse.json();
+    setMessage({ status: 'success', text: statusText });
+    history.push(`./${resData.id}`);
+  };
   return (
     <Box color="text.primary" className={classes.titleBox}>
       <TextField
@@ -65,7 +66,7 @@ const DocOperationBox: React.FC<DocOperationBoxProps> = ({ docTitle, fileId, cat
         fullWidth
         required
         onChange={(e): void => {
-          setTitle(e.target.value)
+          setTitle(e.target.value);
         }}
         placeholder="Title"
         InputLabelProps={{
@@ -77,7 +78,7 @@ const DocOperationBox: React.FC<DocOperationBoxProps> = ({ docTitle, fileId, cat
         className={classes.button}
         variant="outlined"
         onClick={(): void => {
-          postNewFile()
+          postNewFile();
         }}
       >
         Save
@@ -86,7 +87,7 @@ const DocOperationBox: React.FC<DocOperationBoxProps> = ({ docTitle, fileId, cat
         className={classes.button}
         variant="outlined"
         onClick={(): void => {
-          history.push(`/question#${category}`)
+          history.push(`/question#${category}`);
         }}
       >
         Back
@@ -95,12 +96,12 @@ const DocOperationBox: React.FC<DocOperationBoxProps> = ({ docTitle, fileId, cat
         className={classes.button}
         variant="outlined"
         onClick={(): void => {
-          history.push(`/${category}/add`)
+          history.push(`/${category}/add`);
         }}
       >
         Add
       </Button>
     </Box>
-  )
-}
-export default DocOperationBox
+  );
+};
+export default DocOperationBox;
