@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { useAuth } from '../hooks/useAuth';
 // import { Container } from '@mui/material';
-import TicTacToe from '../components/TicTacToe';
+import TicTacToe from '../components/TicTacToe/TicTacToe';
 const Home: React.FC = () => {
   const { logout } = useAuth();
   return (
@@ -11,6 +11,7 @@ const Home: React.FC = () => {
         style={{
           display: 'flex',
           flexDirection: 'row',
+          padding: '10px',
           justifyContent: 'space-between',
         }}
       >
@@ -26,7 +27,7 @@ const Home: React.FC = () => {
           Log out
         </Button>
       </h2>
-      {/* <TicTacToe /> */}
+      <TicTacToe />
     </>
   );
 };
