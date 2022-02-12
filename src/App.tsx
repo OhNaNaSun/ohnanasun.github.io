@@ -1,28 +1,36 @@
 /* eslint-disable */
-import React, { Suspense } from 'react';
-import { ThemeProvider, createTheme } from '@material-ui/core/styles';
-import { theme } from './theme';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
+import React from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
 import { useAuth } from './hooks/useAuth';
 import LogInPage from './page/LogInPage';
 import Home from './page/Home';
-import './css/markdown-body.css';
 import './css/global.css';
-
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 const App: React.FC = () => {
   const auth = useAuth();
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      {auth?.authed ? (
-        <Container>
-          <Home />
-        </Container>
-      ) : (
-        <LogInPage />
-      )}
+      <Box
+        sx={{
+          //   display: 'flex',
+          width: '100%',
+          //   alignItems: 'center',
+          //   justifyContent: 'center',
+          bgcolor: 'background.default',
+          color: 'text.primary',
+          //   borderRadius: 1,
+          //   p: 3,
+        }}
+      >
+        {auth?.authed ? <Home /> : <LogInPage />}
+      </Box>
     </ThemeProvider>
   );
 };

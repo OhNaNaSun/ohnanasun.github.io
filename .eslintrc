@@ -41,36 +41,36 @@
     //   "testing-library",
     //   "jest-dom"
     // ],
-    "rules": {
-      "semi": 0,
-      "react/jsx-filename-extension": [0, { "extensions": [".js", ".jsx"] }],
-      "react/prop-types": "off",
-      "prettier/prettier": [
-        "error", {
-          "semi": false
-        }
-      ],
-      "import/extensions": [
-        "error",
-        "ignorePackages",
-        {
-          "js": "never",
-          "jsx": "never",
-          "ts": "never",
-          "tsx": "never"
-        }
-     ],
-     "react-hooks/rules-of-hooks": "error",
-     "react-hooks/exhaustive-deps": "error",
-     "no-unused-expressions": "off",
-     "caseSensitive": false
-    },
-    "settings": {
-        "import/resolver": {
-          "node": {
-            "extensions": [".js", ".jsx", ".ts", ".tsx"],
-            "paths": ["src"]
-          }
-        }
-    }
+    // "rules": {
+    //   "semi": 0,
+    //   "react/jsx-filename-extension": [0, { "extensions": [".js", ".jsx"] }],
+    //   "react/prop-types": "off",
+    //   "prettier/prettier": [
+    //     "error", {
+    //       "semi": false
+    //     }
+    //   ],
+    //   "import/extensions": [
+    //     "error",
+    //     "ignorePackages",
+    //     {
+    //       "js": "never",
+    //       "jsx": "never",
+    //       "ts": "never",
+    //       "tsx": "never"
+    //     }
+    //  ],
+    //  "react-hooks/rules-of-hooks": "error",
+    //  "react-hooks/exhaustive-deps": "error",
+    //  "no-unused-expressions": "off",
+    //  "caseSensitive": false
+    // },
+    // "settings": {
+    //     "import/resolver": {
+    //       "node": {
+    //         "extensions": [".js", ".jsx", ".ts", ".tsx"],
+    //         "paths": ["src"]
+    //       }
+    //     }
+    // }
   }

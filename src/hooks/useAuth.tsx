@@ -9,13 +9,14 @@ export function useProvideAuth() {
   useEffect(() => {
     (async () => {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/user`, { withCredentials: true });
-      if (res.data.name) {
+      if (res.data.email) {
         setAuthed(true);
       } else {
         setAuthed(false);
       }
     })();
   }, []);
+  console.log(authed);
   const login = async (data: { email: string; password: string }) => {
     const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/login`, data, { withCredentials: true });
     if (res.data.message === 'success') {

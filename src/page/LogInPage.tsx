@@ -34,7 +34,6 @@ const LogInPage: React.FC = () => {
         width: 450,
         fontSize: '2rem',
         margin: '10% auto',
-        '& > input': { color: 'white !important' },
         '& > :not(style)': { m: 1, width: '100%' },
       }}
       noValidate
@@ -49,7 +48,6 @@ const LogInPage: React.FC = () => {
         sx={{ m: 1, width: '100%' }}
         variant="filled"
         color="success"
-        focused
       />
       <TextField
         name="password"
@@ -61,7 +59,6 @@ const LogInPage: React.FC = () => {
         sx={{ m: 1, width: '100%' }}
         variant="filled"
         color="success"
-        focused
       />
       <Button variant="contained" color="success" type="submit">
         {!isSigning ? 'Log in' : 'Sign in'}
