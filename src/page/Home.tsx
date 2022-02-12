@@ -1,7 +1,28 @@
-import React from 'react'
-
+import React from 'react';
+import Button from '@mui/material/Button';
+import { useAuth } from '../hooks/useAuth';
 const Home: React.FC = () => {
-
-  return <h2>welcome</h2>
-}
-export default Home
+  const { logout } = useAuth();
+  return (
+    <h2
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      }}
+    >
+      welcome
+      <Button
+        onClick={async () => {
+          const res = await logout();
+        }}
+        className="right"
+        variant="contained"
+        color="success"
+      >
+        Log out
+      </Button>
+    </h2>
+  );
+};
+export default Home;
