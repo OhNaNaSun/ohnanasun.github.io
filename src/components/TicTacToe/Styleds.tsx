@@ -3,7 +3,7 @@ const cellSize = 100;
 const markSize = cellSize * 0.9;
 const StyledContainer = styled.div`
   & {
-    width: 100%;
+    // width: 100%;
   }
   .board {
     width: 100%;

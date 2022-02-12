@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 import { useAuth } from '../hooks/useAuth';
 
 const LogInPage: React.FC = () => {
@@ -10,18 +11,23 @@ const LogInPage: React.FC = () => {
   const [isSigning, setIsSigning] = useState(false);
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [isError, setIsError] = useState(false);
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    if (isSigning) {
-      signin({
-        email: name,
-        password,
-      });
-    } else {
-      login({
-        email: name,
-        password,
-      });
+    try {
+      if (isSigning) {
+        await signin({
+          email: name,
+          password,
+        });
+      } else {
+        await login({
+          email: name,
+          password,
+        });
+      }
+    } catch (e) {
+      setIsError(true);
     }
   };
 
@@ -73,6 +79,7 @@ const LogInPage: React.FC = () => {
           Sign in
         </Button>
       )}
+      {isError && <Alert severity="error">Correct your username or password</Alert>}
     </Box>
   );
 };
