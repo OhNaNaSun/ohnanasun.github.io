@@ -14,6 +14,8 @@
 #editor
 .history
 
+.umi
+
 # misc
 .DS_Store
 .env.local
